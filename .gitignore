@@ -43,8 +43,9 @@ Thumbs.db
 .cache/
 .cache/npm/
 
-# 训练 / 开发 / Python 虚拟环境（不入 GitHub）
-finetune/
+# 开发 / Python 虚拟环境
+# 注：finetune/ 属微调链路的源码与配置，已纳入版本控制；
+#     其下的 __pycache__、.venv 仍由下方规则排除。
 越韵智传-Alpaca微调数据集/
 dev/
 **/.venv/

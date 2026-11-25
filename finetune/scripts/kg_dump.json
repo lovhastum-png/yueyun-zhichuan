@@ -1,0 +1,5726 @@
+[
+  {
+    "id": 1,
+    "name": "袁雪芬",
+    "type": "person",
+    "description": "越剧改革先驱，袁派创始人",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "祥林嫂"
+      },
+      {
+        "relation": "代表作",
+        "target": "西厢记"
+      },
+      {
+        "relation": "代表作",
+        "target": "梁山伯与祝英台"
+      },
+      {
+        "relation": "代表作",
+        "target": "断肠人"
+      },
+      {
+        "relation": "代表作",
+        "target": "香妃"
+      },
+      {
+        "relation": "代表作",
+        "target": "秋瑾"
+      },
+      {
+        "relation": "代表作",
+        "target": "相思树"
+      },
+      {
+        "relation": "创立",
+        "target": "袁派"
+      },
+      {
+        "relation": "创立",
+        "target": "尺调"
+      },
+      {
+        "relation": "师承",
+        "target": "周宝财"
+      },
+      {
+        "relation": "师承",
+        "target": "王杏花"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "袁派",
+    "type": "school",
+    "description": "由袁雪芬创立的越剧旦角流派，以尺调腔为核心，形成完整的声腔与表演体系",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "祥林嫂"
+      },
+      {
+        "relation": "代表作",
+        "target": "西厢记"
+      },
+      {
+        "relation": "相关概念",
+        "target": "四工调"
+      },
+      {
+        "relation": "相关概念",
+        "target": "尺调腔"
+      },
+      {
+        "relation": "相关概念",
+        "target": "男调"
+      },
+      {
+        "relation": "相关概念",
+        "target": "四工腔"
+      },
+      {
+        "relation": "相关概念",
+        "target": "六字调"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "祥林嫂",
+    "type": "play",
+    "description": "袁派核心剧目，曾参与全国戏曲观摩演出并留存参赛档案",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "小生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "老旦"
+      },
+      {
+        "relation": "属于流派",
+        "target": "袁派"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "西厢记",
+    "type": "play",
+    "description": "徐玉兰的徐派核心代表剧目",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "风流才子"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "琴心"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "拷红"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "长亭送别"
+      },
+      {
+        "relation": "属于流派",
+        "target": "袁派"
+      },
+      {
+        "relation": "属于流派",
+        "target": "徐派"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "尹桂芳",
+    "type": "person",
+    "description": "越剧尹派创始人，著名小生演员",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "红楼梦"
+      },
+      {
+        "relation": "代表作",
+        "target": "何文秀"
+      },
+      {
+        "relation": "代表作",
+        "target": "沙漠王子"
+      },
+      {
+        "relation": "代表作",
+        "target": "盘妻索妻"
+      },
+      {
+        "relation": "代表作",
+        "target": "桃花扇"
+      },
+      {
+        "relation": "代表作",
+        "target": "屈原"
+      },
+      {
+        "relation": "创立",
+        "target": "尹派"
+      },
+      {
+        "relation": "师承",
+        "target": "连波"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "儒巾生"
+      },
+      {
+        "relation": "相关概念",
+        "target": "芳华越剧团"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "尹派",
+    "type": "school",
+    "description": "以温润儒雅、书卷气为特色的越剧小生流派，行当定位为儒巾生，经典角色塑造广受认可",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "红楼梦"
+      },
+      {
+        "relation": "代表作",
+        "target": "何文秀"
+      },
+      {
+        "relation": "相关概念",
+        "target": "水袖"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "红楼梦",
+    "type": "play",
+    "description": "徐玉兰的徐派核心代表剧目",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "儒巾生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "风流才子"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "闺门旦"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "宝玉哭灵"
+      },
+      {
+        "relation": "属于流派",
+        "target": "尹派"
+      },
+      {
+        "relation": "属于流派",
+        "target": "徐派"
+      },
+      {
+        "relation": "属于流派",
+        "target": "王派"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "何文秀",
+    "type": "play",
+    "description": "赵志刚与萧雅的尹派代表剧目",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "穷生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "官生"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "九里桑园"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "桑园访妻"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "哭牌算命"
+      },
+      {
+        "relation": "属于流派",
+        "target": "尹派"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      },
+      {
+        "relation": "演唱流派",
+        "target": "尹派"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "范瑞娟",
+    "type": "person",
+    "description": "越剧范派创始人，著名小生演员",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "西厢记"
+      },
+      {
+        "relation": "代表作",
+        "target": "梁山伯与祝英台"
+      },
+      {
+        "relation": "代表作",
+        "target": "孔雀东南飞"
+      },
+      {
+        "relation": "代表作",
+        "target": "打金枝"
+      },
+      {
+        "relation": "代表作",
+        "target": "一缕麻"
+      },
+      {
+        "relation": "代表作",
+        "target": "新梁祝哀史"
+      },
+      {
+        "relation": "代表作",
+        "target": "凄凉辽宫月"
+      },
+      {
+        "relation": "代表作",
+        "target": "梁祝哀史"
+      },
+      {
+        "relation": "代表作",
+        "target": "李娃传"
+      },
+      {
+        "relation": "创立",
+        "target": "范派"
+      },
+      {
+        "relation": "师承",
+        "target": "竺素娥"
+      },
+      {
+        "relation": "师承",
+        "target": "周宝财"
+      },
+      {
+        "relation": "师承",
+        "target": "黄炳文"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "忠厚小生"
+      },
+      {
+        "relation": "相关概念",
+        "target": "华东越剧实验剧团"
+      },
+      {
+        "relation": "相关概念",
+        "target": "上海越剧院"
+      },
+      {
+        "relation": "相关概念",
+        "target": "雪声剧团"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "范派",
+    "type": "school",
+    "description": "由范瑞娟创立的越剧小生流派",
+    "relations": [
+      {
+        "relation": "相关概念",
+        "target": "尺调"
+      },
+      {
+        "relation": "相关概念",
+        "target": "弦下调"
+      },
+      {
+        "relation": "相关概念",
+        "target": "范调"
+      },
+      {
+        "relation": "相关概念",
+        "target": "无过门直接转调技法"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "梁山伯",
+    "type": "role",
+    "description": "范派善于塑造的忠厚儒雅书生形象",
+    "relations": []
+  },
+  {
+    "id": 12,
+    "name": "傅全香",
+    "type": "person",
+    "description": "越剧傅派创始人，著名旦角演员",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "情探"
+      },
+      {
+        "relation": "代表作",
+        "target": "梁山伯与祝英台"
+      },
+      {
+        "relation": "代表作",
+        "target": "杜十娘"
+      },
+      {
+        "relation": "代表作",
+        "target": "江姐"
+      },
+      {
+        "relation": "代表作",
+        "target": "孔雀东南飞"
+      },
+      {
+        "relation": "代表作",
+        "target": "李娃传"
+      },
+      {
+        "relation": "代表作",
+        "target": "劈山救母"
+      },
+      {
+        "relation": "创立",
+        "target": "傅派"
+      },
+      {
+        "relation": "师承",
+        "target": "顾振遐"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "花旦"
+      },
+      {
+        "relation": "演唱流派",
+        "target": "傅派"
+      },
+      {
+        "relation": "相关概念",
+        "target": "非遗"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "傅派",
+    "type": "school",
+    "description": "越剧花旦流派，由傅全香创立",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "情探"
+      },
+      {
+        "relation": "代表作",
+        "target": "梁山伯与祝英台"
+      },
+      {
+        "relation": "代表作",
+        "target": "江姐"
+      },
+      {
+        "relation": "代表作",
+        "target": "孔雀东南飞"
+      },
+      {
+        "relation": "代表作",
+        "target": "李娃传"
+      },
+      {
+        "relation": "相关概念",
+        "target": "水袖"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "情探",
+    "type": "play",
+    "description": "傅派核心代表剧目",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "烈旦"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "阳告"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "行路"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "书房情探"
+      },
+      {
+        "relation": "属于流派",
+        "target": "傅派"
+      },
+      {
+        "relation": "相关概念",
+        "target": "华东越剧实验剧团"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "敫桂英",
+    "type": "role",
+    "description": "傅派擅演角色",
+    "relations": []
+  },
+  {
+    "id": 16,
+    "name": "徐玉兰",
+    "type": "person",
+    "description": "越剧徐派创始人，著名小生演员",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "西厢记"
+      },
+      {
+        "relation": "代表作",
+        "target": "红楼梦"
+      },
+      {
+        "relation": "代表作",
+        "target": "北地王"
+      },
+      {
+        "relation": "代表作",
+        "target": "哭祖庙"
+      },
+      {
+        "relation": "代表作",
+        "target": "春香传"
+      },
+      {
+        "relation": "代表作",
+        "target": "追鱼"
+      },
+      {
+        "relation": "代表作",
+        "target": "金玉良缘"
+      },
+      {
+        "relation": "代表作",
+        "target": "是我错"
+      },
+      {
+        "relation": "代表作",
+        "target": "国破山河在"
+      },
+      {
+        "relation": "创立",
+        "target": "徐派"
+      },
+      {
+        "relation": "师承",
+        "target": "顾振遐"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "英雄小生"
+      },
+      {
+        "relation": "相关概念",
+        "target": "玉兰剧团"
+      },
+      {
+        "relation": "相关概念",
+        "target": "非遗"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "徐派",
+    "type": "school",
+    "description": "由徐玉兰创立的越剧小生流派",
+    "relations": [
+      {
+        "relation": "包含唱段",
+        "target": "宝玉哭灵"
+      },
+      {
+        "relation": "相关概念",
+        "target": "弦下调"
+      },
+      {
+        "relation": "相关概念",
+        "target": "长滑音"
+      },
+      {
+        "relation": "相关概念",
+        "target": "非遗"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "name": "宝玉哭灵",
+    "type": "segment",
+    "description": "越剧《红楼梦》核心唱段，展现宝玉在黛玉灵前哭诉、剖白心意的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "红楼梦"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "name": "戚雅仙",
+    "type": "person",
+    "description": "越剧戚派旦角创始人，上海市级非遗项目《戚毕越剧流派表演艺术》开宗宗师",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "血手印"
+      },
+      {
+        "relation": "代表作",
+        "target": "玉堂春"
+      },
+      {
+        "relation": "代表作",
+        "target": "玉蜻蜓"
+      },
+      {
+        "relation": "代表作",
+        "target": "屈原"
+      },
+      {
+        "relation": "代表作",
+        "target": "香罗带"
+      },
+      {
+        "relation": "代表作",
+        "target": "龙凤花烛"
+      },
+      {
+        "relation": "代表作",
+        "target": "婚姻曲"
+      },
+      {
+        "relation": "创立",
+        "target": "戚派"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "花旦"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "旦角"
+      },
+      {
+        "relation": "相关概念",
+        "target": "静安越剧团"
+      },
+      {
+        "relation": "相关概念",
+        "target": "合作越剧团"
+      },
+      {
+        "relation": "相关概念",
+        "target": "非遗"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "name": "戚派",
+    "type": "school",
+    "description": "由戚雅仙创立的越剧旦角流派",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "白蛇传"
+      },
+      {
+        "relation": "代表作",
+        "target": "血手印"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "name": "白蛇传",
+    "type": "play",
+    "description": "戚派擅演剧目",
+    "relations": []
+  },
+  {
+    "id": 23,
+    "name": "血手印",
+    "type": "play",
+    "description": "戚雅仙与王杭娟的戚派核心代表剧目",
+    "relations": [
+      {
+        "relation": "属于流派",
+        "target": "戚派"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "name": "生行",
+    "type": "role",
+    "description": "越剧中的男性角色行当，以小生为主，多扮演书生、才子，分小生、老生等",
+    "relations": [
+      {
+        "relation": "包含唱段",
+        "target": "小生"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "老生"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "name": "小生",
+    "type": "role",
+    "description": "范派所属的核心行当类型",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "竺派"
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "name": "老生",
+    "type": "role",
+    "description": "越剧行当之一，对应《陆游与唐琬》中陆宰的行当设定",
+    "relations": []
+  },
+  {
+    "id": 27,
+    "name": "旦行",
+    "type": "role",
+    "description": "越剧中的女性角色行当，越剧早期全由女演员扮演，旦行为核心，分花旦、青衣、老旦等",
+    "relations": [
+      {
+        "relation": "包含唱段",
+        "target": "花旦"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "青衣"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "老旦"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "name": "花旦",
+    "type": "role",
+    "description": "傅派所属的核心行当类型",
+    "relations": []
+  },
+  {
+    "id": 29,
+    "name": "青衣",
+    "type": "role",
+    "description": "越剧行当之一，《高机与吴三春》中对应角色，展现大段血泪长袖抒情表演",
+    "relations": []
+  },
+  {
+    "id": 30,
+    "name": "老旦",
+    "type": "role",
+    "description": "越剧行当之一，对应《蝴蝶梦》中田喜的行当设定",
+    "relations": []
+  },
+  {
+    "id": 33,
+    "name": "王文娟",
+    "type": "person",
+    "description": "越剧王派创始人，著名旦角演员",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "红楼梦"
+      },
+      {
+        "relation": "代表作",
+        "target": "孟丽君"
+      },
+      {
+        "relation": "代表作",
+        "target": "春香传"
+      },
+      {
+        "relation": "代表作",
+        "target": "追鱼"
+      },
+      {
+        "relation": "创立",
+        "target": "王派"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "闺门旦"
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "name": "梁山伯与祝英台",
+    "type": "play",
+    "description": "傅派核心代表剧目",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "花旦"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "忠厚小生"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "十八相送"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "楼台会"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "祝府逼婚"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "山伯临终"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "马家迎亲"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "哭坟化蝶"
+      },
+      {
+        "relation": "属于流派",
+        "target": "袁派"
+      },
+      {
+        "relation": "属于流派",
+        "target": "范派"
+      },
+      {
+        "relation": "属于流派",
+        "target": "傅派"
+      },
+      {
+        "relation": "相关概念",
+        "target": "东山越艺社"
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "name": "十八相送",
+    "type": "segment",
+    "description": "《梁山伯与祝英台》完整核心唱段，展现梁山伯送祝英台归家途中，祝英台多次借景暗示女儿身份与爱慕之情的场次",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "梁山伯与祝英台"
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "name": "楼台会",
+    "type": "segment",
+    "description": "《梁山伯与祝英台》全剧经典完整折子，展现梁山伯登门提亲，祝英台告知已被许配马文才，二人互诉衷肠、诀别立誓的场次",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "梁山伯与祝英台"
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "name": "浙江嵊州",
+    "type": "concept",
+    "description": "越剧发源地",
+    "relations": []
+  },
+  {
+    "id": 46,
+    "name": "落地唱书",
+    "type": "concept",
+    "description": "越剧前身的民间艺术形式",
+    "relations": []
+  },
+  {
+    "id": 47,
+    "name": "小歌班",
+    "type": "concept",
+    "description": "1906年形成的越剧早期形态，又称「的笃班」",
+    "relations": [
+      {
+        "relation": "相关概念",
+        "target": "的笃班"
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "name": "的笃班",
+    "type": "concept",
+    "description": "小歌班的别称，越剧早期形态",
+    "relations": []
+  },
+  {
+    "id": 49,
+    "name": "越剧",
+    "type": "concept",
+    "description": "中国第二大剧种，1925年首次定名，由民间艺术发展而来",
+    "relations": [
+      {
+        "relation": "相关概念",
+        "target": "浙江嵊州"
+      },
+      {
+        "relation": "相关概念",
+        "target": "落地唱书"
+      },
+      {
+        "relation": "相关概念",
+        "target": "小歌班"
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "name": "越剧唱腔",
+    "type": "concept",
+    "description": "属板腔体，主要声腔有「四工调」「尺调」「弦下调」，长于抒情、委婉细腻",
+    "relations": [
+      {
+        "relation": "相关概念",
+        "target": "四工调"
+      },
+      {
+        "relation": "相关概念",
+        "target": "尺调"
+      },
+      {
+        "relation": "相关概念",
+        "target": "弦下调"
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "name": "四工调",
+    "type": "concept",
+    "description": "袁派声腔兼容的基底声腔之一",
+    "relations": []
+  },
+  {
+    "id": 52,
+    "name": "尺调",
+    "type": "concept",
+    "description": "范瑞娟改良的越剧小生唱腔基础，为范派声腔体系提供支撑",
+    "relations": []
+  },
+  {
+    "id": 53,
+    "name": "弦下调",
+    "type": "concept",
+    "description": "范派独创的越剧唱腔调式，是流派重要艺术特色",
+    "relations": []
+  },
+  {
+    "id": 55,
+    "name": "净",
+    "type": "role",
+    "description": "越剧净行，多演性格刚烈或滑稽角色",
+    "relations": [
+      {
+        "relation": "相关概念",
+        "target": "京昆"
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "name": "丑",
+    "type": "role",
+    "description": "越剧行当，《血手印》中张培赞的所属行当，多饰演喜剧或反派小人物",
+    "relations": [
+      {
+        "relation": "相关概念",
+        "target": "京昆"
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "name": "京昆",
+    "type": "concept",
+    "description": "对越剧净丑行当产生影响的剧种",
+    "relations": []
+  },
+  {
+    "id": 58,
+    "name": "三看御妹",
+    "type": "play",
+    "description": "越剧剧目，讲述御妹刘金定与封加进历经波折，最终获嘉靖皇帝赐婚团圆的故事",
+    "relations": [
+      {
+        "relation": "包含唱段",
+        "target": "自从那日见卿后"
+      },
+      {
+        "relation": "相关概念",
+        "target": "双连笔"
+      },
+      {
+        "relation": "相关概念",
+        "target": "东岳庙"
+      },
+      {
+        "relation": "相关概念",
+        "target": "水袖"
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "name": "封加进",
+    "type": "person",
+    "description": "《三看御妹》中的核心角色，尚书公子，因痴情勇敢获皇帝赦免并赐婚",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      },
+      {
+        "relation": "演唱流派",
+        "target": "范派"
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "name": "刘金定",
+    "type": "person",
+    "description": "《三看御妹》中的核心角色，御妹，最终与封加进获皇帝赐婚",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "旦角"
+      },
+      {
+        "relation": "演唱流派",
+        "target": "吕派"
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "name": "刘天化",
+    "type": "person",
+    "description": "《三看御妹》中的角色，刘金定的父亲，察觉二人私情后震怒",
+    "relations": []
+  },
+  {
+    "id": 62,
+    "name": "吕派",
+    "type": "school",
+    "description": "越剧流派之一，在《陆游与唐琬》中，小红楼独处场次呈现悲情核心唱腔与表演，适配唐琬等角色",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "珍珠塔"
+      },
+      {
+        "relation": "相关概念",
+        "target": "水袖"
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "name": "旦角",
+    "type": "role",
+    "description": "戚派所属的核心行当类型",
+    "relations": []
+  },
+  {
+    "id": 66,
+    "name": "双连笔",
+    "type": "concept",
+    "description": "《三看御妹》核心道具，御赐珍宝，见证刘金定与封加进的情缘",
+    "relations": []
+  },
+  {
+    "id": 67,
+    "name": "自从那日见卿后",
+    "type": "segment",
+    "description": "《三看御妹》中封加进的成套抒情唱段，属范派小生唱段",
+    "relations": []
+  },
+  {
+    "id": 71,
+    "name": "嘉靖皇帝",
+    "type": "person",
+    "description": "《三看御妹》中的角色，下旨赦免封加进并赐婚刘金定与封加进",
+    "relations": []
+  },
+  {
+    "id": 76,
+    "name": "东岳庙",
+    "type": "concept",
+    "description": "《三看御妹》关键场景，是刘金定与封加进初见的地点",
+    "relations": []
+  },
+  {
+    "id": 77,
+    "name": "水袖",
+    "type": "concept",
+    "description": "越剧《舞台姐妹》中王派运用的抒情表演技法",
+    "relations": []
+  },
+  {
+    "id": 78,
+    "name": "九斤姑娘",
+    "type": "play",
+    "description": "越剧剧目，又名《箍桶记》，讲述九斤姑娘巧解谜语、拆穿三叔婆敲诈诡计，最终与石宝宝喜结良缘的故事",
+    "relations": [
+      {
+        "relation": "包含唱段",
+        "target": "相骂本"
+      },
+      {
+        "relation": "相关概念",
+        "target": "十只怪桶"
+      }
+    ]
+  },
+  {
+    "id": 79,
+    "name": "石二佬",
+    "type": "person",
+    "description": "《九斤姑娘》中的角色，曾逼迫张箍桶嫁女，后因佩服九斤胆识主动上门提亲",
+    "relations": []
+  },
+  {
+    "id": 80,
+    "name": "九斤",
+    "type": "person",
+    "description": "《九斤姑娘》的核心角色，凭借伶牙俐齿巧辩三叔婆，拒绝不合理联姻，最终与石宝宝定下婚约",
+    "relations": []
+  },
+  {
+    "id": 81,
+    "name": "三叔婆",
+    "type": "person",
+    "description": "《九斤姑娘》中的角色，受石二佬指使，以死猫碰瓷敲诈张箍桶父女",
+    "relations": []
+  },
+  {
+    "id": 82,
+    "name": "张箍桶",
+    "type": "person",
+    "description": "《九斤姑娘》中的角色，九斤的父亲，箍桶匠，面对敲诈束手无策",
+    "relations": []
+  },
+  {
+    "id": 83,
+    "name": "石宝宝",
+    "type": "person",
+    "description": "《九斤姑娘》中的角色，石二佬之子，忠厚老实，爱慕九斤并最终与她定下婚约",
+    "relations": []
+  },
+  {
+    "id": 84,
+    "name": "相骂本",
+    "type": "segment",
+    "description": "《九斤姑娘》的下本核心场次，以九斤巧斗三叔婆的情节为核心，展现伶牙俐齿的对辩过程",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "九斤姑娘"
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "name": "第三场",
+    "type": "segment",
+    "description": "《九斤姑娘》下本《相骂本》的核心场次，对应三叔婆放猫碰瓷、上门敲诈的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "相骂本"
+      }
+    ]
+  },
+  {
+    "id": 86,
+    "name": "第四场",
+    "type": "segment",
+    "description": "《九斤姑娘》下本《相骂本》的核心场次，对应九斤巧辩拆穿三叔婆敲诈诡计的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "相骂本"
+      }
+    ]
+  },
+  {
+    "id": 87,
+    "name": "第五场",
+    "type": "segment",
+    "description": "《九斤姑娘》下本《相骂本》的收尾场次，对应石二佬提亲、两家和解团圆的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "相骂本"
+      }
+    ]
+  },
+  {
+    "id": 88,
+    "name": "十只怪桶",
+    "type": "concept",
+    "description": "《九斤姑娘》的核心谜语元素，对应九斤破解的十只怪桶谜题，凸显其聪慧才智",
+    "relations": []
+  },
+  {
+    "id": 89,
+    "name": "孟丽君",
+    "type": "play",
+    "description": "王派经典剧目，孟丽君为才女兼女扮男装角色",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "才女旦"
+      },
+      {
+        "relation": "属于流派",
+        "target": "王派"
+      }
+    ]
+  },
+  {
+    "id": 90,
+    "name": "孟丽君",
+    "type": "person",
+    "description": "《孟丽君》核心人物，女扮男装化名郦君玉官拜丞相，最终换回红妆与皇甫少华圆满团聚",
+    "relations": []
+  },
+  {
+    "id": 91,
+    "name": "皇甫少华",
+    "type": "person",
+    "description": "《孟丽君》核心人物，孟丽君未婚夫，历经离散后与孟丽君终成眷属",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      }
+    ]
+  },
+  {
+    "id": 92,
+    "name": "元成帝",
+    "type": "person",
+    "description": "《孟丽君》中人物，皇帝角色，最终下旨治罪刘捷、昭雪冤案",
+    "relations": []
+  },
+  {
+    "id": 93,
+    "name": "太后",
+    "type": "person",
+    "description": "《孟丽君》中人物，最终做主赐婚孟丽君与皇甫少华",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "老旦"
+      }
+    ]
+  },
+  {
+    "id": 94,
+    "name": "刘捷",
+    "type": "person",
+    "description": "《孟丽君》中反派人物，国丈，构陷忠良最终被革职治罪",
+    "relations": []
+  },
+  {
+    "id": 95,
+    "name": "郦君玉",
+    "type": "person",
+    "description": "《孟丽君》中孟丽君女扮男装的化名，官拜丞相，暗中平反冤案",
+    "relations": []
+  },
+  {
+    "id": 98,
+    "name": "旦闺褶",
+    "type": "concept",
+    "description": "《孟丽君》中孟丽君闺阁少女造型的核心服饰，为水红暗花绣花闺门褶",
+    "relations": []
+  },
+  {
+    "id": 99,
+    "name": "文官蟒",
+    "type": "concept",
+    "description": "《孟丽君》中孟丽君丞相造型的核心服饰，为月白暗纹文官刺绣蟒袍",
+    "relations": []
+  },
+  {
+    "id": 100,
+    "name": "小生褶",
+    "type": "concept",
+    "description": "《孟丽君》中皇甫少华少年书生造型的核心服饰，为浅蓝素面长衫软巾",
+    "relations": []
+  },
+  {
+    "id": 101,
+    "name": "武将靠",
+    "type": "concept",
+    "description": "《孟丽君》中皇甫少华武状元造型的核心服饰，为银灰刺绣武将改良靠",
+    "relations": []
+  },
+  {
+    "id": 103,
+    "name": "柳毅传书",
+    "type": "play",
+    "description": "以柳毅为龙女传书、拒婚守义、返乡侍母及后续渔家相伴为核心情节的越剧剧目，展现仙凡之间的道义坚守与情感纠葛",
+    "relations": [
+      {
+        "relation": "包含唱段",
+        "target": "湖滨惜别"
+      }
+    ]
+  },
+  {
+    "id": 104,
+    "name": "柳毅",
+    "type": "person",
+    "description": "《柳毅传书》核心人物，凡俗书生，坚守道义拒绝因报恩强娶龙女，返乡侍奉失明老母",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      }
+    ]
+  },
+  {
+    "id": 105,
+    "name": "三娘",
+    "type": "person",
+    "description": "《柳毅传书》核心人物，水府仙姬，对柳毅情深意重，在柳毅辞行时相送并表露心意",
+    "relations": []
+  },
+  {
+    "id": 106,
+    "name": "钱塘君",
+    "type": "person",
+    "description": "《柳毅传书》中人物，敬重柳毅坦荡风骨，在柳毅拒婚后不再强逼联姻",
+    "relations": []
+  },
+  {
+    "id": 107,
+    "name": "紫绡",
+    "type": "person",
+    "description": "《柳毅传书》中人物，三娘侍女，在柳毅辞行时提醒柳毅莫负三娘一片痴心",
+    "relations": []
+  },
+  {
+    "id": 108,
+    "name": "竺派",
+    "type": "school",
+    "description": "越剧流派之一，在《莫愁女》中对应小生行当的表演流派，以温润隐忍为特点",
+    "relations": []
+  },
+  {
+    "id": 109,
+    "name": "湖滨惜别",
+    "type": "segment",
+    "description": "《柳毅传书》第四场核心唱段，为竺派传世双人核心成套对唱，展现柳毅与三娘洞庭湖畔的惜别场景",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "竺派"
+      }
+    ]
+  },
+  {
+    "id": 111,
+    "name": "沉香扇",
+    "type": "play",
+    "description": "以沉香扇为核心道具，包含赶考、科举团圆情节，涉及范派、王派双流派表演的越剧经典剧目",
+    "relations": [
+      {
+        "relation": "相关概念",
+        "target": "水袖"
+      },
+      {
+        "relation": "相关概念",
+        "target": "沉香扇"
+      }
+    ]
+  },
+  {
+    "id": 112,
+    "name": "沉香扇",
+    "type": "concept",
+    "description": "《沉香扇》剧目核心道具，贯穿全剧，是男女主定情与情节推进的关键信物",
+    "relations": []
+  },
+  {
+    "id": 114,
+    "name": "王老虎抢亲",
+    "type": "play",
+    "description": "以明代杭州为背景，围绕周文宾男扮女装被抢、与王秀英相识相恋的民间轻喜剧，包含《戏豹》《寄闺》等核心场次",
+    "relations": [
+      {
+        "relation": "包含唱段",
+        "target": "戏豹"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "寄闺"
+      }
+    ]
+  },
+  {
+    "id": 115,
+    "name": "周文宾",
+    "type": "person",
+    "description": "越剧《王老虎抢亲》中的江南才子，毕派小生核心角色，男扮女装与王秀英相识",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "毕派"
+      }
+    ]
+  },
+  {
+    "id": 116,
+    "name": "王天豹",
+    "type": "person",
+    "description": "越剧《王老虎抢亲》中的纨绔角色，王秀英兄长，外号王老虎，强抢女装周文宾",
+    "relations": []
+  },
+  {
+    "id": 117,
+    "name": "王秀英",
+    "type": "person",
+    "description": "越剧《王老虎抢亲》中的兵部尚书千金，戚派花旦核心角色，与周文宾相恋",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "戚派"
+      }
+    ]
+  },
+  {
+    "id": 118,
+    "name": "毕派",
+    "type": "school",
+    "description": "越剧流派，《玉蜻蜓》中徐元宰的演唱流派",
+    "relations": []
+  },
+  {
+    "id": 120,
+    "name": "戏豹",
+    "type": "segment",
+    "description": "《王老虎抢亲》第二场核心成套唱段，围绕周文宾被王天豹强抢的情节展开",
+    "relations": []
+  },
+  {
+    "id": 121,
+    "name": "寄闺",
+    "type": "segment",
+    "description": "《王老虎抢亲》第三场戚毕双人传世核心对唱，围绕周文宾借宿王秀英闺楼展开",
+    "relations": [
+      {
+        "relation": "相关概念",
+        "target": "尺调"
+      }
+    ]
+  },
+  {
+    "id": 123,
+    "name": "珍珠塔",
+    "type": "play",
+    "description": "越剧经典剧目，涵盖豪门寿堂、后花园、荒野雪地、状元厅堂等多场景，融合陆派、吕派表演特色",
+    "relations": []
+  },
+  {
+    "id": 124,
+    "name": "陆派",
+    "type": "school",
+    "description": "越剧流派，以陆锦花为代表，在《情探》中以温润中音唱腔刻画王魁由深情到薄情的人性转变",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "珍珠塔"
+      }
+    ]
+  },
+  {
+    "id": 127,
+    "name": "白兔记",
+    "type": "play",
+    "description": "越剧剧目，核心视觉场景包含风雪井台、幽暗磨房，以王派隐忍悲情水袖表演为特色",
+    "relations": [
+      {
+        "relation": "属于流派",
+        "target": "王派"
+      }
+    ]
+  },
+  {
+    "id": 128,
+    "name": "王派",
+    "type": "school",
+    "description": "以温婉内敛、细腻含蓄为特色的越剧旦角流派，行当定位为闺门旦，兼涉仙旦、才女旦，擅长刻画才女与仙女形象",
+    "relations": [
+      {
+        "relation": "相关概念",
+        "target": "水袖"
+      }
+    ]
+  },
+  {
+    "id": 129,
+    "name": "盘夫索夫",
+    "type": "play",
+    "description": "越剧剧目，以严兰贞与曾荣夫妻联手对抗严嵩奸党、洗刷曾家冤屈为核心主线，包含潜入严府、索夫寻人等关键情节",
+    "relations": [
+      {
+        "relation": "包含唱段",
+        "target": "严府祝寿，曾荣误入婉贞小楼"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "闹严府索夫"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "夫妻和解归家"
+      }
+    ]
+  },
+  {
+    "id": 130,
+    "name": "严兰贞",
+    "type": "person",
+    "description": "越剧《盘夫索夫》核心人物，曾荣之妻，为护丈夫大闹严府，以金派演绎展现悲愤激昂特质",
+    "relations": []
+  },
+  {
+    "id": 131,
+    "name": "曾荣",
+    "type": "person",
+    "description": "越剧《盘夫索夫》核心人物，严兰贞之夫，忠良之后，潜入严府表本楼搜寻严嵩罪证，与兰贞夫妻同心",
+    "relations": []
+  },
+  {
+    "id": 132,
+    "name": "赵婉贞",
+    "type": "person",
+    "description": "越剧《盘夫索夫》配角，主动引曾荣与严兰贞相见，促成夫妻和解的关键人物",
+    "relations": []
+  },
+  {
+    "id": 133,
+    "name": "严世藩",
+    "type": "person",
+    "description": "越剧《盘夫索夫》反派角色，严嵩之子，呵斥严兰贞，参与阻挠曾荣脱身",
+    "relations": []
+  },
+  {
+    "id": 134,
+    "name": "金派",
+    "type": "school",
+    "description": "越剧流派之一，在《莫愁女》第四场大婚洞房中，邱彩云采用外柔内冷的金派唱腔",
+    "relations": []
+  },
+  {
+    "id": 135,
+    "name": "严府祝寿，曾荣误入婉贞小楼",
+    "type": "segment",
+    "description": "越剧《盘夫索夫》第三场核心场次，曾荣趁严府祝寿潜入表本楼后误入赵婉贞小楼的情节",
+    "relations": []
+  },
+  {
+    "id": 136,
+    "name": "闹严府索夫",
+    "type": "segment",
+    "description": "越剧《盘夫索夫》第四场核心场次，严兰贞大闹严府索要丈夫，痛骂严嵩奸党的情节",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "金派"
+      }
+    ]
+  },
+  {
+    "id": 137,
+    "name": "夫妻和解归家",
+    "type": "segment",
+    "description": "越剧《盘夫索夫》第五场核心场次，曾荣与严兰贞夫妻和解，携同返回府邸的情节",
+    "relations": []
+  },
+  {
+    "id": 138,
+    "name": "碧玉簪",
+    "type": "play",
+    "description": "越剧经典剧目，围绕李秀英与王玉林的误会婚恋展开，展现封建礼教下女子的隐忍与委屈",
+    "relations": [
+      {
+        "relation": "包含唱段",
+        "target": "三盖衣"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "满月归宁 逼迫当日返程"
+      }
+    ]
+  },
+  {
+    "id": 139,
+    "name": "李秀英",
+    "type": "person",
+    "description": "越剧《碧玉簪》核心人物，李尚书之女，因遭诬陷被丈夫王玉林冷落，深夜三次为丈夫盖衣尽显隐忍",
+    "relations": []
+  },
+  {
+    "id": 140,
+    "name": "王玉林",
+    "type": "person",
+    "description": "越剧《碧玉簪》核心人物，王门子弟，因误会妻子不贞，对其百般冷淡，多次斥责妻子的示好",
+    "relations": []
+  },
+  {
+    "id": 142,
+    "name": "三盖衣",
+    "type": "segment",
+    "description": "越剧《碧玉簪》核心场次，展现李秀英深夜三次为丈夫王玉林盖衣，屡遭斥责的悲情情节，为金派传世核心完整唱段",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "金派"
+      }
+    ]
+  },
+  {
+    "id": 143,
+    "name": "满月归宁 逼迫当日返程",
+    "type": "segment",
+    "description": "越剧《碧玉簪》第三场核心场次，展现王玉林在李秀英满月归宁时，逼迫其当日原轿返程的情节",
+    "relations": []
+  },
+  {
+    "id": 144,
+    "name": "杜十娘",
+    "type": "person",
+    "description": "越剧《杜十娘》核心人物，名妓出身，因李甲背叛怒沉百宝箱投江",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "烈旦"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "怒沉百宝箱・投江"
+      },
+      {
+        "relation": "属于流派",
+        "target": "傅派"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "花旦"
+      },
+      {
+        "relation": "改编整理",
+        "target": "周水荷"
+      },
+      {
+        "relation": "演唱流派",
+        "target": "傅派"
+      }
+    ]
+  },
+  {
+    "id": 145,
+    "name": "李甲",
+    "type": "person",
+    "description": "书生，与杜十娘相遇后因贪财懦弱将其转卖给孙富",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      },
+      {
+        "relation": "演唱流派",
+        "target": "傅派"
+      }
+    ]
+  },
+  {
+    "id": 146,
+    "name": "孙富",
+    "type": "person",
+    "description": "富商，垂涎杜十娘美貌，设计离间李甲与杜十娘",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "丑"
+      },
+      {
+        "relation": "演唱流派",
+        "target": "傅派"
+      }
+    ]
+  },
+  {
+    "id": 148,
+    "name": "计镇华",
+    "type": "person",
+    "description": "越剧小生，在《杜十娘》中饰演李甲",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "李甲"
+      }
+    ]
+  },
+  {
+    "id": 149,
+    "name": "秦光耀",
+    "type": "person",
+    "description": "越剧丑角，在《杜十娘》中饰演孙富",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "孙富"
+      }
+    ]
+  },
+  {
+    "id": 151,
+    "name": "冯梦龙",
+    "type": "person",
+    "description": "明代文学家，《警世通言・杜十娘怒沉百宝箱》作者",
+    "relations": []
+  },
+  {
+    "id": 152,
+    "name": "周水荷",
+    "type": "person",
+    "description": "越剧改编整理者，对《杜十娘》进行舞台定本改编",
+    "relations": []
+  },
+  {
+    "id": 170,
+    "name": "怒沉百宝箱・投江",
+    "type": "segment",
+    "description": "《杜十娘》全剧核心经典折子，展现杜十娘怒斥李甲、孙富并投江的情节",
+    "relations": []
+  },
+  {
+    "id": 172,
+    "name": "江姐",
+    "type": "person",
+    "description": "越剧《江姐》核心人物，坚守革命信仰，狱中带领难友绣红旗，最终英勇就义",
+    "relations": [
+      {
+        "relation": "包含唱段",
+        "target": "朝天码头・看长江"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "城下哭老彭"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "狱中绣红旗"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "英勇就义"
+      },
+      {
+        "relation": "属于流派",
+        "target": "傅派"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "花旦"
+      },
+      {
+        "relation": "演唱流派",
+        "target": "傅派"
+      },
+      {
+        "relation": "相关概念",
+        "target": "红色革命越剧"
+      },
+      {
+        "relation": "相关概念",
+        "target": "华蓥山"
+      },
+      {
+        "relation": "相关概念",
+        "target": "渣滓洞"
+      },
+      {
+        "relation": "相关概念",
+        "target": "现代平民服饰"
+      }
+    ]
+  },
+  {
+    "id": 173,
+    "name": "孙明霞",
+    "type": "person",
+    "description": "越剧《江姐》中的青年革命者，与江姐告别并坚守地下工作",
+    "relations": []
+  },
+  {
+    "id": 174,
+    "name": "彭松涛",
+    "type": "person",
+    "description": "越剧《江姐》中的革命烈士，江姐的丈夫，遇害牺牲",
+    "relations": []
+  },
+  {
+    "id": 175,
+    "name": "双枪老太婆",
+    "type": "person",
+    "description": "越剧《江姐》中的革命前辈，身着土布粗布短打，配合革命斗争",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "老生"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "老旦"
+      }
+    ]
+  },
+  {
+    "id": 176,
+    "name": "甫志高",
+    "type": "person",
+    "description": "越剧《江姐》中的叛徒角色，贪生怕死出卖江姐及地下党组织",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      }
+    ]
+  },
+  {
+    "id": 182,
+    "name": "朝天码头・看长江",
+    "type": "segment",
+    "description": "《江姐》经典开篇场次，展现江姐在重庆朝天门码头告别孙明霞、奔赴华蓥山的情节",
+    "relations": []
+  },
+  {
+    "id": 183,
+    "name": "城下哭老彭",
+    "type": "segment",
+    "description": "《江姐》核心悲情场次，展现江姐看到彭松涛遇害告示后悲痛哭唱的情节",
+    "relations": []
+  },
+  {
+    "id": 184,
+    "name": "红色革命越剧",
+    "type": "concept",
+    "description": "越剧题材类型，《江姐》所属的以革命历史为背景的越剧创作形式",
+    "relations": []
+  },
+  {
+    "id": 188,
+    "name": "沈养斋",
+    "type": "person",
+    "description": "越剧《江姐》中的特务头目，负责审讯江姐并威逼利诱其交出情报",
+    "relations": []
+  },
+  {
+    "id": 189,
+    "name": "狱中难友",
+    "type": "person",
+    "description": "越剧《江姐》中与江姐一同被关押在渣滓洞监狱的革命同志",
+    "relations": []
+  },
+  {
+    "id": 190,
+    "name": "华蓥山",
+    "type": "concept",
+    "description": "《江姐》中革命根据地所在地，江姐与双枪老太婆会师并开展斗争的核心区域",
+    "relations": []
+  },
+  {
+    "id": 191,
+    "name": "渣滓洞",
+    "type": "concept",
+    "description": "《江姐》中关押革命者的监狱，江姐被捕后关押于此并遭受审讯",
+    "relations": []
+  },
+  {
+    "id": 192,
+    "name": "狱中绣红旗",
+    "type": "segment",
+    "description": "越剧《江姐》中江姐与难友在狱中连夜缝制五星红旗的场次",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "江姐"
+      }
+    ]
+  },
+  {
+    "id": 196,
+    "name": "英勇就义",
+    "type": "segment",
+    "description": "越剧《江姐》终场场次，展现江姐托付红旗后从容赴刑场的情节",
+    "relations": [
+      {
+        "relation": "包含唱段",
+        "target": "红梅赞"
+      }
+    ]
+  },
+  {
+    "id": 198,
+    "name": "红梅赞",
+    "type": "segment",
+    "description": "越剧《江姐》终场幕后合唱唱段，赞颂江姐的革命精神",
+    "relations": []
+  },
+  {
+    "id": 200,
+    "name": "现代平民服饰",
+    "type": "concept",
+    "description": "《江姐》中江姐地下工作装、双枪老太婆粗布短打等适配的写实民国平民服饰类型",
+    "relations": []
+  },
+  {
+    "id": 201,
+    "name": "何文秀",
+    "type": "person",
+    "description": "越剧《何文秀》核心人物，忠良之后，历经冤案后官封巡按，微服寻访妻子王兰英",
+    "relations": []
+  },
+  {
+    "id": 202,
+    "name": "王兰英",
+    "type": "person",
+    "description": "越剧《何文秀》核心人物，何文秀之妻，遭恶霸追捕后隐居九里桑园，三年间纺纱度日、哭祭亡夫",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "花旦"
+      }
+    ]
+  },
+  {
+    "id": 203,
+    "name": "张堂",
+    "type": "person",
+    "description": "越剧《何文秀》反派人物，仗势横行，设计陷害何文秀并四处搜捕王兰英",
+    "relations": []
+  },
+  {
+    "id": 204,
+    "name": "杨妈妈",
+    "type": "person",
+    "description": "越剧《何文秀》中收留王兰英的善良人物，助其躲进九里桑园，护母子周全",
+    "relations": []
+  },
+  {
+    "id": 205,
+    "name": "九里桑园",
+    "type": "segment",
+    "description": "越剧《何文秀》第三场场次，展现王兰英隐居纺纱、哭祭亡夫的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "何文秀"
+      }
+    ]
+  },
+  {
+    "id": 206,
+    "name": "桑园访妻",
+    "type": "segment",
+    "description": "越剧《何文秀》第四场场次，为尹派传世经典唱段，展现何文秀微服寻访妻子、隔窗听诉的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "何文秀"
+      }
+    ]
+  },
+  {
+    "id": 207,
+    "name": "哭牌算命",
+    "type": "segment",
+    "description": "越剧《何文秀》第五场场次，为全剧核心重头戏，展现何文秀扮算命先生宽慰妻子的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "何文秀"
+      }
+    ]
+  },
+  {
+    "id": 211,
+    "name": "罗兰",
+    "type": "person",
+    "description": "越剧《沙漠王子》核心人物，西萨王子，因安达谋反流亡，后为寻伊丽扮作盲眼游民，最终与伊丽团聚并重掌王权",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      },
+      {
+        "relation": "演唱流派",
+        "target": "尹派"
+      }
+    ]
+  },
+  {
+    "id": 212,
+    "name": "安达",
+    "type": "person",
+    "description": "越剧《沙漠王子》反派人物，谋反篡位的部落首领，施法致罗兰失明，最终被平定",
+    "relations": []
+  },
+  {
+    "id": 213,
+    "name": "伊丽",
+    "type": "person",
+    "description": "越剧《沙漠王子》核心人物，被安达强抢入宫，与罗兰历经磨难后终得团聚，成为西萨王后",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "旦角"
+      }
+    ]
+  },
+  {
+    "id": 214,
+    "name": "沙龙酋长",
+    "type": "person",
+    "description": "越剧《沙漠王子》中联络各部落集结义兵的人物，助罗兰攻破王宫平定叛乱，后受罗兰托付朝政",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "老生"
+      }
+    ]
+  },
+  {
+    "id": 215,
+    "name": "王宫私会 双目失明",
+    "type": "segment",
+    "description": "越剧《沙漠王子》第三场场次，展现罗兰潜入王宫与伊丽相会，被安达施法致双目失明的情节",
+    "relations": []
+  },
+  {
+    "id": 216,
+    "name": "各部会师 平定叛乱",
+    "type": "segment",
+    "description": "越剧《沙漠王子》第四场场次，展现沙龙酋长集结义兵围攻王宫、斩杀安达，助罗兰复国的情节",
+    "relations": []
+  },
+  {
+    "id": 217,
+    "name": "算命",
+    "type": "segment",
+    "description": "越剧《沙漠王子》第五场场次，为尹派传世核心完整成套唱段，展现罗兰扮作盲眼算命先生向伊丽诉说身世的情节",
+    "relations": []
+  },
+  {
+    "id": 221,
+    "name": "沙漠王子",
+    "type": "play",
+    "description": "赵志刚的尹派代表剧目",
+    "relations": [
+      {
+        "relation": "包含唱段",
+        "target": "大漠团圆终场"
+      },
+      {
+        "relation": "属于流派",
+        "target": "尹派"
+      },
+      {
+        "relation": "相关概念",
+        "target": "古琴"
+      },
+      {
+        "relation": "相关概念",
+        "target": "玉佩"
+      }
+    ]
+  },
+  {
+    "id": 225,
+    "name": "乳娘",
+    "type": "person",
+    "description": "越剧《沙漠王子》配角，忠心救罗兰逃出王宫的随侍人物",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "老旦"
+      }
+    ]
+  },
+  {
+    "id": 226,
+    "name": "大漠团圆终场",
+    "type": "segment",
+    "description": "越剧《沙漠王子》第六场场次，展现罗兰与伊丽团聚、罗兰重掌王权、部落和睦的终场情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "沙漠王子"
+      }
+    ]
+  },
+  {
+    "id": 234,
+    "name": "古琴",
+    "type": "concept",
+    "description": "《沙漠王子》中罗兰王子的核心道具，贯穿其流亡与寻情的剧情线索",
+    "relations": []
+  },
+  {
+    "id": 235,
+    "name": "玉佩",
+    "type": "concept",
+    "description": "《沙漠王子》中承载罗兰与伊丽情缘的核心道具，是二人相认的关键信物",
+    "relations": []
+  },
+  {
+    "id": 236,
+    "name": "盘妻索妻",
+    "type": "play",
+    "description": "萧雅的尹派代表剧目",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "官生"
+      },
+      {
+        "relation": "属于流派",
+        "target": "尹派"
+      },
+      {
+        "relation": "相关概念",
+        "target": "水袖"
+      }
+    ]
+  },
+  {
+    "id": 237,
+    "name": "梁玉书",
+    "type": "person",
+    "description": "越剧《盘妻索妻》核心人物，小生行当，高中状元后为护妻子弃官，与父亲决裂并返乡寻妻",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      }
+    ]
+  },
+  {
+    "id": 238,
+    "name": "谢云霞",
+    "type": "person",
+    "description": "越剧《盘妻索妻》核心人物，旦角行当，因身世遭梁府幽禁，后被梁玉书寻回，与丈夫一同归隐",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "旦角"
+      }
+    ]
+  },
+  {
+    "id": 239,
+    "name": "梁如龙",
+    "type": "person",
+    "description": "越剧《盘妻索妻》配角，老生行当，梁玉书之父，丞相身份，逼迫儿子休妻以稳固权位",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "老生"
+      }
+    ]
+  },
+  {
+    "id": 240,
+    "name": "孙氏",
+    "type": "person",
+    "description": "越剧《盘妻索妻》配角，行当为老旦，身着素色帔服饰",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "老旦"
+      }
+    ]
+  },
+  {
+    "id": 241,
+    "name": "刘仁元",
+    "type": "person",
+    "description": "越剧《盘妻索妻》配角，行当为老生，身着蓝褶服饰",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "老生"
+      }
+    ]
+  },
+  {
+    "id": 247,
+    "name": "梁丞相",
+    "type": "person",
+    "description": "越剧《盘妻索妻》配角，行当为老生，身着古铜大臣蟒服饰",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "老生"
+      }
+    ]
+  },
+  {
+    "id": 254,
+    "name": "北地王",
+    "type": "play",
+    "description": "徐玉兰的徐派核心代表剧目",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "帝王生"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "哭祖庙"
+      },
+      {
+        "relation": "属于流派",
+        "target": "徐派"
+      },
+      {
+        "relation": "相关概念",
+        "target": "水袖"
+      }
+    ]
+  },
+  {
+    "id": 255,
+    "name": "刘谌",
+    "type": "person",
+    "description": "越剧《北地王》核心人物，小生行当，最终在昭烈祖庙自刎殉国",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      }
+    ]
+  },
+  {
+    "id": 257,
+    "name": "哭祖庙",
+    "type": "segment",
+    "description": "越剧《北地王》第四场核心唱段，以徐派唱腔呈现，为徐派巅峰完整核心唱词",
+    "relations": [
+      {
+        "relation": "属于流派",
+        "target": "徐派"
+      },
+      {
+        "relation": "选自",
+        "target": "北地王"
+      }
+    ]
+  },
+  {
+    "id": 261,
+    "name": "崔氏王妃",
+    "type": "person",
+    "description": "越剧《北地王》配角，旦角行当，身着暗红龙凤宫廷褶服饰",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "旦角"
+      }
+    ]
+  },
+  {
+    "id": 262,
+    "name": "刘禅",
+    "type": "person",
+    "description": "越剧《北地王》配角，身着古铜帝王蟒服饰",
+    "relations": []
+  },
+  {
+    "id": 263,
+    "name": "谯周",
+    "type": "person",
+    "description": "越剧《北地王》配角，身着文臣素色老旦帔服饰",
+    "relations": []
+  },
+  {
+    "id": 264,
+    "name": "黄皓",
+    "type": "person",
+    "description": "越剧《北地王》配角，属于配角龙套行当",
+    "relations": []
+  },
+  {
+    "id": 269,
+    "name": "春香传",
+    "type": "play",
+    "description": "徐玉兰的徐派核心代表剧目",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "官生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "闺门旦"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "广寒楼邂逅"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "爱歌"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "长亭别歌"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "狱中歌"
+      },
+      {
+        "relation": "属于流派",
+        "target": "徐派"
+      },
+      {
+        "relation": "属于流派",
+        "target": "王派"
+      }
+    ]
+  },
+  {
+    "id": 270,
+    "name": "成春香",
+    "type": "person",
+    "description": "越剧《春香传》核心人物，王派演绎，在狱中与李梦龙相会，最终迎来团圆",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "花旦"
+      },
+      {
+        "relation": "演唱流派",
+        "target": "王派"
+      }
+    ]
+  },
+  {
+    "id": 271,
+    "name": "李梦龙",
+    "type": "person",
+    "description": "越剧《春香传》核心人物，拥有生员、暗访平民、巡按御史三套造型",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      },
+      {
+        "relation": "演唱流派",
+        "target": "徐派"
+      }
+    ]
+  },
+  {
+    "id": 272,
+    "name": "月梅",
+    "type": "person",
+    "description": "越剧《春香传》配角，身着老旦素帔服饰",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "老旦"
+      }
+    ]
+  },
+  {
+    "id": 273,
+    "name": "卞学道",
+    "type": "person",
+    "description": "越剧《春香传》反派角色，身着古铜官蟒服饰",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "老生"
+      }
+    ]
+  },
+  {
+    "id": 280,
+    "name": "广寒楼邂逅",
+    "type": "segment",
+    "description": "越剧《春香传》第一场核心折子，展现成春香与李梦龙初遇定情的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "春香传"
+      }
+    ]
+  },
+  {
+    "id": 281,
+    "name": "爱歌",
+    "type": "segment",
+    "description": "越剧《春香传》第一场核心唱段，为成春香与李梦龙月下定情的对唱",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "春香传"
+      }
+    ]
+  },
+  {
+    "id": 288,
+    "name": "长亭别歌",
+    "type": "segment",
+    "description": "越剧《春香传》第二场核心唱段，展现成春香与李梦龙长亭送别的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "春香传"
+      }
+    ]
+  },
+  {
+    "id": 294,
+    "name": "狱中歌",
+    "type": "segment",
+    "description": "越剧《春香传》第四场核心唱段，展现成春香狱中思念与控诉的悲情情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "春香传"
+      }
+    ]
+  },
+  {
+    "id": 301,
+    "name": "追鱼",
+    "type": "play",
+    "description": "徐玉兰的徐派核心代表剧目",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "风流才子"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "仙旦"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "观音点化・拔鳞"
+      },
+      {
+        "relation": "属于流派",
+        "target": "徐派"
+      },
+      {
+        "relation": "属于流派",
+        "target": "王派"
+      },
+      {
+        "relation": "相关概念",
+        "target": "水袖"
+      },
+      {
+        "relation": "相关概念",
+        "target": "仙凡爱情"
+      }
+    ]
+  },
+  {
+    "id": 302,
+    "name": "张珍",
+    "type": "person",
+    "description": "越剧《追鱼》核心人物，徐派小生演绎，坚守与鲤鱼精的爱情，愿与其相守人间",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      }
+    ]
+  },
+  {
+    "id": 303,
+    "name": "鲤鱼精",
+    "type": "person",
+    "description": "越剧《追鱼》核心人物，旦角演绎，为与张珍相守，甘愿拔鳞弃仙化为凡人",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "旦角"
+      }
+    ]
+  },
+  {
+    "id": 304,
+    "name": "观音",
+    "type": "person",
+    "description": "越剧《追鱼》关键角色，点化鲤鱼精，为其提供修行或弃仙的选择",
+    "relations": []
+  },
+  {
+    "id": 307,
+    "name": "观音点化・拔鳞",
+    "type": "segment",
+    "description": "越剧《追鱼》第六场，全剧高潮，展现鲤鱼精拔鳞弃仙的核心情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "追鱼"
+      }
+    ]
+  },
+  {
+    "id": 308,
+    "name": "仙凡爱情",
+    "type": "concept",
+    "description": "越剧《追鱼》的核心主题，体现鲤鱼精与张珍跨越仙凡的情感联结",
+    "relations": []
+  },
+  {
+    "id": 310,
+    "name": "玉堂春",
+    "type": "play",
+    "description": "戚雅仙的戚派核心代表剧目",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "小生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "老生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "旦角"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "彩旦"
+      },
+      {
+        "relation": "属于流派",
+        "target": "戚派"
+      }
+    ]
+  },
+  {
+    "id": 312,
+    "name": "毕春芳",
+    "type": "person",
+    "description": "《血手印》主演之一，饰演林招得，毕派小生代表人物",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "玉堂春"
+      },
+      {
+        "relation": "代表作",
+        "target": "玉蜻蜓"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      }
+    ]
+  },
+  {
+    "id": 313,
+    "name": "傅骏",
+    "type": "person",
+    "description": "越剧编剧，1981年《玉蜻蜓》全本舞台定本改编者",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "玉蜻蜓"
+      }
+    ]
+  },
+  {
+    "id": 314,
+    "name": "静安越剧团",
+    "type": "school",
+    "description": "1980年首演《玉堂春》的越剧团体",
+    "relations": []
+  },
+  {
+    "id": 315,
+    "name": "苏三起解",
+    "type": "segment",
+    "description": "《玉堂春》核心场次，苏三被押解赴太原途中诉冤",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "玉堂春"
+      }
+    ]
+  },
+  {
+    "id": 316,
+    "name": "三堂会审",
+    "type": "segment",
+    "description": "《玉堂春》核心场次，公堂之上苏三诉说冤情、沉冤得雪",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "玉堂春"
+      }
+    ]
+  },
+  {
+    "id": 335,
+    "name": "彩旦",
+    "type": "role",
+    "description": "越剧行当，对应剧中鸨儿、皮氏的角色行当",
+    "relations": []
+  },
+  {
+    "id": 337,
+    "name": "玉蜻蜓",
+    "type": "play",
+    "description": "戚雅仙与王杭娟的戚派核心代表剧目",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "小生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "花旦"
+      },
+      {
+        "relation": "属于流派",
+        "target": "戚派"
+      }
+    ]
+  },
+  {
+    "id": 343,
+    "name": "庵堂认母",
+    "type": "segment",
+    "description": "《玉蜻蜓》核心折子，徐元宰哀求相认，王志贞历经挣扎后认子，是全剧高潮",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "玉蜻蜓"
+      }
+    ]
+  },
+  {
+    "id": 344,
+    "name": "志贞哭图",
+    "type": "segment",
+    "description": "《玉蜻蜓》核心折子，王志贞深夜对着申贵升画像哭诉十八年思念之苦",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "玉蜻蜓"
+      }
+    ]
+  },
+  {
+    "id": 349,
+    "name": "庵堂试探",
+    "type": "segment",
+    "description": "《玉蜻蜓》核心折子，徐元宰前往法华庵试探生母王志贞，母子初见拉扯",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "玉蜻蜓"
+      }
+    ]
+  },
+  {
+    "id": 353,
+    "name": "王志贞",
+    "type": "person",
+    "description": "《玉蜻蜓》核心人物，法华庵尼姑，徐元宰生母，因封建礼教束缚，最终饮毒殉身，成全母子团圆",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "戚派"
+      }
+    ]
+  },
+  {
+    "id": 354,
+    "name": "徐元宰",
+    "type": "person",
+    "description": "《玉蜻蜓》核心人物，王志贞与申贵升之子，历经寻母认亲，最终安葬母亲后复姓申，归宗申府",
+    "relations": []
+  },
+  {
+    "id": 355,
+    "name": "申大娘",
+    "type": "person",
+    "description": "《玉蜻蜓》核心人物，申贵升正妻，封建礼教的维护者，曾带家丁到庵堂追责王志贞",
+    "relations": []
+  },
+  {
+    "id": 358,
+    "name": "庵堂对峙",
+    "type": "segment",
+    "description": "《玉蜻蜓》核心折子，申大娘带家丁追责王志贞，王志贞直面控诉十八年委屈",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "玉蜻蜓"
+      }
+    ]
+  },
+  {
+    "id": 363,
+    "name": "佛婆",
+    "type": "person",
+    "description": "《玉蜻蜓》龙套人物，曾受王志贞托付抱婴儿离去，参与核心情节推进",
+    "relations": []
+  },
+  {
+    "id": 366,
+    "name": "庵堂殉身",
+    "type": "segment",
+    "description": "《玉蜻蜓》核心折子，王志贞因封建礼教不容，饮毒酒殉身，与儿子永隔阴阳",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "玉蜻蜓"
+      }
+    ]
+  },
+  {
+    "id": 367,
+    "name": "复姓归宗",
+    "type": "segment",
+    "description": "《玉蜻蜓》尾声折子，徐元宰安葬王志贞后，携玉蜻蜓回到申府，恢复本姓，祭奠生父母",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "玉蜻蜓"
+      }
+    ]
+  },
+  {
+    "id": 369,
+    "name": "王千金",
+    "type": "person",
+    "description": "《血手印》核心人物，坚守与林招得的婚约，拦轿向包公递状，助力昭雪冤案",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "旦角"
+      },
+      {
+        "relation": "演唱流派",
+        "target": "戚派"
+      }
+    ]
+  },
+  {
+    "id": 370,
+    "name": "林招得",
+    "type": "person",
+    "description": "《血手印》核心人物，蒙冤被判斩刑，因苍蝇围颈的异象暂缓行刑，最终洗清冤屈",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      },
+      {
+        "relation": "演唱流派",
+        "target": "毕派"
+      }
+    ]
+  },
+  {
+    "id": 371,
+    "name": "张培赞",
+    "type": "person",
+    "description": "《血手印》真凶，马夫，偷听后劫杀雪春、嫁祸林招得，最终在包公审问下招认罪行",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "丑"
+      }
+    ]
+  },
+  {
+    "id": 375,
+    "name": "花园相会",
+    "type": "segment",
+    "description": "《血手印》核心折子，王千金与林招得私下相会，约定资助招得赴考",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "血手印"
+      }
+    ]
+  },
+  {
+    "id": 376,
+    "name": "抗父",
+    "type": "segment",
+    "description": "《血手印》核心折子，王千金当众顶撞父亲，执意前往法场祭夫",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "血手印"
+      }
+    ]
+  },
+  {
+    "id": 377,
+    "name": "凶案蒙冤",
+    "type": "segment",
+    "description": "《血手印》核心折子，林招得因门板血手印被误认为凶手，屈打成招被判斩刑",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "血手印"
+      }
+    ]
+  },
+  {
+    "id": 378,
+    "name": "法场祭夫",
+    "type": "segment",
+    "description": "《血手印》核心折子，王千金在法场上三杯酒祭奠林招得，诉说二人婚约与招得冤屈",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "血手印"
+      }
+    ]
+  },
+  {
+    "id": 379,
+    "name": "包公断案",
+    "type": "segment",
+    "description": "《血手印》核心折子，包公巧审诱出真凶张培赞，使林招得冤案昭雪",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "血手印"
+      }
+    ]
+  },
+  {
+    "id": 384,
+    "name": "包公",
+    "type": "person",
+    "description": "《血手印》关键人物，奉旨放粮途中受理王千金的状纸，巧审案件，使林招得冤案昭雪",
+    "relations": []
+  },
+  {
+    "id": 385,
+    "name": "王春",
+    "type": "person",
+    "description": "《血手印》人物，王千金之父，因贪图富贵逼迫林母退婚，后被包公训诫追责",
+    "relations": []
+  },
+  {
+    "id": 386,
+    "name": "县官",
+    "type": "person",
+    "description": "《血手印》人物，受贿偏袒王春，错判林招得，最终被包公训诫追责",
+    "relations": []
+  },
+  {
+    "id": 387,
+    "name": "包公断案・真相大白",
+    "type": "segment",
+    "description": "《血手印》第五场核心折子，包公受理状纸，提审人犯，最终查明真相、昭雪冤案",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "血手印"
+      }
+    ]
+  },
+  {
+    "id": 388,
+    "name": "团圆尾声",
+    "type": "segment",
+    "description": "《血手印》第六场核心折子，林招得洗清冤屈，与王千金重逢，王春赔罪，二人重续婚约",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "血手印"
+      }
+    ]
+  },
+  {
+    "id": 392,
+    "name": "孔雀东南飞",
+    "type": "play",
+    "description": "傅派核心代表剧目",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "花旦"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "悲情书生"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "刘家逼嫁"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "城外雀盟"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "投池殉情"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "第六场"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "尾声合葬"
+      },
+      {
+        "relation": "属于流派",
+        "target": "范派"
+      },
+      {
+        "relation": "属于流派",
+        "target": "傅派"
+      }
+    ]
+  },
+  {
+    "id": 393,
+    "name": "焦仲卿",
+    "type": "person",
+    "description": "越剧《孔雀东南飞》核心人物，庐江府小吏，与刘兰芝情深意笃，因母亲逼迫休妻，最终与刘兰芝相约殉情",
+    "relations": []
+  },
+  {
+    "id": 394,
+    "name": "刘兰芝",
+    "type": "person",
+    "description": "越剧《孔雀东南飞》核心人物，聪慧勤劳，遭焦母休弃后被兄长逼迫改嫁，坚守与焦仲卿的盟约，最终投池自尽",
+    "relations": []
+  },
+  {
+    "id": 395,
+    "name": "刘兄",
+    "type": "person",
+    "description": "越剧《孔雀东南飞》人物，刘兰芝的兄长，性情暴躁，贪图太守府聘礼，强行逼迫刘兰芝改嫁太守之子",
+    "relations": []
+  },
+  {
+    "id": 396,
+    "name": "刘家逼嫁",
+    "type": "segment",
+    "description": "越剧《孔雀东南飞》第三场，展现太守府媒婆上门提亲，刘兄逼迫刘兰芝应允婚事的核心冲突场景",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "孔雀东南飞"
+      }
+    ]
+  },
+  {
+    "id": 397,
+    "name": "城外雀盟",
+    "type": "segment",
+    "description": "越剧《孔雀东南飞》第四场重逢重头戏，焦仲卿听闻刘兰芝将嫁连夜赶来，二人互诉委屈并约定殉情的场景",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "孔雀东南飞"
+      }
+    ]
+  },
+  {
+    "id": 398,
+    "name": "投池殉情",
+    "type": "segment",
+    "description": "越剧《孔雀东南飞》第五场，展现刘兰芝在大婚之夜躲至后院，纵身跃入池水自尽的悲剧场景",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "孔雀东南飞"
+      }
+    ]
+  },
+  {
+    "id": 402,
+    "name": "焦母",
+    "type": "person",
+    "description": "越剧《孔雀东南飞》人物，焦仲卿的母亲，固执刻薄，执意逼迫儿子休妻",
+    "relations": []
+  },
+  {
+    "id": 403,
+    "name": "刘母",
+    "type": "person",
+    "description": "越剧《孔雀东南飞》人物，刘兰芝的母亲，在女儿被逼婚时左右为难",
+    "relations": []
+  },
+  {
+    "id": 404,
+    "name": "第六场",
+    "type": "segment",
+    "description": "越剧《孔雀东南飞》第六场，展现焦仲卿听闻刘兰芝死讯后自挂东南枝的场景",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "孔雀东南飞"
+      }
+    ]
+  },
+  {
+    "id": 405,
+    "name": "尾声合葬",
+    "type": "segment",
+    "description": "越剧《孔雀东南飞》尾声部分，展现焦、刘两家父母痛悔万分，将二人合葬一处，坟前梧桐松柏枝干缠绕，一对彩孔雀常年盘旋林间，日夜悲鸣的收尾场景",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "孔雀东南飞"
+      }
+    ]
+  },
+  {
+    "id": 406,
+    "name": "宝莲灯",
+    "type": "play",
+    "description": "越剧经典神话剧目，以沉香劈山救母、仙凡团圆为核心情节",
+    "relations": []
+  },
+  {
+    "id": 407,
+    "name": "沉香",
+    "type": "person",
+    "description": "越剧《宝莲灯》核心人物，手持巨斧劈山救母的少年英雄",
+    "relations": []
+  },
+  {
+    "id": 408,
+    "name": "二郎神",
+    "type": "person",
+    "description": "越剧《宝莲灯》人物，与沉香大战后败下阵来，最终向三圣母赔罪",
+    "relations": []
+  },
+  {
+    "id": 409,
+    "name": "三圣母",
+    "type": "person",
+    "description": "越剧《宝莲灯》核心人物，被镇压于华山黑云洞，后被沉香救出",
+    "relations": []
+  },
+  {
+    "id": 410,
+    "name": "刘彦昌",
+    "type": "person",
+    "description": "越剧《宝莲灯》人物，三圣母的丈夫，与家人在华山团聚",
+    "relations": []
+  },
+  {
+    "id": 411,
+    "name": "王桂英",
+    "type": "person",
+    "description": "越剧《宝莲灯》人物，与刘彦昌一同赶至华山，参与一家团圆",
+    "relations": []
+  },
+  {
+    "id": 412,
+    "name": "打金枝",
+    "type": "play",
+    "description": "范派经典剧目，郭暧为少年官生角色",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "小生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "官生"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "金殿哭诉"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "绑子上殿"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "后宫劝和"
+      },
+      {
+        "relation": "属于流派",
+        "target": "范派"
+      }
+    ]
+  },
+  {
+    "id": 413,
+    "name": "升平公主",
+    "type": "person",
+    "description": "越剧《打金枝》核心人物，唐代宗之女，因驸马郭暧打碎红灯、掌掴自己向父皇哭诉，最终认错与郭暧和解",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "旦角"
+      }
+    ]
+  },
+  {
+    "id": 414,
+    "name": "唐代宗",
+    "type": "person",
+    "description": "越剧《打金枝》人物，唐代皇帝，洞悉儿女口角实情，赦免郭暧并加官，促成小夫妻和解",
+    "relations": []
+  },
+  {
+    "id": 415,
+    "name": "郭子仪",
+    "type": "person",
+    "description": "越剧《打金枝》人物，汾阳王，因郭暧殴打公主绑子上殿请罪，最终领受皇恩",
+    "relations": []
+  },
+  {
+    "id": 416,
+    "name": "郭暧",
+    "type": "person",
+    "description": "越剧《打金枝》核心人物，郭子仪之子，因公主拒拜寿打碎红灯、掌掴公主，最终与公主和解",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      }
+    ]
+  },
+  {
+    "id": 417,
+    "name": "皇后",
+    "type": "person",
+    "description": "越剧《打金枝》人物，唐代宗之妻，在后宫劝解郭暧与升平公主，点明夫妻相处之道",
+    "relations": [
+      {
+        "relation": "擅长行当",
+        "target": "彩旦老旦"
+      }
+    ]
+  },
+  {
+    "id": 418,
+    "name": "金殿哭诉",
+    "type": "segment",
+    "description": "越剧《打金枝》第三场，公主向唐代宗哭诉郭暧罪行，后为郭暧求情的场次",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "打金枝"
+      }
+    ]
+  },
+  {
+    "id": 419,
+    "name": "绑子上殿",
+    "type": "segment",
+    "description": "越剧《打金枝》第四场，郭子仪绑缚郭暧上殿请罪，唐代宗赦免郭暧并加官的场次",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "打金枝"
+      }
+    ]
+  },
+  {
+    "id": 420,
+    "name": "后宫劝和",
+    "type": "segment",
+    "description": "越剧《打金枝》第五场终场，皇后劝解郭暧与升平公主，二人认错和解的场次",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "打金枝"
+      }
+    ]
+  },
+  {
+    "id": 423,
+    "name": "彩旦老旦",
+    "type": "role",
+    "description": "越剧行当，郭夫人、皇后所属的旦角细分行当，适配其身份特征",
+    "relations": []
+  },
+  {
+    "id": 424,
+    "name": "新娘子真好看",
+    "type": "segment",
+    "description": "越剧《一缕麻》第二场范派经典童趣唱段，由荣鹏程演唱，展现其懵懂欢喜的新婚心境",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "一缕麻"
+      }
+    ]
+  },
+  {
+    "id": 425,
+    "name": "荣鹏程",
+    "type": "person",
+    "description": "越剧《一缕麻》核心人物，荣家少爷，心智单纯懵懂，人称呆大，为照料慧芬染病离世，弥留之际仍牵挂慧芬",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "范派"
+      }
+    ]
+  },
+  {
+    "id": 426,
+    "name": "林慧芬",
+    "type": "person",
+    "description": "越剧《一缕麻》核心人物，书香少女，被父母指腹许配荣家，后被荣鹏程舍命照料的真情打动，灵堂哭夫并斩断旧情",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "袁派"
+      }
+    ]
+  },
+  {
+    "id": 427,
+    "name": "一缕麻",
+    "type": "play",
+    "description": "突破传统塑造憨厚质朴呆大人物的范派试验剧目",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "小生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "花旦"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "新娘子真好看"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "洞房哭夫"
+      },
+      {
+        "relation": "属于流派",
+        "target": "范派"
+      }
+    ]
+  },
+  {
+    "id": 430,
+    "name": "洞房哭夫",
+    "type": "segment",
+    "description": "越剧《一缕麻》第六场袁派传世核心唱段，属越剧尺调三哭之一，展现林慧芬灵堂哭悼荣鹏程的悲情内容",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "一缕麻"
+      }
+    ]
+  },
+  {
+    "id": 437,
+    "name": "山河恋",
+    "type": "play",
+    "description": "越剧经典剧目，以守护山河安宁为核心，讲述申息、季娣等平息奸邪阴谋，最终实现山河太平、儿女情定的故事",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "小生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "花旦"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "旦角"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "送信"
+      }
+    ]
+  },
+  {
+    "id": 438,
+    "name": "申息",
+    "type": "person",
+    "description": "越剧《山河恋》核心人物，尹派小生，禁军百户将军，平息风波后兑现心意与季娣情定终场",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "尹派"
+      }
+    ]
+  },
+  {
+    "id": 439,
+    "name": "季娣",
+    "type": "person",
+    "description": "越剧《山河恋》核心人物，袁派花旦，宫女，与申息历经风波后终成眷属",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "袁派"
+      }
+    ]
+  },
+  {
+    "id": 440,
+    "name": "绵姜",
+    "type": "person",
+    "description": "越剧《山河恋》核心人物，梁国皇后，遭奸相黎瑟构陷，最终在申息等人帮助下沉冤昭雪",
+    "relations": []
+  },
+  {
+    "id": 441,
+    "name": "黎瑟",
+    "type": "person",
+    "description": "越剧《山河恋》核心人物，奸相，设计连环毒计构陷皇后绵姜，最终罪责败露被革职收监",
+    "relations": []
+  },
+  {
+    "id": 446,
+    "name": "送信",
+    "type": "segment",
+    "description": "越剧《山河恋》核心教学折子，尹派与袁派核心对唱，兼具喜剧轻快与含蓄深情",
+    "relations": []
+  },
+  {
+    "id": 452,
+    "name": "钟兕",
+    "type": "person",
+    "description": "越剧《山河恋》核心人物，武将，与申息一同千里追凶，助力揭露黎瑟阴谋",
+    "relations": []
+  },
+  {
+    "id": 464,
+    "name": "陆锦花",
+    "type": "person",
+    "description": "越剧表演艺术家，陆派小生创始人，在《情探》中饰演王魁，演绎陆派反面小生标杆角色",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "情探"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      },
+      {
+        "relation": "演唱流派",
+        "target": "陆派"
+      }
+    ]
+  },
+  {
+    "id": 469,
+    "name": "阳告",
+    "type": "segment",
+    "description": "越剧《情探》核心唱段，敫桂英在海神庙向海神控诉王魁负心、哭诉冤屈的傅派传世唱段",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "情探"
+      }
+    ]
+  },
+  {
+    "id": 470,
+    "name": "行路",
+    "type": "segment",
+    "description": "越剧《情探》核心唱段，敫桂英魂魄随判官、小鬼奔赴汴京索命，一路悲歌的傅派长袖舞蹈经典折子",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "情探"
+      }
+    ]
+  },
+  {
+    "id": 475,
+    "name": "敫桂英",
+    "type": "person",
+    "description": "越剧《情探》核心人物，被王魁负心后自尽，魂魄赴汴京试探并活捉王魁的悲剧女性角色",
+    "relations": []
+  },
+  {
+    "id": 476,
+    "name": "王魁",
+    "type": "person",
+    "description": "越剧《情探》核心人物，高中状元后贪恋权贵，背弃与敫桂英的誓言，面对魂魄试探仍拔剑相向的负心角色",
+    "relations": []
+  },
+  {
+    "id": 478,
+    "name": "书房情探",
+    "type": "segment",
+    "description": "越剧《情探》核心折子，展现敫桂英魂魄化作生前模样，三次以情试探王魁的关键场次",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "情探"
+      }
+    ]
+  },
+  {
+    "id": 484,
+    "name": "祝府逼婚",
+    "type": "segment",
+    "description": "《梁山伯与祝英台》场次，讲述祝家正厅媒婆携马家聘礼登门，祝公远应允婚事，祝英台阻拦的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "梁山伯与祝英台"
+      }
+    ]
+  },
+  {
+    "id": 485,
+    "name": "祝英台",
+    "type": "person",
+    "description": "《梁山伯与祝英台》核心人物，出嫁途中执意祭拜梁山伯，纵身跃入裂开坟穴，与梁山伯化蝶相守的女主角",
+    "relations": []
+  },
+  {
+    "id": 486,
+    "name": "梁山伯",
+    "type": "person",
+    "description": "《梁山伯与祝英台》核心人物，因思念祝英台气绝身亡，临终托付葬于英台出嫁必经之地的男主角",
+    "relations": []
+  },
+  {
+    "id": 487,
+    "name": "祝公远",
+    "type": "person",
+    "description": "《梁山伯与祝英台》人物，祝英台之父，无奈答应英台祭坟条件的封建家长",
+    "relations": []
+  },
+  {
+    "id": 488,
+    "name": "马文才",
+    "type": "person",
+    "description": "《梁山伯与祝英台》人物，太守之子，祝公远为祝英台定下婚事的对象",
+    "relations": []
+  },
+  {
+    "id": 491,
+    "name": "山伯临终",
+    "type": "segment",
+    "description": "《梁山伯与祝英台》场次，讲述梁山伯卧病不起，收到祝英台书信后相思难抑，生命垂危的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "梁山伯与祝英台"
+      }
+    ]
+  },
+  {
+    "id": 497,
+    "name": "马家迎亲",
+    "type": "segment",
+    "description": "《梁山伯与祝英台》场次，展现祝府婚嫁吉日，祝英台以祭拜山伯坟为条件，白衣素服登轿的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "梁山伯与祝英台"
+      }
+    ]
+  },
+  {
+    "id": 498,
+    "name": "哭坟化蝶",
+    "type": "segment",
+    "description": "《梁山伯与祝英台》终场高潮场次，讲述祝英台祭拜山伯坟时坟土裂开，纵身跃入，二人化蝶相伴的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "梁山伯与祝英台"
+      }
+    ]
+  },
+  {
+    "id": 502,
+    "name": "祝母",
+    "type": "person",
+    "description": "《梁山伯与祝英台》人物，劝祝英台梳妆上轿的家人角色",
+    "relations": []
+  },
+  {
+    "id": 505,
+    "name": "吴琛",
+    "type": "person",
+    "description": "越剧《祥林嫂》改编主创人员之一",
+    "relations": []
+  },
+  {
+    "id": 506,
+    "name": "庄志",
+    "type": "person",
+    "description": "越剧《祥林嫂》改编主创人员之一",
+    "relations": []
+  },
+  {
+    "id": 507,
+    "name": "张桂凤",
+    "type": "person",
+    "description": "越剧《祥林嫂》改编主创及主演人员之一",
+    "relations": []
+  },
+  {
+    "id": 508,
+    "name": "史济华",
+    "type": "person",
+    "description": "越剧《祥林嫂》主演人员之一",
+    "relations": []
+  },
+  {
+    "id": 510,
+    "name": "逼嫁出逃",
+    "type": "segment",
+    "description": "越剧《祥林嫂》核心教学折子之一",
+    "relations": []
+  },
+  {
+    "id": 511,
+    "name": "青青柳叶蓝蓝天",
+    "type": "segment",
+    "description": "越剧《祥林嫂》核心教学折子之一",
+    "relations": []
+  },
+  {
+    "id": 512,
+    "name": "捐门槛",
+    "type": "segment",
+    "description": "越剧《祥林嫂》核心教学折子之一",
+    "relations": []
+  },
+  {
+    "id": 513,
+    "name": "我真傻",
+    "type": "segment",
+    "description": "越剧《祥林嫂》核心教学折子之一",
+    "relations": []
+  },
+  {
+    "id": 514,
+    "name": "问天（雪满地风满天）",
+    "type": "segment",
+    "description": "越剧《祥林嫂》核心教学折子之一",
+    "relations": []
+  },
+  {
+    "id": 516,
+    "name": "鲁四太太",
+    "type": "person",
+    "description": "越剧《祥林嫂》中的角色，身着古铜老旦素帔的鲁府女主人",
+    "relations": []
+  },
+  {
+    "id": 517,
+    "name": "贺老六",
+    "type": "person",
+    "description": "越剧《祥林嫂》中的角色，身着土布粗布短打男装的山里猎户",
+    "relations": []
+  },
+  {
+    "id": 518,
+    "name": "黛玉葬花",
+    "type": "segment",
+    "description": "越剧《红楼梦》核心场次，展现黛玉在沁芳桥畔葬落花、抒发愁绪的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "红楼梦"
+      }
+    ]
+  },
+  {
+    "id": 519,
+    "name": "傻大姐泄密",
+    "type": "segment",
+    "description": "越剧《红楼梦》核心场次，展现傻大姐在大观园假山旁拾得绣春囊的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "红楼梦"
+      }
+    ]
+  },
+  {
+    "id": 520,
+    "name": "黛玉焚稿",
+    "type": "segment",
+    "description": "越剧《红楼梦》完整折子，展现黛玉在潇湘馆卧病时焚烧诗稿与定情诗帕的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "红楼梦"
+      }
+    ]
+  },
+  {
+    "id": 521,
+    "name": "金玉良缘大婚",
+    "type": "segment",
+    "description": "越剧《红楼梦》核心场次，展现宝玉误以为迎娶黛玉，拜堂后发现新娘是宝钗的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "红楼梦"
+      }
+    ]
+  },
+  {
+    "id": 527,
+    "name": "琴心",
+    "type": "segment",
+    "description": "越剧《西厢记》第五场，袁派经典名段，展现崔莺莺深夜偷听张生琴声、互诉相思的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "西厢记"
+      }
+    ]
+  },
+  {
+    "id": 528,
+    "name": "拷红",
+    "type": "segment",
+    "description": "越剧《西厢记》第七场，展现崔夫人察觉私情后拷问红娘，红娘从容分说、反驳夫人失信的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "西厢记"
+      }
+    ]
+  },
+  {
+    "id": 530,
+    "name": "长亭送别",
+    "type": "segment",
+    "description": "越剧《西厢记》第八场，全剧收尾核心场次，展现崔莺莺与张珙在十里长亭挥泪作别、约定功名归来的情节",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "西厢记"
+      }
+    ]
+  },
+  {
+    "id": 531,
+    "name": "家",
+    "type": "play",
+    "description": "越剧剧目，以成都高家封建大家庭为舞台，展现青年爱情悲剧与觉醒，核心道具包含梅林梅花枝、郊外茅草产房等，采用民国写实色系与写意布景",
+    "relations": [
+      {
+        "relation": "包含角色",
+        "target": "梅芬"
+      },
+      {
+        "relation": "包含角色",
+        "target": "鸣凤"
+      },
+      {
+        "relation": "包含角色",
+        "target": "瑞珏"
+      }
+    ]
+  },
+  {
+    "id": 532,
+    "name": "梅芬",
+    "type": "role",
+    "description": "越剧《家》角色，觉新的姨表妹，被封建礼教拆散后抑郁而亡，在文本中作为觉新觉醒的关键关联人物被提及",
+    "relations": []
+  },
+  {
+    "id": 533,
+    "name": "鸣凤",
+    "type": "role",
+    "description": "越剧《家》角色，高府丫鬟，因被逼迫做妾投湖自尽，是觉新觉醒的重要推动因素，在文本中被提及",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "袁派"
+      }
+    ]
+  },
+  {
+    "id": 534,
+    "name": "瑞珏",
+    "type": "role",
+    "description": "剧中人物，即将临盆的孕妇，因封建迷信被迫迁往郊外待产，产后感染无医救治，含恨惨死",
+    "relations": []
+  },
+  {
+    "id": 538,
+    "name": "觉慧",
+    "type": "role",
+    "description": "越剧《家》角色，觉新的弟弟，性格激进，在觉新支持下远走上海，冲破封建牢笼",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "范派"
+      }
+    ]
+  },
+  {
+    "id": 542,
+    "name": "高觉新",
+    "type": "role",
+    "description": "越剧《家》核心角色，长房长孙，性格从一味顺从逐渐觉醒，最终支持觉慧出走",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "尹派"
+      }
+    ]
+  },
+  {
+    "id": 543,
+    "name": "李瑞珏",
+    "type": "role",
+    "description": "越剧《家》角色，觉新的妻子，怀胎足月时因封建迷信被逼迫到郊外茅屋待产，难产惨死",
+    "relations": []
+  },
+  {
+    "id": 553,
+    "name": "桃花扇",
+    "type": "play",
+    "description": "越剧剧目，以侯朝宗与李香君的情爱悲剧串联南明兴亡，核心情节涵盖血溅诗扇、骂筵、栖霞重逢等，展现家国气节主题",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "小生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "老生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "花旦"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "青衣"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "老旦"
+      },
+      {
+        "relation": "属于流派",
+        "target": "袁派"
+      },
+      {
+        "relation": "属于流派",
+        "target": "尹派"
+      },
+      {
+        "relation": "相关概念",
+        "target": "桃花诗扇"
+      }
+    ]
+  },
+  {
+    "id": 557,
+    "name": "王君安",
+    "type": "person",
+    "description": "2019年南京市越剧团《桃花扇》复排版尹派侯朝宗扮演者",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "桃花扇"
+      }
+    ]
+  },
+  {
+    "id": 558,
+    "name": "陶琪",
+    "type": "person",
+    "description": "2019年南京市越剧团《桃花扇》复排版袁派李香君扮演者",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "桃花扇"
+      }
+    ]
+  },
+  {
+    "id": 559,
+    "name": "侯朝宗",
+    "type": "role",
+    "description": "越剧《桃花扇》核心角色，复社名士，历经逃亡、国破流离，最终与李香君重逢后撕碎桃花扇，入道隐居",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "尹派"
+      }
+    ]
+  },
+  {
+    "id": 560,
+    "name": "李香君",
+    "type": "role",
+    "description": "越剧《桃花扇》核心角色，坚守气节，拒嫁奸臣撞墙血溅诗扇，筵前痛骂权奸，最终遁世隐居",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "袁派"
+      }
+    ]
+  },
+  {
+    "id": 561,
+    "name": "杨龙友",
+    "type": "role",
+    "description": "越剧《桃花扇》配角，见证李香君血溅诗扇，蘸墨勾勒血迹成桃花，助力桃花扇得名",
+    "relations": []
+  },
+  {
+    "id": 562,
+    "name": "阮大铖",
+    "type": "role",
+    "description": "越剧《桃花扇》反派角色，强逼李香君改嫁，设宴折辱香君，是南明覆灭的关键推手",
+    "relations": []
+  },
+  {
+    "id": 563,
+    "name": "李贞丽",
+    "type": "role",
+    "description": "越剧《桃花扇》配角，李香君身边人物，在香君拒嫁时无奈自身顶替出嫁",
+    "relations": []
+  },
+  {
+    "id": 564,
+    "name": "苏昆生",
+    "type": "role",
+    "description": "越剧《桃花扇》配角，受李香君托付，携带桃花扇千里寻找侯朝宗",
+    "relations": []
+  },
+  {
+    "id": 565,
+    "name": "马士英",
+    "type": "role",
+    "description": "越剧《桃花扇》反派角色，与阮大铖勾结把持朝政，清兵南下后导致南京失守",
+    "relations": []
+  },
+  {
+    "id": 576,
+    "name": "尾声追念",
+    "type": "segment",
+    "description": "越剧《桃花扇》1948尹桂芳原版增设唱段，侯朝宗独对香君遗像追忆旧事，抒发山河破碎与辜负佳人的悔恨",
+    "relations": []
+  },
+  {
+    "id": 577,
+    "name": "却奁",
+    "type": "segment",
+    "description": "越剧《桃花扇》核心折目，李香君退还奸党妆奁、坚守气节的关键场次，为袁派核心成套唱段",
+    "relations": []
+  },
+  {
+    "id": 578,
+    "name": "骂筵",
+    "type": "segment",
+    "description": "越剧《桃花扇》核心唱段，李香君筵前痛骂马士英、阮大铖，是全剧情节与气节的高潮段落",
+    "relations": []
+  },
+  {
+    "id": 590,
+    "name": "桃花诗扇",
+    "type": "concept",
+    "description": "越剧《桃花扇》核心道具，侯朝宗与李香君的定情信物，血迹勾勒成桃花后得名桃花扇，贯穿全剧情节",
+    "relations": []
+  },
+  {
+    "id": 597,
+    "name": "追念",
+    "type": "segment",
+    "description": "越剧《桃花扇》尹桂芳原版尾声独唱唱段，侯朝宗独对香君遗像追忆秦淮旧事，抒发山河破碎的悔恨",
+    "relations": []
+  },
+  {
+    "id": 604,
+    "name": "桐江雨",
+    "type": "play",
+    "description": "越剧剧目，以桐江地域为背景，围绕亲子错认伦理冲突，展现贫富家庭的情感纠葛与人性和解",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "小生"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "寻子四载泪茫茫"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "华筵毒酒"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "陈情留母"
+      },
+      {
+        "relation": "属于流派",
+        "target": "范派"
+      },
+      {
+        "relation": "属于流派",
+        "target": "吕派"
+      },
+      {
+        "relation": "属于流派",
+        "target": "王派"
+      },
+      {
+        "relation": "相关概念",
+        "target": "老式织布机"
+      },
+      {
+        "relation": "相关概念",
+        "target": "粗布衣衫"
+      },
+      {
+        "relation": "相关概念",
+        "target": "金银礼盒"
+      },
+      {
+        "relation": "相关概念",
+        "target": "桐江竹篮"
+      },
+      {
+        "relation": "相关概念",
+        "target": "毒酒玉杯"
+      },
+      {
+        "relation": "相关概念",
+        "target": "油纸雨伞"
+      },
+      {
+        "relation": "相关概念",
+        "target": "薯饼粗粮"
+      }
+    ]
+  },
+  {
+    "id": 605,
+    "name": "桐花",
+    "type": "role",
+    "description": "越剧《桐江雨》核心角色，王派苦情旦，坚守桐江养育二龙，日夜织布，心怀对大龙的思念与对养子的深情",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "王派"
+      }
+    ]
+  },
+  {
+    "id": 606,
+    "name": "大龙",
+    "type": "role",
+    "description": "越剧《桐江雨》核心角色，因身世错认被金夫人溺爱，曾因贪恋富贵欲害二龙，最终良心悔悟，承认罪过",
+    "relations": []
+  },
+  {
+    "id": 607,
+    "name": "二龙",
+    "type": "role",
+    "description": "越剧《桐江雨》核心角色，范派小生，金夫人亲生独子，铭记桐花十六年养育之恩，拒绝回归豪门，愿留桐江尽孝",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "范派"
+      }
+    ]
+  },
+  {
+    "id": 608,
+    "name": "金夫人",
+    "type": "role",
+    "description": "越剧《桐江雨》核心角色，回乡祭祖时偶遇桐花，得知身世真相后既惊又愧，最终放下偏见与桐花和解",
+    "relations": []
+  },
+  {
+    "id": 611,
+    "name": "寻子四载泪茫茫",
+    "type": "segment",
+    "description": "越剧《桐江雨》成套悲唱唱段，是桐花思念大龙时的核心唱段，承载角色的悲情思绪",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "桐江雨"
+      }
+    ]
+  },
+  {
+    "id": 612,
+    "name": "华筵毒酒",
+    "type": "segment",
+    "description": "越剧《桐江雨》核心场次，是全剧冲突高潮，展现大龙备毒酒、良心悔悟的关键情节",
+    "relations": []
+  },
+  {
+    "id": 613,
+    "name": "陈情留母",
+    "type": "segment",
+    "description": "越剧《桐江雨》核心场次，是二龙跪地陈情拒绝回归豪门、促成两家和解的关键情节",
+    "relations": []
+  },
+  {
+    "id": 618,
+    "name": "老式织布机",
+    "type": "concept",
+    "description": "越剧《桐江雨》核心道具，契合山村生活场景，承载角色织布劳作的情节设定",
+    "relations": []
+  },
+  {
+    "id": 619,
+    "name": "粗布衣衫",
+    "type": "concept",
+    "description": "越剧《桐江雨》核心道具，适配山村清贫角色造型，凸显朴素的生活底色",
+    "relations": []
+  },
+  {
+    "id": 620,
+    "name": "金银礼盒",
+    "type": "concept",
+    "description": "越剧《桐江雨》核心道具，对应钱塘豪门的财物象征，推动寻亲相关的情节发展",
+    "relations": []
+  },
+  {
+    "id": 621,
+    "name": "桐江竹篮",
+    "type": "concept",
+    "description": "越剧《桐江雨》核心道具，适配江边渡口场景，承载角色日常劳作与情节线索",
+    "relations": []
+  },
+  {
+    "id": 622,
+    "name": "毒酒玉杯",
+    "type": "concept",
+    "description": "越剧《桐江雨》核心道具，是全剧冲突高潮的关键道具，承载大龙悔悟的核心情节",
+    "relations": []
+  },
+  {
+    "id": 623,
+    "name": "油纸雨伞",
+    "type": "concept",
+    "description": "越剧《桐江雨》核心道具，契合桐江烟雨的地域氛围，烘托江边场景的情感基调",
+    "relations": []
+  },
+  {
+    "id": 624,
+    "name": "薯饼粗粮",
+    "type": "concept",
+    "description": "越剧《桐江雨》核心道具，对应山村清贫生活的饮食场景，体现角色的朴素生活状态",
+    "relations": []
+  },
+  {
+    "id": 625,
+    "name": "秦淮梦",
+    "type": "play",
+    "description": "1983年南京越剧团首演的越剧剧目，以曹雪芹坚守《红楼梦》创作、反抗权贵焚稿，与黎芳青及秦淮百姓相护为核心，展现文人坚守良知与平民惜才的故事",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "小生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "老生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "花旦"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "葬花吟"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "一曲葬花和泪唱"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "笔底风雷"
+      },
+      {
+        "relation": "属于流派",
+        "target": "袁派"
+      },
+      {
+        "relation": "属于流派",
+        "target": "竺派"
+      }
+    ]
+  },
+  {
+    "id": 626,
+    "name": "曹雪芹",
+    "type": "role",
+    "description": "越剧《秦淮梦》中的小生角色，秉持良知坚守《红楼梦》创作，不惧权贵威逼，以苍凉竺派唱腔展现文人风骨",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "竺派"
+      }
+    ]
+  },
+  {
+    "id": 627,
+    "name": "黎芳青",
+    "type": "role",
+    "description": "越剧《秦淮梦》中的核心角色，联合秦淮百姓暗中保护《红楼梦》书稿，以悲愤唱段展现对权贵焚书的反抗与对曹雪芹的支持",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "袁派"
+      }
+    ]
+  },
+  {
+    "id": 628,
+    "name": "尹继善",
+    "type": "role",
+    "description": "越剧《秦淮梦》中的老生角色，身份为两江总督，是设宴款待曹雪芹的关键人物",
+    "relations": []
+  },
+  {
+    "id": 629,
+    "name": "佳贵妃",
+    "type": "role",
+    "description": "越剧《秦淮梦》中的反派花旦角色，与皇八子一同威逼曹雪芹，反对《红楼梦》传播",
+    "relations": []
+  },
+  {
+    "id": 630,
+    "name": "皇八子",
+    "type": "role",
+    "description": "越剧《秦淮梦》中的反派小生角色，代表封建权贵，威逼曹雪芹删改《红楼梦》内容",
+    "relations": []
+  },
+  {
+    "id": 633,
+    "name": "葬花吟",
+    "type": "segment",
+    "description": "越剧《秦淮梦》中黎芳青弹唱的核心唱段，贴合自身身世与书中黛玉，展现袁派悲情特质",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "秦淮梦"
+      }
+    ]
+  },
+  {
+    "id": 634,
+    "name": "一曲葬花和泪唱",
+    "type": "segment",
+    "description": "越剧《秦淮梦》中黎芳青与曹雪芹的双人核心抒情折子，以袁派慢板唱腔展现人物悲情与知己相惜",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "秦淮梦"
+      }
+    ]
+  },
+  {
+    "id": 641,
+    "name": "笔底风雷",
+    "type": "segment",
+    "description": "越剧《秦淮梦》中曹雪芹的核心成套唱段，以苍凉竺派长段展现其不惧权贵、坚守《红楼梦》创作的志向",
+    "relations": [
+      {
+        "relation": "选自",
+        "target": "秦淮梦"
+      }
+    ]
+  },
+  {
+    "id": 643,
+    "name": "舞台姐妹",
+    "type": "play",
+    "description": "涵盖乡绅军警、戏班学徒等配角龙套服饰，包含万年台戏旗、梁祝戏服等核心道具，融合水乡万年古戏台、上海旧式戏院等布景的越剧剧目",
+    "relations": [
+      {
+        "relation": "包含唱段",
+        "target": "梁祝"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "祝福"
+      },
+      {
+        "relation": "属于流派",
+        "target": "徐派"
+      },
+      {
+        "relation": "属于流派",
+        "target": "王派"
+      },
+      {
+        "relation": "相关概念",
+        "target": "阳春舞台"
+      },
+      {
+        "relation": "相关概念",
+        "target": "万年台"
+      },
+      {
+        "relation": "相关概念",
+        "target": "戏中戏"
+      }
+    ]
+  },
+  {
+    "id": 644,
+    "name": "阳春舞台",
+    "type": "concept",
+    "description": "越剧《舞台姐妹》中万年台悬挂的戏旗标识",
+    "relations": []
+  },
+  {
+    "id": 645,
+    "name": "梁祝",
+    "type": "play",
+    "description": "越剧《舞台姐妹》中提及的全套戏服所属剧目",
+    "relations": []
+  },
+  {
+    "id": 646,
+    "name": "祝福",
+    "type": "play",
+    "description": "越剧《舞台姐妹》中提及的《祝福》手抄剧本所属剧目",
+    "relations": []
+  },
+  {
+    "id": 650,
+    "name": "万年台",
+    "type": "concept",
+    "description": "越剧《舞台姐妹》中呈现的江南古戏台场景",
+    "relations": []
+  },
+  {
+    "id": 651,
+    "name": "戏中戏",
+    "type": "concept",
+    "description": "越剧《舞台姐妹》中采用的虚实结合舞台编排形式",
+    "relations": []
+  },
+  {
+    "id": 652,
+    "name": "莫愁女",
+    "type": "play",
+    "description": "以徐澄与莫愁冲破封建礼教束缚、最终殉情为核心情节的越剧剧目",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "小生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "老旦"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "旦角"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "王府花园初见"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "泛舟采莲互诉衷肠定情"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "郁金堂拒婚祖孙反目"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "大婚洞房邱彩云假意容人"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "冷房剜目血泪控诉"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "莫愁湖畔双双殉情收尾"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "大婚洞房"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "剜目"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "莫愁湖双双殉情"
+      },
+      {
+        "relation": "属于流派",
+        "target": "竺派"
+      }
+    ]
+  },
+  {
+    "id": 657,
+    "name": "王府花园初见",
+    "type": "segment",
+    "description": "越剧《莫愁女》的核心教学折子之一",
+    "relations": []
+  },
+  {
+    "id": 658,
+    "name": "泛舟采莲互诉衷肠定情",
+    "type": "segment",
+    "description": "越剧《莫愁女》的竺派核心教学折子",
+    "relations": [
+      {
+        "relation": "属于流派",
+        "target": "竺派"
+      }
+    ]
+  },
+  {
+    "id": 659,
+    "name": "郁金堂拒婚祖孙反目",
+    "type": "segment",
+    "description": "越剧《莫愁女》的核心教学折子之一",
+    "relations": []
+  },
+  {
+    "id": 660,
+    "name": "大婚洞房邱彩云假意容人",
+    "type": "segment",
+    "description": "越剧《莫愁女》的核心教学折子之一",
+    "relations": []
+  },
+  {
+    "id": 661,
+    "name": "冷房剜目血泪控诉",
+    "type": "segment",
+    "description": "越剧《莫愁女》的核心教学折子，全剧高潮",
+    "relations": []
+  },
+  {
+    "id": 662,
+    "name": "莫愁湖畔双双殉情收尾",
+    "type": "segment",
+    "description": "越剧《莫愁女》的核心教学折子，全剧收尾场次",
+    "relations": []
+  },
+  {
+    "id": 668,
+    "name": "大婚洞房",
+    "type": "segment",
+    "description": "越剧《莫愁女》第四场，邱彩云暗藏毒计的场次",
+    "relations": [
+      {
+        "relation": "属于流派",
+        "target": "金派"
+      }
+    ]
+  },
+  {
+    "id": 669,
+    "name": "剜目",
+    "type": "segment",
+    "description": "越剧《莫愁女》第五场，全剧高潮大悲唱段场次",
+    "relations": [
+      {
+        "relation": "相关概念",
+        "target": "尺调"
+      }
+    ]
+  },
+  {
+    "id": 670,
+    "name": "莫愁湖双双殉情",
+    "type": "segment",
+    "description": "越剧《莫愁女》第六场，徐澄与莫愁双双殉情的尾声场次",
+    "relations": [
+      {
+        "relation": "属于流派",
+        "target": "竺派"
+      }
+    ]
+  },
+  {
+    "id": 676,
+    "name": "蝴蝶梦",
+    "type": "play",
+    "description": "以庄周梦蝶哲学为底色，围绕庄周试探妻子田秀、探讨人性猜忌与执念，最终以庄周醒悟、田秀离去收尾的越剧剧目",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "小生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "花旦"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "老旦"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "闺旦"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "劈棺"
+      },
+      {
+        "relation": "属于流派",
+        "target": "徐派"
+      },
+      {
+        "relation": "属于流派",
+        "target": "王派"
+      }
+    ]
+  },
+  {
+    "id": 681,
+    "name": "王志萍",
+    "type": "person",
+    "description": "越剧演员，在《蝴蝶梦》中饰演王派花旦角色田秀、小寡妇，凭本剧获第25届中国戏剧梅花奖",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "蝴蝶梦"
+      },
+      {
+        "relation": "演唱流派",
+        "target": "王派"
+      }
+    ]
+  },
+  {
+    "id": 682,
+    "name": "郑国凤",
+    "type": "person",
+    "description": "越剧演员，在《蝴蝶梦》中饰演徐派小生角色庄周、楚王孙",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "蝴蝶梦"
+      },
+      {
+        "relation": "演唱流派",
+        "target": "徐派"
+      }
+    ]
+  },
+  {
+    "id": 683,
+    "name": "吴兆芬",
+    "type": "person",
+    "description": "越剧《蝴蝶梦》的编剧",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "蝴蝶梦"
+      }
+    ]
+  },
+  {
+    "id": 684,
+    "name": "陈薪伊",
+    "type": "person",
+    "description": "越剧《蝴蝶梦》的导演",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "蝴蝶梦"
+      }
+    ]
+  },
+  {
+    "id": 686,
+    "name": "劈棺",
+    "type": "segment",
+    "description": "越剧《蝴蝶梦》的核心场次，是全剧高潮，包含王派细腻多层次悲情水袖表演的关键场次",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "王派"
+      }
+    ]
+  },
+  {
+    "id": 690,
+    "name": "闺旦",
+    "type": "role",
+    "description": "越剧行当之一，对应《陆游与唐琬》中吕派所饰唐琬的行当设定",
+    "relations": []
+  },
+  {
+    "id": 695,
+    "name": "楚王孙",
+    "type": "role",
+    "description": "越剧《蝴蝶梦》中庄周魂魄所化的角色，以风流俊雅的形象出现，对田秀百般示好",
+    "relations": []
+  },
+  {
+    "id": 696,
+    "name": "田秀",
+    "type": "role",
+    "description": "越剧《蝴蝶梦》的核心女性角色，坚守十年夫妻恩情，在庄周设计的试探骗局中经历内心挣扎，最终斩断情缘",
+    "relations": []
+  },
+  {
+    "id": 697,
+    "name": "庄周",
+    "type": "role",
+    "description": "越剧《蝴蝶梦》的核心男性角色，因猜忌设局试探妻子田秀，最终梦醒看破自身执念",
+    "relations": []
+  },
+  {
+    "id": 705,
+    "name": "陆游与唐琬",
+    "type": "play",
+    "description": "浙百经典越剧剧目，以陆游与唐琬的爱情悲剧为主线，融合家国抱负与个人情爱遗憾，兼具历史厚重与人文悲情",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "小生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "老生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "闺旦"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "小红楼独处"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "浪迹天涯三长载"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "粉壁题诗"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "唐琬和词心碎病逝"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "晚年沈园咏梅凭吊亡魂"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "亲家决裂"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "钗头凤"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "晚年沈园咏梅"
+      },
+      {
+        "relation": "属于流派",
+        "target": "尹派"
+      },
+      {
+        "relation": "属于流派",
+        "target": "吕派"
+      }
+    ]
+  },
+  {
+    "id": 706,
+    "name": "小红楼独处",
+    "type": "segment",
+    "description": "《陆游与唐琬》的核心教学折子，是吕派悲情核心场次，展现唐琬忍痛求离去的情节",
+    "relations": []
+  },
+  {
+    "id": 707,
+    "name": "浪迹天涯三长载",
+    "type": "segment",
+    "description": "《陆游与唐琬》的核心场次，是尹派传世独唱核心，展现三年后陆游自福建归来独游沈园的情节",
+    "relations": []
+  },
+  {
+    "id": 708,
+    "name": "粉壁题诗",
+    "type": "segment",
+    "description": "《陆游与唐琬》的核心教学折子，是全剧高潮场次，展现陆游题写《钗头凤》的情节",
+    "relations": []
+  },
+  {
+    "id": 709,
+    "name": "唐琬和词心碎病逝",
+    "type": "segment",
+    "description": "《陆游与唐琬》的核心教学折子，展现唐琬看见壁上《钗头凤》后和词并悲恸病逝的情节",
+    "relations": []
+  },
+  {
+    "id": 710,
+    "name": "晚年沈园咏梅凭吊亡魂",
+    "type": "segment",
+    "description": "《陆游与唐琬》的核心教学折子，展现陆游晚年重回沈园咏梅凭吊唐琬亡魂的情节",
+    "relations": []
+  },
+  {
+    "id": 717,
+    "name": "亲家决裂",
+    "type": "segment",
+    "description": "《陆游与唐琬》的核心场次，展现唐仲俊登门调解、陆母与唐家长辈争吵决裂，最终唐琬悄然远避的情节",
+    "relations": []
+  },
+  {
+    "id": 719,
+    "name": "钗头凤",
+    "type": "segment",
+    "description": "《陆游与唐琬》中的核心唱段，是贯穿全剧的关键情感载体，关联陆游与唐琬的千古遗憾",
+    "relations": []
+  },
+  {
+    "id": 722,
+    "name": "晚年沈园咏梅",
+    "type": "segment",
+    "description": "《陆游与唐琬》的尾声场次，展现陆游晚年重游沈园，凭吊唐琬亡魂的情节",
+    "relations": []
+  },
+  {
+    "id": 724,
+    "name": "高机与吴三春",
+    "type": "play",
+    "description": "以高机与吴三春的爱情悲剧为核心，融合江南水乡色系与悲情布景，包含穷生、青衣表演的越剧剧目",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "小生"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "青衣"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "旦"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "高机卖绡"
+      },
+      {
+        "relation": "包含唱段",
+        "target": "桃花岭殉情"
+      }
+    ]
+  },
+  {
+    "id": 725,
+    "name": "高机卖绡",
+    "type": "segment",
+    "description": "《高机与吴三春》中高机心碎离场时演唱的唱段，抒发千里寻人却误以为对方变心的悲痛",
+    "relations": []
+  },
+  {
+    "id": 726,
+    "name": "桃花岭殉情",
+    "type": "segment",
+    "description": "《高机与吴三春》全剧高潮场次，展现高机与吴三春在桃花岭被围堵后双双殉情的情节",
+    "relations": []
+  },
+  {
+    "id": 728,
+    "name": "旦",
+    "type": "role",
+    "description": "越剧行当之一，《高机与吴三春》中吴三春角色所属行当，涵盖闺旦造型",
+    "relations": []
+  },
+  {
+    "id": 735,
+    "name": "东山越艺社",
+    "type": "concept",
+    "description": "与傅派剧目演出相关的越剧剧团，留存有原版戏单、海报等档案",
+    "relations": [
+      {
+        "relation": "相关概念",
+        "target": "上海越剧院"
+      }
+    ]
+  },
+  {
+    "id": 736,
+    "name": "华东越剧实验剧团",
+    "type": "concept",
+    "description": "袁派相关建制剧团，存有剧目排演登记册等档案",
+    "relations": [
+      {
+        "relation": "相关概念",
+        "target": "上海越剧院"
+      }
+    ]
+  },
+  {
+    "id": 737,
+    "name": "上海越剧院",
+    "type": "concept",
+    "description": "袁派核心建制剧团，藏有戏单、海报、剧照底片及历史档案",
+    "relations": []
+  },
+  {
+    "id": 738,
+    "name": "顾振遐",
+    "type": "person",
+    "description": "与徐玉兰有创作往来的作曲，参与徐派剧目唱腔创作的核心合作者",
+    "relations": []
+  },
+  {
+    "id": 740,
+    "name": "芳华越剧团",
+    "type": "concept",
+    "description": "尹桂芳创立的越剧剧团，留存建团档案、剧目排演登记册及授徒教学原始记录",
+    "relations": []
+  },
+  {
+    "id": 741,
+    "name": "连波",
+    "type": "person",
+    "description": "与尹桂芳有创作往来的编导，参与尹派剧目创作的核心合作者",
+    "relations": []
+  },
+  {
+    "id": 744,
+    "name": "哭祖庙",
+    "type": "play",
+    "description": "徐派代表作，奠定徐派悲壮高音体系",
+    "relations": []
+  },
+  {
+    "id": 745,
+    "name": "金玉良缘",
+    "type": "play",
+    "description": "徐派标志性乐汇剧目",
+    "relations": [
+      {
+        "relation": "属于流派",
+        "target": "徐派"
+      }
+    ]
+  },
+  {
+    "id": 746,
+    "name": "是我错",
+    "type": "play",
+    "description": "徐派标志性上扬甩腔首现剧目",
+    "relations": [
+      {
+        "relation": "属于流派",
+        "target": "徐派"
+      }
+    ]
+  },
+  {
+    "id": 747,
+    "name": "国破山河在",
+    "type": "play",
+    "description": "徐派立派里程碑剧目，后定名为《北地王》",
+    "relations": [
+      {
+        "relation": "属于流派",
+        "target": "徐派"
+      }
+    ]
+  },
+  {
+    "id": 749,
+    "name": "长滑音",
+    "type": "concept",
+    "description": "徐派润腔特点之一，多用长滑音、高音颤音",
+    "relations": []
+  },
+  {
+    "id": 754,
+    "name": "玉兰剧团",
+    "type": "concept",
+    "description": "徐玉兰关联的越剧剧团，留存建团档案、原版戏单等原始资料",
+    "relations": []
+  },
+  {
+    "id": 758,
+    "name": "屈原",
+    "type": "play",
+    "description": "尹派经典剧目，核心角色为文人忠臣屈原",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "儒巾生"
+      },
+      {
+        "relation": "属于流派",
+        "target": "尹派"
+      }
+    ]
+  },
+  {
+    "id": 759,
+    "name": "合作越剧团",
+    "type": "concept",
+    "description": "留存剧团建制、授徒教学原始登记册的戚雅仙关联剧团",
+    "relations": []
+  },
+  {
+    "id": 760,
+    "name": "静安越剧团",
+    "type": "concept",
+    "description": "留存复团实况录音及剧团历史档案的戚雅仙关联剧团",
+    "relations": []
+  },
+  {
+    "id": 762,
+    "name": "竺素娥",
+    "type": "person",
+    "description": "越剧早期著名小生演员",
+    "relations": []
+  },
+  {
+    "id": 763,
+    "name": "周宝财",
+    "type": "person",
+    "description": "与袁雪芬合作的琴师，共同参与尺调腔的即兴创立",
+    "relations": []
+  },
+  {
+    "id": 765,
+    "name": "新梁祝哀史",
+    "type": "play",
+    "description": "范派弦下调诞生之作《山伯临终》所属剧目，是创调里程碑",
+    "relations": [
+      {
+        "relation": "属于流派",
+        "target": "范派"
+      }
+    ]
+  },
+  {
+    "id": 766,
+    "name": "凄凉辽宫月",
+    "type": "play",
+    "description": "全方位拓展弦下调成套板式的范派成熟标准剧目",
+    "relations": [
+      {
+        "relation": "属于流派",
+        "target": "范派"
+      }
+    ]
+  },
+  {
+    "id": 769,
+    "name": "范调",
+    "type": "concept",
+    "description": "报刊对范派独创唱腔的早期称谓，是范派独立流派的核心标志",
+    "relations": []
+  },
+  {
+    "id": 779,
+    "name": "尺调慢板",
+    "type": "concept",
+    "description": "范派擅长温柔抒情的核心板式",
+    "relations": []
+  },
+  {
+    "id": 780,
+    "name": "无过门直接转调技法",
+    "type": "concept",
+    "description": "范派标志性乐汇，尺调、弦下调无缝切换",
+    "relations": []
+  },
+  {
+    "id": 783,
+    "name": "雪声剧团",
+    "type": "concept",
+    "description": "留存原版戏单、海报、剧照底片的范瑞娟关联剧团",
+    "relations": []
+  },
+  {
+    "id": 785,
+    "name": "梁祝哀史",
+    "type": "play",
+    "description": "留存1945年首演排演登记册的范派相关剧目",
+    "relations": []
+  },
+  {
+    "id": 788,
+    "name": "王杏花",
+    "type": "person",
+    "description": "越剧早期著名旦角演员",
+    "relations": []
+  },
+  {
+    "id": 790,
+    "name": "刘如曾",
+    "type": "person",
+    "description": "与袁雪芬合作的作曲家，共同参与袁派中后期声腔拓展",
+    "relations": []
+  },
+  {
+    "id": 792,
+    "name": "断肠人",
+    "type": "play",
+    "description": "袁派唱腔试验奠基剧目，是尺调雏形的试验载体",
+    "relations": [
+      {
+        "relation": "属于流派",
+        "target": "袁派"
+      }
+    ]
+  },
+  {
+    "id": 793,
+    "name": "香妃",
+    "type": "play",
+    "description": "袁派核心声腔尺调腔诞生的标杆剧目，为越剧音乐划时代作品",
+    "relations": [
+      {
+        "relation": "属于流派",
+        "target": "袁派"
+      }
+    ]
+  },
+  {
+    "id": 796,
+    "name": "秋瑾",
+    "type": "play",
+    "description": "袁派声腔拓展代表剧目，打破袁派只擅悲剧的刻板印象，拓展高亢刚劲声腔",
+    "relations": [
+      {
+        "relation": "属于流派",
+        "target": "袁派"
+      }
+    ]
+  },
+  {
+    "id": 797,
+    "name": "尺调腔",
+    "type": "concept",
+    "description": "袁派核心声腔，在《梁山伯与祝英台》中完成成套板式定型",
+    "relations": []
+  },
+  {
+    "id": 798,
+    "name": "男调",
+    "type": "concept",
+    "description": "袁派声腔拓展板式，由《相思树》首创",
+    "relations": []
+  },
+  {
+    "id": 799,
+    "name": "四工腔",
+    "type": "concept",
+    "description": "袁雪芬早期受王杏花影响的唱腔，为后续革新奠定基础",
+    "relations": []
+  },
+  {
+    "id": 808,
+    "name": "六字调",
+    "type": "concept",
+    "description": "袁派声腔兼容的基底声腔之一",
+    "relations": []
+  },
+  {
+    "id": 813,
+    "name": "相思树",
+    "type": "play",
+    "description": "袁派声腔拓展代表剧目，首创男调板式",
+    "relations": [
+      {
+        "relation": "属于流派",
+        "target": "袁派"
+      }
+    ]
+  },
+  {
+    "id": 819,
+    "name": "大来剧场",
+    "type": "concept",
+    "description": "袁派早期演出场所，存有剧务部记录等建制档案",
+    "relations": []
+  },
+  {
+    "id": 822,
+    "name": "华东戏曲研究院",
+    "type": "concept",
+    "description": "参与《祥林嫂》全国戏曲观摩演出，留存参赛及获奖原始文件的机构",
+    "relations": []
+  },
+  {
+    "id": 830,
+    "name": "儒巾生",
+    "type": "role",
+    "description": "尹派核心行当，定位为温润儒雅、具书卷气的小生类型",
+    "relations": []
+  },
+  {
+    "id": 831,
+    "name": "穷生",
+    "type": "role",
+    "description": "范派兼涉行当，对应落魄失意的书生角色类型",
+    "relations": []
+  },
+  {
+    "id": 832,
+    "name": "官生",
+    "type": "role",
+    "description": "范派兼涉行当，对应官员身份的少年角色类型",
+    "relations": []
+  },
+  {
+    "id": 840,
+    "name": "英雄小生",
+    "type": "role",
+    "description": "徐派核心行当，定位为高亢奔放、热血张扬的小生类型",
+    "relations": []
+  },
+  {
+    "id": 841,
+    "name": "帝王生",
+    "type": "role",
+    "description": "徐派兼涉行当，对应悲壮王侯等帝王身份角色类型",
+    "relations": []
+  },
+  {
+    "id": 842,
+    "name": "风流才子",
+    "type": "role",
+    "description": "徐派兼涉行当，对应叛逆才子、潇洒文人等角色类型",
+    "relations": []
+  },
+  {
+    "id": 848,
+    "name": "李娃传",
+    "type": "play",
+    "description": "傅派核心代表剧目",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "穷生"
+      },
+      {
+        "relation": "属于流派",
+        "target": "范派"
+      }
+    ]
+  },
+  {
+    "id": 850,
+    "name": "忠厚小生",
+    "type": "role",
+    "description": "范派核心行当，定位为阳刚厚重、质朴敦厚的小生类型",
+    "relations": []
+  },
+  {
+    "id": 852,
+    "name": "悲情书生",
+    "type": "role",
+    "description": "范派兼涉行当，对应悲情正直的文人角色类型",
+    "relations": []
+  },
+  {
+    "id": 859,
+    "name": "杜十娘",
+    "type": "play",
+    "description": "王杭娟的戚派代表剧目",
+    "relations": []
+  },
+  {
+    "id": 861,
+    "name": "劈山救母",
+    "type": "play",
+    "description": "傅派经典剧目，华山圣母为武旦兼仙旦角色",
+    "relations": [
+      {
+        "relation": "剧目行当",
+        "target": "武旦"
+      },
+      {
+        "relation": "剧目行当",
+        "target": "仙旦"
+      },
+      {
+        "relation": "属于流派",
+        "target": "傅派"
+      }
+    ]
+  },
+  {
+    "id": 863,
+    "name": "烈旦",
+    "type": "role",
+    "description": "傅派兼涉行当，对应痴情烈女、悲情风尘女子等刚烈女性角色类型",
+    "relations": []
+  },
+  {
+    "id": 864,
+    "name": "武旦",
+    "type": "role",
+    "description": "傅派兼涉行当，对应有武戏功底的女性角色类型",
+    "relations": []
+  },
+  {
+    "id": 865,
+    "name": "仙旦",
+    "type": "role",
+    "description": "王派兼涉行当，对应神话中的仙女角色类型",
+    "relations": []
+  },
+  {
+    "id": 872,
+    "name": "闺门旦",
+    "type": "role",
+    "description": "王派核心行当，定位为温婉内敛、细腻含蓄的抒情闺旦，擅长塑造多愁善感才女",
+    "relations": []
+  },
+  {
+    "id": 874,
+    "name": "才女旦",
+    "type": "role",
+    "description": "王派兼涉行当，对应有才学的女性角色类型",
+    "relations": []
+  },
+  {
+    "id": 881,
+    "name": "江姐",
+    "type": "play",
+    "description": "傅派核心代表剧目",
+    "relations": []
+  },
+  {
+    "id": 882,
+    "name": "陈飞",
+    "type": "person",
+    "description": "浙江省级非物质文化遗产越剧传承人，傅派文武花旦领军人物",
+    "relations": [
+      {
+        "relation": "师承",
+        "target": "傅全香"
+      }
+    ]
+  },
+  {
+    "id": 884,
+    "name": "非遗",
+    "type": "concept",
+    "description": "非物质文化遗产，傅幸文、朱祝芬的传承身份关联概念",
+    "relations": []
+  },
+  {
+    "id": 885,
+    "name": "赵志刚",
+    "type": "person",
+    "description": "上海市级非物质文化遗产越剧（尹派）传承人，有‘越剧王子’之称",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "何文秀"
+      },
+      {
+        "relation": "代表作",
+        "target": "沙漠王子"
+      },
+      {
+        "relation": "代表作",
+        "target": "状元打更"
+      },
+      {
+        "relation": "师承",
+        "target": "尹小芳"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      },
+      {
+        "relation": "相关概念",
+        "target": "非遗"
+      }
+    ]
+  },
+  {
+    "id": 886,
+    "name": "萧雅",
+    "type": "person",
+    "description": "上海市级非物质文化遗产越剧（尹派）传承人",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "何文秀"
+      },
+      {
+        "relation": "代表作",
+        "target": "盘妻索妻"
+      },
+      {
+        "relation": "代表作",
+        "target": "状元未了情"
+      },
+      {
+        "relation": "师承",
+        "target": "尹桂芳"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      },
+      {
+        "relation": "相关概念",
+        "target": "非遗"
+      }
+    ]
+  },
+  {
+    "id": 887,
+    "name": "尹小芳",
+    "type": "person",
+    "description": "尹桂芳大弟子，尹派承上启下核心宗师，被称作‘尹派传灯人’",
+    "relations": [
+      {
+        "relation": "师承",
+        "target": "尹桂芳"
+      },
+      {
+        "relation": "师承",
+        "target": "赵志刚"
+      },
+      {
+        "relation": "师承",
+        "target": "萧雅"
+      }
+    ]
+  },
+  {
+    "id": 888,
+    "name": "筱桂芳",
+    "type": "person",
+    "description": "尹桂芳早期弟子，建国后芳华越剧团初代尹派台柱",
+    "relations": []
+  },
+  {
+    "id": 889,
+    "name": "沈嘉麟",
+    "type": "person",
+    "description": "尹桂芳早期弟子，建国后芳华越剧团初代尹派台柱",
+    "relations": []
+  },
+  {
+    "id": 892,
+    "name": "状元打更",
+    "type": "play",
+    "description": "赵志刚的尹派代表剧目",
+    "relations": []
+  },
+  {
+    "id": 894,
+    "name": "状元未了情",
+    "type": "play",
+    "description": "萧雅的尹派代表剧目",
+    "relations": []
+  },
+  {
+    "id": 898,
+    "name": "钱惠丽",
+    "type": "person",
+    "description": "第五批国家级非物质文化遗产越剧代表性传承人，当代徐派领军人物",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "红楼梦"
+      },
+      {
+        "relation": "代表作",
+        "target": "追鱼"
+      },
+      {
+        "relation": "代表作",
+        "target": "紫玉钗"
+      },
+      {
+        "relation": "代表作",
+        "target": "甄嬛"
+      },
+      {
+        "relation": "代表作",
+        "target": "真假驸马"
+      },
+      {
+        "relation": "代表作",
+        "target": "西施归越"
+      },
+      {
+        "relation": "代表作",
+        "target": "双飞翼"
+      },
+      {
+        "relation": "师承",
+        "target": "徐玉兰"
+      },
+      {
+        "relation": "相关概念",
+        "target": "非遗"
+      }
+    ]
+  },
+  {
+    "id": 907,
+    "name": "紫玉钗",
+    "type": "play",
+    "description": "钱惠丽的徐派代表剧目",
+    "relations": []
+  },
+  {
+    "id": 908,
+    "name": "甄嬛",
+    "type": "play",
+    "description": "钱惠丽的徐派代表剧目",
+    "relations": []
+  },
+  {
+    "id": 909,
+    "name": "真假驸马",
+    "type": "play",
+    "description": "钱惠丽的徐派代表剧目",
+    "relations": []
+  },
+  {
+    "id": 910,
+    "name": "西施归越",
+    "type": "play",
+    "description": "钱惠丽的徐派代表剧目",
+    "relations": []
+  },
+  {
+    "id": 911,
+    "name": "双飞翼",
+    "type": "play",
+    "description": "钱惠丽的徐派代表剧目",
+    "relations": []
+  },
+  {
+    "id": 913,
+    "name": "王杭娟",
+    "type": "person",
+    "description": "浙江省级非遗传承人，戚雅仙入室亲传弟子，浙地戚派标杆",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "血手印"
+      },
+      {
+        "relation": "代表作",
+        "target": "杜十娘"
+      },
+      {
+        "relation": "代表作",
+        "target": "玉蜻蜓"
+      },
+      {
+        "relation": "代表作",
+        "target": "龙凤花烛"
+      },
+      {
+        "relation": "代表作",
+        "target": "雷峰宝塔"
+      },
+      {
+        "relation": "师承",
+        "target": "戚雅仙"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "旦角"
+      },
+      {
+        "relation": "相关概念",
+        "target": "非遗"
+      }
+    ]
+  },
+  {
+    "id": 918,
+    "name": "香罗带",
+    "type": "play",
+    "description": "戚雅仙的戚派核心代表剧目",
+    "relations": []
+  },
+  {
+    "id": 919,
+    "name": "龙凤花烛",
+    "type": "play",
+    "description": "戚雅仙与王杭娟的戚派核心代表剧目",
+    "relations": []
+  },
+  {
+    "id": 920,
+    "name": "婚姻曲",
+    "type": "play",
+    "description": "戚雅仙的戚派核心代表剧目",
+    "relations": []
+  },
+  {
+    "id": 922,
+    "name": "雷峰宝塔",
+    "type": "play",
+    "description": "王杭娟的戚派代表剧目",
+    "relations": []
+  },
+  {
+    "id": 925,
+    "name": "傅幸文",
+    "type": "person",
+    "description": "上海区级非遗传承人，戚雅仙之女，越剧二级演员，家传戚派",
+    "relations": [
+      {
+        "relation": "师承",
+        "target": "戚雅仙"
+      },
+      {
+        "relation": "相关概念",
+        "target": "非遗"
+      }
+    ]
+  },
+  {
+    "id": 926,
+    "name": "朱祝芬",
+    "type": "person",
+    "description": "上海区级非遗传承人，戚雅仙早期大弟子，静安越剧团台柱",
+    "relations": [
+      {
+        "relation": "代表作",
+        "target": "光绪皇帝"
+      },
+      {
+        "relation": "代表作",
+        "target": "卖油郎"
+      },
+      {
+        "relation": "师承",
+        "target": "戚雅仙"
+      },
+      {
+        "relation": "相关概念",
+        "target": "非遗"
+      }
+    ]
+  },
+  {
+    "id": 927,
+    "name": "周雅琴",
+    "type": "person",
+    "description": "戚雅仙首席大弟子，早年静安越剧团主力",
+    "relations": [
+      {
+        "relation": "师承",
+        "target": "戚雅仙"
+      }
+    ]
+  },
+  {
+    "id": 930,
+    "name": "光绪皇帝",
+    "type": "play",
+    "description": "朱祝芬的戚派代表剧目",
+    "relations": []
+  },
+  {
+    "id": 931,
+    "name": "卖油郎",
+    "type": "play",
+    "description": "朱祝芬的戚派代表剧目",
+    "relations": []
+  },
+  {
+    "id": 933,
+    "name": "丁赛君",
+    "type": "person",
+    "description": "范瑞娟早期大弟子，建国后上海越剧院初代范派小生",
+    "relations": [
+      {
+        "relation": "师承",
+        "target": "范瑞娟"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      }
+    ]
+  },
+  {
+    "id": 934,
+    "name": "陈琦",
+    "type": "person",
+    "description": "范瑞娟早期大弟子，建国后上海越剧院初代范派小生",
+    "relations": [
+      {
+        "relation": "师承",
+        "target": "范瑞娟"
+      },
+      {
+        "relation": "擅长行当",
+        "target": "小生"
+      }
+    ]
+  },
+  {
+    "id": 935,
+    "name": "方雪雯",
+    "type": "person",
+    "description": "浙江小百花老牌范派名家，唱腔清醇正宗，长期从事舞台示范与课徒教学",
+    "relations": [
+      {
+        "relation": "演唱流派",
+        "target": "范派"
+      }
+    ]
+  },
+  {
+    "id": 939,
+    "name": "金荣水",
+    "type": "person",
+    "description": "越剧早期重要艺人，艺名‘矮尼姑’",
+    "relations": []
+  },
+  {
+    "id": 941,
+    "name": "筱丹桂",
+    "type": "person",
+    "description": "越剧著名旦角演员",
+    "relations": []
+  },
+  {
+    "id": 942,
+    "name": "马潮水",
+    "type": "person",
+    "description": "越剧早期重要艺人，越剧男班名伶",
+    "relations": []
+  },
+  {
+    "id": 945,
+    "name": "竺水招",
+    "type": "person",
+    "description": "越剧竺派创始人，著名旦角演员",
+    "relations": []
+  },
+  {
+    "id": 946,
+    "name": "姚水娟",
+    "type": "person",
+    "description": "越剧改革先驱，著名旦角演员",
+    "relations": []
+  },
+  {
+    "id": 948,
+    "name": "赵瑞花",
+    "type": "person",
+    "description": "越剧早期著名旦角演员",
+    "relations": []
+  },
+  {
+    "id": 953,
+    "name": "施银花",
+    "type": "person",
+    "description": "越剧早期著名旦角演员，‘四工调’创始人",
+    "relations": []
+  },
+  {
+    "id": 954,
+    "name": "张云标",
+    "type": "person",
+    "description": "越剧早期男班名伶，著名小生演员",
+    "relations": []
+  },
+  {
+    "id": 955,
+    "name": "马樟花",
+    "type": "person",
+    "description": "越剧早期著名小生演员",
+    "relations": []
+  },
+  {
+    "id": 956,
+    "name": "屠杏花",
+    "type": "person",
+    "description": "越剧早期著名小生演员",
+    "relations": []
+  },
+  {
+    "id": 957,
+    "name": "支兰芳",
+    "type": "person",
+    "description": "越剧早期著名旦角演员",
+    "relations": []
+  },
+  {
+    "id": 958,
+    "name": "支维永",
+    "type": "person",
+    "description": "越剧早期男班演员",
+    "relations": []
+  },
+  {
+    "id": 959,
+    "name": "王永春",
+    "type": "person",
+    "description": "越剧早期男班名伶，著名小生演员",
+    "relations": []
+  },
+  {
+    "id": 960,
+    "name": "张国森",
+    "type": "person",
+    "description": "越剧早期男班演员",
+    "relations": []
+  },
+  {
+    "id": 961,
+    "name": "黄炳文",
+    "type": "person",
+    "description": "范瑞娟的越剧师傅",
+    "relations": []
+  }
+]

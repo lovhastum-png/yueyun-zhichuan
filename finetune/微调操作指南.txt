@@ -1,0 +1,182 @@
+# ============================================================
+# 越剧垂类大模型微调 - 完整操作指南
+#
+# 两条可选方案:
+#   方案 A: 讯飞星火大模型定制训练平台（推荐，赛题官方推荐）
+#   方案 B: 开源 Qwen2.5-3B + LLaMA-Factory（备选，自主可控）
+#
+# 推荐选 A:
+#   1. 赛题原文"基于赛事中心推荐的开发平台"——讯飞平台即官方推荐
+#   2. 发榜单位是科大讯飞，评审主场加分
+#   3. 训练完自动发布为 API，无需自己部署
+#   4. 接入项目零代码改动（已是讯飞体系）
+# ============================================================
+
+
+# ============================================================
+# 阶段 1: 数据准备（本地 Windows，两方案共用）
+# ============================================================
+
+# 1.1 导出知识图谱数据（需要先启动 MySQL + 项目数据库）
+cd d:\实验室项目\越韵智传完整demo
+node finetune/scripts/dump_kg.js
+
+# 1.2 生成训练数据集（sharegpt 格式）
+python finetune/scripts/prepare_data.py
+
+# 1.3 查看数据集信息
+python finetune/scripts/inspect_data.py
+
+# 1.4 [方案 A 专用] 转换为讯飞平台格式（json + xlsx）
+pip install openpyxl
+python finetune/scripts/convert_to_xinghuo.py
+
+# 输出:
+#   finetune/data/yueju_xinghuo.json  (标准 JSON)
+#   finetune/data/yueju_xinghuo.xlsx  (Excel，讯飞平台推荐)
+
+
+# ============================================================
+# 方案 A: 讯飞星火大模型定制训练平台（推荐路径）
+# ============================================================
+
+# ---------- A-1. 注册与登录 ----------
+# 1. 访问赛事中心: https://ai.fifedu.com/home
+#    用挑战杯官网(www.tiaozhanbei.net)报名的同一账号登录
+# 2. 进入"我的赛事" → "XH-202620 学科垂类大模型"
+# 3. 查看赛事专属资源/代金券/免费算力额度
+# 4. 跳转到讯飞大模型定制训练平台: https://console.xfyun.cn/services/bm35
+
+# ---------- A-2. 创建训练任务 ----------
+# 1. 点击"新建训练任务"
+# 2. 选择基础模型:
+#    - Spark-Lite (轻量，训练快，推荐先用这个跑通流程)
+#    - Spark-Pro  (460亿参数，效果更好)
+#    - Spark-Max  (推荐用于最终提交)
+#    - Spark-Ultra(最强，但训练耗时和成本最高)
+# 3. 选择微调方式:
+#    - LoRA 微调 (推荐，训练快、成本低)
+#    - 全量微调 (效果更好但贵，慎选)
+# 4. 上传数据集:
+#    - 优先上传 finetune/data/yueju_xinghuo.xlsx
+#    - 或上传 yueju_xinghuo.json
+# 5. 配置训练参数（讯飞平台有默认值，按需调整）:
+#    - epoch: 3-5
+#    - batch_size: 默认
+#    - learning_rate: 默认 (LoRA 一般 5e-5)
+#    - max_length: 1024
+
+# ---------- A-3. 启动训练 ----------
+# 1. 点击"开始训练"
+# 2. 等待训练完成（约 1-3 小时，视模型规模和数据量）
+# 3. 训练过程中可查看 loss 曲线
+# 4. 训练完成后，平台会生成 serviceID（类似 fp_yueju_xxx）
+
+# ---------- A-4. 测试微调效果 ----------
+# 1. 在平台"我的模型"页面找到训练完成的模型
+# 2. 点击"在线测试"
+# 3. 输入测试问题:
+#    - "请介绍越剧袁派的艺术特色"
+#    - "越剧《红楼梦》有哪些经典唱段？"
+#    - "越剧和京剧有什么区别？"
+# 4. 确认回答质量达到预期
+
+# ---------- A-5. 发布为 API ----------
+# 1. 点击"发布模型"
+# 2. 获取:
+#    - serviceID (例如: fp_xxxx_yueju)
+#    - API Key
+#    - API Secret
+#    - API URL (默认: https://spark-api-open.xf-yun.com/v1/chat/completions)
+# 3. 把这些信息填到项目 .env 文件
+
+# ---------- A-6. 接入项目 ----------
+# 编辑 d:\实验室项目\越韵智传完整demo\.env:
+#   YUEJU_LLM_ENABLE=true
+#   YUEJU_LLM_API_URL=https://spark-api-open.xf-yun.com/v1/chat/completions
+#   YUEJU_LLM_SERVICE_ID=fp_xxxx_yueju  (替换为你的实际 serviceID)
+#   YUEJU_LLM_API_KEY=your_api_key
+#   YUEJU_LLM_API_SECRET=your_api_secret
+#
+# 项目会自动启用双轨调用:
+#   - 越剧常识问题 → 自研微调模型 (yuejuLlm.js)
+#   - 需要权威出处 → 讯飞星辰 Agent (xingchenAgent.js)
+
+
+# ============================================================
+# 方案 B: 开源 Qwen2.5-3B + LLaMA-Factory（备选路径）
+# ============================================================
+# 仅当方案 A 不可用时使用（例如讯飞平台收费过高）
+
+# ---------- B-1. 上传数据到云 GPU ----------
+# 推荐魔搭社区免费 GPU: https://www.modelscope.cn
+# 或 AutoDL 租 3090: https://www.autodl.com (约 30-50 元全程)
+
+# 打包上传
+Compress-Archive -Path finetune -DestinationPath finetune.zip -Force
+
+# ---------- B-2. 云端环境 ----------
+git clone https://github.com/hiyouga/LLaMA-Factory.git
+cd LLaMA-Factory
+pip install -e ".[torch,metrics]"
+pip install bitsandbytes accelerate tensorboard
+
+# 解压数据
+unzip /path/to/finetune.zip -d .
+cp finetune/data/yueju_train.json data/
+cp finetune/data/dataset_info.json data/
+
+# 下载基础模型
+pip install modelscope
+python -c "from modelscope import snapshot_download; snapshot_download('Qwen/Qwen2.5-3B-Instruct', cache_dir='./models')"
+
+# ---------- B-3. 训练 ----------
+llamafactory-cli train \
+  --stage sft \
+  --model_name_or_path ./models/Qwen/Qwen2.5-3B-Instruct \
+  --dataset yueju \
+  --template qwen \
+  --finetuning_type lora \
+  --lora_target q_proj,k_proj,v_proj,o_proj \
+  --lora_rank 16 \
+  --lora_alpha 32 \
+  --output_dir saves/yueju-3b-lora \
+  --per_device_train_batch_size 2 \
+  --gradient_accumulation_steps 8 \
+  --learning_rate 5e-5 \
+  --num_train_epochs 3.0 \
+  --cutoff_len 1024 \
+  --bf16 \
+  --quantization_bit 4 \
+  --gradient_checkpointing \
+  --save_steps 200 \
+  --logging_steps 10 \
+  --plot_loss
+
+# ---------- B-4. 合并导出 ----------
+llamafactory-cli export \
+  --model_name_or_path ./models/Qwen/Qwen2.5-3B-Instruct \
+  --adapter_name_or_path saves/yueju-3b-lora \
+  --template qwen \
+  --finetuning_type lora \
+  --export_dir saves/yueju-3b-merged \
+  --export_size 2
+
+# ---------- B-5. 转 GGUF + 本地部署 ----------
+# 见上方方案 B 完整流程文档
+# 转 GGUF 后用 Ollama 部署: ollama create yueju-3b -f ollama-modelfile.txt
+
+
+# ============================================================
+# 验收标准（无论选哪个方案）
+# ============================================================
+
+# 1. 能回答至少 5 个越剧专业问题，无明显事实错误
+# 2. 与未微调的基模对比，回答更专业、更具体
+# 3. 项目接入后，能从 .env 切换启用/禁用
+# 4. 在参赛材料里能写"基于讯飞星火/Qwen 自研越剧垂类大模型"
+
+# 测试命令（项目根目录）:
+# 启用微调模型后，启动服务:
+#   npm start
+# 然后访问 http://localhost:3000，在智能问答页测试
