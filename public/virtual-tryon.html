@@ -1,0 +1,3170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#171816" />
+  <title>虚拟试衣 · 越韵智传</title>
+  <meta name="description" content="基于浏览器摄像头与人体姿态识别的越剧虚拟试衣体验。" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/pose.js" as="script" crossorigin />
+  <link rel="preload" href="/assets/virtual-tryon/costumes/optimized/xu-xiaosheng-mangpao-open-neck-768.webp" as="image" type="image/webp" fetchpriority="high" />
+  <style>
+    :root {
+      --tryon-ink: #171816;
+      --tryon-ink-soft: #242824;
+      --tryon-paper: #f5f0e8;
+      --tryon-paper-deep: #e8dfce;
+      --tryon-red: #c1272d;
+      --tryon-cyan: #3a7d7b;
+      --tryon-ochre: #a67c52;
+      --tryon-gold: #c4a061;
+      --ink: #1a1a1a;
+      --ink-light: #5a5651;
+      --paper: #f5f0e8;
+      --cinnabar: #c1272d;
+      --cyan: #6b9fa3;
+      --font-serif: "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", "SimSun", serif;
+      --font-brush: "STKaiti", "KaiTi", "FangSong", serif;
+      --shadow-ink: 0 4px 24px -8px rgba(26, 26, 26, 0.25);
+      --ease-ink: cubic-bezier(0.4, 0, 0.2, 1);
+      --ink-5: rgba(26, 26, 26, 0.05);
+      --ink-10: rgba(26, 26, 26, 0.1);
+      --paper-warm: #efe9da;
+      --r-sm: 4px;
+      --r-md: 8px;
+      --ease-brush: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: var(--font-serif);
+      font-weight: 400;
+      line-height: 1.75;
+      background:
+        radial-gradient(ellipse at 15% 10%, rgba(107, 159, 163, 0.06), transparent 40%),
+        radial-gradient(ellipse at 85% 80%, rgba(193, 39, 45, 0.04), transparent 45%),
+        #f5f0e8;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+    h1, h2, h3, h4 { color: var(--ink); font-weight: 600; line-height: 1.3; }
+    .app-shell { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
+    .main { flex: 1; }
+    .container { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 32px; }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+      background: rgba(245, 240, 232, 0.92);
+      backdrop-filter: blur(12px);
+    }
+    .navbar::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: -1px;
+      left: 0;
+      height: 2px;
+      opacity: 0.45;
+      background: linear-gradient(90deg, transparent, rgba(26, 26, 26, 0.2) 20%, var(--cinnabar) 50%, rgba(26, 26, 26, 0.2) 80%, transparent);
+    }
+    .nav-inner { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+    .brand { display: flex; align-items: center; gap: 13px; flex: 0 0 auto; }
+    .brand-seal {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 4px;
+      background: var(--cinnabar);
+      color: var(--paper);
+      font-family: var(--font-brush);
+      font-size: 24px;
+      line-height: 1;
+      transform: rotate(-3deg);
+      box-shadow: 0 2px 8px rgba(193, 39, 45, 0.3), inset 0 0 0 2px rgba(255, 255, 255, 0.15);
+    }
+    .brand-text { display: flex; flex-direction: column; line-height: 1.1; }
+    .brand-name { font-family: var(--font-brush); font-size: 26px; letter-spacing: 4px; }
+    .brand-sub { margin-top: 2px; color: var(--ink-light); font-family: system-ui, sans-serif; font-size: 9px; letter-spacing: 4px; }
+    .nav-links { display: flex; align-items: center; gap: 2px; }
+    .nav-link {
+      position: relative;
+      padding: 10px 12px;
+      border-radius: 4px;
+      color: var(--ink-light);
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: color 0.2s ease;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--cinnabar); }
+    .nav-link.active { font-weight: 700; }
+    .nav-link.active::after {
+      content: "";
+      position: absolute;
+      right: 12px;
+      bottom: 2px;
+      left: 12px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--cinnabar);
+    }
+    .nav-right, .nav-user { display: flex; align-items: center; gap: 9px; }
+    .nav-user { color: var(--ink-light); font-size: 13px; white-space: nowrap; }
+    .nav-user .avatar {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--cyan);
+      color: var(--paper);
+    }
+    .role-tag { padding: 1px 5px; border-radius: 3px; color: #fff; font-size: 10px; }
+    .role-tag.teacher { background: var(--cinnabar); }
+    .role-tag.student { background: var(--cyan); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; border-radius: 4px; white-space: nowrap; }
+    .btn-ghost { border: 1px solid rgba(26, 26, 26, 0.2); }
+    .btn-sm { padding: 6px 14px; font-size: 13px; }
+
+    /* 「探索体验」下拉菜单（common.js 注入，样式对齐 base.css） */
+    .dropdown { position: relative; }
+    .nav-link-button { appearance: none; border: 0; background: transparent; font: inherit; cursor: pointer; }
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 168px;
+      background: linear-gradient(180deg, rgba(255,253,247,0.98), rgba(245,241,232,0.98));
+      border: 1px solid var(--ink-10);
+      border-radius: var(--r-md);
+      box-shadow: var(--shadow-ink);
+      padding: 8px;
+      opacity: 0;
+      visibility: hidden;
+      transform-origin: top center;
+      transition: opacity 0.25s var(--ease-brush), transform 0.25s var(--ease-brush), visibility 0.25s;
+      z-index: 60;
+    }
+    .dropdown.dropdown-open .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    .dropdown-menu::before {
+      content: "";
+      position: absolute;
+      top: -6px; left: 50%;
+      width: 12px; height: 12px;
+      background: var(--paper-warm);
+      border-left: 1px solid var(--ink-10);
+      border-top: 1px solid var(--ink-10);
+      border-radius: 2px;
+      transform: translateX(-50%) rotate(45deg);
+    }
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      font-size: 14px;
+      color: var(--ink-light);
+      border-radius: var(--r-sm);
+      transition: all 0.2s var(--ease-ink);
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
+    .dropdown-item:hover { background: var(--ink-5); color: var(--ink); }
+    .dropdown-item.active { background: rgba(193,39,45,0.08); color: var(--cinnabar); font-weight: 600; }
+
+    /* 移动端菜单按钮（桌面隐藏） */
+    .mobile-menu-btn {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 40px; height: 40px;
+      color: var(--ink);
+      border: 1px solid var(--ink-10);
+      border-radius: var(--r-sm);
+      background: rgba(255,253,247,0.6);
+      transition: all 0.25s var(--ease-ink);
+    }
+    .mobile-menu-btn:hover { border-color: var(--cinnabar); color: var(--cinnabar); }
+
+    /* 移动端折叠菜单 */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: linear-gradient(180deg, rgba(255,253,247,0.98), rgba(245,241,232,0.98));
+      border-top: 1px solid var(--ink-10);
+      box-shadow: var(--shadow-ink);
+      padding: 8px 20px 16px;
+      max-height: calc(100vh - 60px);
+      overflow-y: auto;
+    }
+    .mobile-menu.show { display: flex; }
+    .mobile-menu-item {
+      padding: 12px 8px;
+      font-size: 15px;
+      color: var(--ink-light);
+      border-bottom: 1px solid var(--ink-5);
+      letter-spacing: 2px;
+      transition: all 0.2s var(--ease-ink);
+    }
+    .mobile-menu-item:active { background: var(--ink-5); }
+    .mobile-menu-item.active { color: var(--cinnabar); font-weight: 600; }
+    .mobile-dropdown { padding: 8px; }
+    .mobile-dropdown-title {
+      font-family: var(--font-brush);
+      font-size: 16px;
+      color: var(--ink);
+      letter-spacing: 3px;
+      padding: 10px 8px;
+    }
+    .mobile-dropdown-content { display: flex; flex-wrap: wrap; gap: 8px; padding: 4px 0; }
+    .mobile-dropdown-item {
+      padding: 6px 14px;
+      font-size: 13px;
+      color: var(--ink-light);
+      background: rgba(255,253,247,0.6);
+      border: 1px solid var(--ink-10);
+      border-radius: 999px;
+      letter-spacing: 1px;
+      transition: all 0.2s var(--ease-ink);
+    }
+    .mobile-dropdown-item:active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .mobile-dropdown-item.active { background: rgba(193,39,45,0.08); color: var(--cinnabar); border-color: rgba(193,39,45,0.25); }
+
+    .footer {
+      padding: 26px 0;
+      border-top: 1px solid rgba(26, 26, 26, 0.1);
+      background: rgba(245, 240, 232, 0.58);
+      color: var(--ink-light);
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+    .seal { display: inline-grid; place-items: center; border-radius: 4px; background: var(--cinnabar); color: var(--paper); font-family: var(--font-brush); }
+    .seal-sm { width: 36px; height: 36px; font-size: 18px; }
+    .toast-wrap {
+      position: fixed;
+      top: 88px;
+      left: 50%;
+      z-index: 1300;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+      transform: translateX(-50%);
+    }
+    .toast {
+      padding: 11px 20px;
+      border-left: 3px solid var(--cinnabar);
+      border-radius: 4px;
+      background: var(--ink);
+      color: var(--paper);
+      font-size: 13px;
+      box-shadow: var(--shadow-ink);
+    }
+    .toast.ok { border-left-color: var(--cyan); }
+    .hidden { display: none !important; }
+
+    @media (max-width: 1050px) {
+      .nav-link { padding-right: 8px; padding-left: 8px; font-size: 13px; }
+      .nav-link.active::after { right: 8px; left: 8px; }
+    }
+    @media (max-width: 900px) {
+      .container { padding: 0 20px; }
+      .nav-links { display: none; }
+      .nav-inner { height: 60px; }
+      .brand-name { font-size: 22px; }
+      .mobile-menu-btn { display: inline-flex; }
+      .nav-user span:not(.avatar) { display: none; }
+    }
+    @media (max-width: 600px) { .container { padding: 0 16px; } }
+
+    body.page-tryon {
+      overflow-x: hidden;
+      background-color: var(--tryon-paper);
+    }
+
+    .tryon-main {
+      position: relative;
+      padding: 30px 0 48px;
+      isolation: isolate;
+    }
+
+    .tryon-main::before,
+    .tryon-main::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      pointer-events: none;
+      border-radius: 50%;
+      filter: blur(56px);
+    }
+
+    .tryon-main::before {
+      width: 320px;
+      height: 220px;
+      left: -120px;
+      top: 120px;
+      background: rgba(58, 125, 123, 0.12);
+    }
+
+    .tryon-main::after {
+      width: 380px;
+      height: 280px;
+      right: -160px;
+      bottom: 100px;
+      background: rgba(193, 39, 45, 0.08);
+    }
+
+    .tryon-intro {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 7px;
+      color: var(--tryon-red);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      background: currentColor;
+    }
+
+    .tryon-title {
+      margin: 0;
+      font-family: var(--font-brush);
+      font-size: clamp(36px, 4.3vw, 58px);
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      line-height: 1.05;
+    }
+
+    .tryon-title small {
+      display: inline-block;
+      margin-left: 12px;
+      color: var(--ink-light);
+      font-family: var(--font-serif);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      vertical-align: middle;
+    }
+
+    .intro-tip {
+      max-width: 430px;
+      padding-left: 18px;
+      border-left: 2px solid rgba(193, 39, 45, 0.32);
+      color: var(--ink-light);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .intro-tip strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .experience-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 326px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .stage-shell {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      background: #0d100e;
+      box-shadow: 0 28px 70px -28px rgba(17, 19, 17, 0.72);
+    }
+
+    .stage-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+      border: 1px solid rgba(196, 160, 97, 0.3);
+      border-radius: inherit;
+      box-shadow: inset 0 0 90px rgba(0, 0, 0, 0.22);
+    }
+
+    .stage-shell::after {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      z-index: 4;
+      pointer-events: none;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 11px;
+    }
+
+    #outputCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      background: #111411;
+    }
+
+    #cameraVideo {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .stage-topbar {
+      position: absolute;
+      z-index: 7;
+      top: 24px;
+      left: 26px;
+      right: 26px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      pointer-events: none;
+    }
+
+    .tracking-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      background: rgba(13, 16, 14, 0.6);
+      color: rgba(255, 255, 255, 0.9);
+      font-family: system-ui, sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      backdrop-filter: blur(14px);
+    }
+
+    .tracking-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #8ec9a2;
+      box-shadow: 0 0 0 4px rgba(142, 201, 162, 0.14);
+    }
+
+    .tracking-badge.searching .tracking-dot {
+      background: #e2b56f;
+      animation: trackingPulse 1.2s ease-in-out infinite;
+    }
+
+    .tracking-badge.offline .tracking-dot {
+      background: #d66969;
+      box-shadow: 0 0 0 4px rgba(214, 105, 105, 0.14);
+    }
+
+    @keyframes trackingPulse {
+      50% { opacity: 0.35; transform: scale(0.74); }
+    }
+
+    .stage-actions {
+      display: flex;
+      gap: 8px;
+      pointer-events: auto;
+    }
+
+    .stage-action {
+      min-height: 38px;
+      padding: 8px 13px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      background: rgba(13, 16, 14, 0.58);
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      backdrop-filter: blur(14px);
+      transition: 0.2s ease;
+    }
+
+    .stage-action:hover,
+    .stage-action:focus-visible {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(13, 16, 14, 0.82);
+      outline: none;
+    }
+
+    #fullscreenBtn {
+      position: fixed;
+      z-index: 1100;
+      top: max(74px, calc(env(safe-area-inset-top) + 64px));
+      right: max(14px, calc(env(safe-area-inset-right) + 14px));
+      border-color: rgba(255, 255, 255, 0.38);
+      background: rgba(20, 22, 20, 0.88);
+      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.28);
+    }
+
+    .stage-caption {
+      position: absolute;
+      z-index: 6;
+      left: 28px;
+      bottom: 25px;
+      max-width: 320px;
+      color: #fff;
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.65);
+      pointer-events: none;
+    }
+
+    .stage-caption .role {
+      display: block;
+      margin-bottom: 3px;
+      color: #e8c98d;
+      font-size: 11px;
+      letter-spacing: 0.26em;
+    }
+
+    .stage-caption .name {
+      font-family: var(--font-brush);
+      font-size: clamp(22px, 2.3vw, 32px);
+      letter-spacing: 0.08em;
+    }
+
+    .capture-wrap {
+      position: absolute;
+      z-index: 8;
+      left: 50%;
+      bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transform: translateX(-50%);
+    }
+
+    .capture-button {
+      position: relative;
+      width: 58px;
+      height: 58px;
+      border: 2px solid rgba(255, 255, 255, 0.88);
+      border-radius: 50%;
+      background: rgba(13, 16, 14, 0.3);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
+      backdrop-filter: blur(12px);
+      transition: 0.2s ease;
+    }
+
+    .capture-button::after {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border-radius: 50%;
+      background: var(--tryon-red);
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+      transition: 0.2s ease;
+    }
+
+    .capture-button:hover,
+    .capture-button:focus-visible {
+      transform: scale(1.06);
+      outline: none;
+    }
+
+    .capture-button:active::after { transform: scale(0.88); }
+
+    .capture-label {
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-shadow: 0 2px 10px #000;
+    }
+
+    .stage-loader {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      background:
+        radial-gradient(circle at 50% 30%, rgba(58, 125, 123, 0.18), transparent 36%),
+        #111512;
+      color: #fff;
+      text-align: center;
+      transition: opacity 0.45s ease, visibility 0.45s ease;
+    }
+
+    .stage-loader.is-hidden {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .loader-emblem {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 17px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(232, 201, 141, 0.5);
+      border-radius: 50%;
+      color: #e8c98d;
+      font-family: var(--font-brush);
+      font-size: 32px;
+      box-shadow: inset 0 0 0 8px rgba(232, 201, 141, 0.05);
+      animation: emblemBreath 2s ease-in-out infinite;
+    }
+
+    @keyframes emblemBreath {
+      50% { box-shadow: inset 0 0 0 12px rgba(232, 201, 141, 0.08), 0 0 30px rgba(58, 125, 123, 0.13); }
+    }
+
+    .loader-title {
+      margin-bottom: 7px;
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+
+    .loader-copy {
+      max-width: 430px;
+      margin: 0 auto;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .loader-retry {
+      display: none;
+      margin: 16px auto 0;
+      padding: 9px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: #fff;
+      font-size: 13px;
+    }
+
+    .loader-retry.is-visible { display: inline-flex; }
+
+    .side-panel {
+      position: relative;
+      max-height: min(78vh, 760px);
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      border: 1px solid rgba(26, 26, 26, 0.11);
+      border-radius: 18px;
+      background: rgba(255, 253, 247, 0.78);
+      box-shadow: 0 18px 48px -36px rgba(26, 26, 26, 0.7);
+    }
+
+    .side-panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 15px;
+      right: 15px;
+      height: 6px;
+      border-radius: 0 0 7px 7px;
+      background: var(--tryon-ink-soft);
+    }
+
+    .knowledge-card {
+      padding: 30px 24px 22px;
+      border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+    }
+
+    .knowledge-card.roll-open { animation: rollOpen 0.42s ease both; }
+
+    @keyframes rollOpen {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .knowledge-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .knowledge-kicker {
+      color: var(--tryon-red);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+    }
+
+    .knowledge-title {
+      margin-top: 4px;
+      font-family: var(--font-brush);
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+    }
+
+    .knowledge-seal {
+      flex: 0 0 42px;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 4px;
+      background: var(--tryon-red);
+      color: #fff8ed;
+      font-family: var(--font-brush);
+      font-size: 19px;
+      transform: rotate(2deg);
+      box-shadow: 0 4px 14px rgba(193, 39, 45, 0.24), inset 0 0 0 2px rgba(255, 255, 255, 0.22);
+    }
+
+    .knowledge-intro {
+      margin-bottom: 16px;
+      color: var(--ink-light);
+      font-size: 13px;
+      line-height: 1.85;
+    }
+
+    .knowledge-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .knowledge-item {
+      display: grid;
+      grid-template-columns: 62px 1fr;
+      gap: 9px;
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    .knowledge-item dt {
+      color: var(--tryon-ochre);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .knowledge-item dd { color: #383834; }
+
+    .control-panel { padding: 19px 24px 23px; }
+
+    .control-group + .control-group { margin-top: 17px; }
+
+    .control-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 9px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+    }
+
+    .control-title small {
+      color: var(--ink-light);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+
+    .scene-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+
+    .scene-option {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      background: #d8d2c7 center / cover no-repeat;
+      transition: 0.2s ease;
+    }
+
+    .scene-option:first-child {
+      background:
+        linear-gradient(135deg, #262a27 0 48%, #717771 49% 51%, #343a35 52% 100%);
+    }
+
+    .scene-option::after {
+      content: attr(aria-label);
+      position: absolute;
+      inset: auto 2px 2px;
+      overflow: hidden;
+      padding: 2px 3px;
+      border-radius: 4px;
+      background: rgba(10, 12, 10, 0.62);
+      color: #fff;
+      font-size: 8px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .scene-option:hover,
+    .scene-option:focus-visible { transform: translateY(-2px); outline: none; }
+
+    .scene-option.is-active {
+      border-color: var(--tryon-red);
+      box-shadow: 0 0 0 2px rgba(193, 39, 45, 0.11);
+    }
+
+    .filter-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+    }
+
+    .filter-option {
+      padding: 8px 4px;
+      border: 1px solid rgba(26, 26, 26, 0.14);
+      border-radius: 7px;
+      background: rgba(255, 255, 255, 0.36);
+      color: var(--ink-light);
+      font-size: 11px;
+      transition: 0.2s ease;
+    }
+
+    .filter-option:hover,
+    .filter-option:focus-visible { color: var(--ink); border-color: rgba(26, 26, 26, 0.34); outline: none; }
+
+    .filter-option.is-active {
+      border-color: var(--tryon-cyan);
+      background: rgba(58, 125, 123, 0.1);
+      color: var(--tryon-cyan);
+      font-weight: 700;
+    }
+
+    .calibration-row {
+      display: grid;
+      grid-template-columns: 52px 1fr 42px;
+      gap: 8px;
+      align-items: center;
+      margin-top: 8px;
+      color: var(--ink-light);
+      font-size: 10px;
+    }
+
+    .calibration-row input {
+      width: 100%;
+      accent-color: var(--tryon-red);
+    }
+
+    .calibration-value { text-align: right; color: var(--ink); }
+
+    .motion-toggle {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 9px 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 9px 10px;
+      border: 1px solid rgba(26, 26, 26, 0.14);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.36);
+      color: var(--ink-light);
+      font-size: 11px;
+      text-align: left;
+      transition: 0.2s ease;
+    }
+
+    .motion-toggle:hover,
+    .motion-toggle:focus-visible { border-color: rgba(26, 26, 26, 0.34); outline: none; }
+
+    .motion-toggle.is-active {
+      border-color: var(--tryon-cyan);
+      background: rgba(58, 125, 123, 0.1);
+      color: var(--tryon-cyan);
+      font-weight: 700;
+    }
+
+    .motion-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #a29c93;
+      box-shadow: 0 0 0 3px rgba(162, 156, 147, 0.12);
+    }
+
+    .motion-toggle.is-active .motion-dot {
+      background: #68a997;
+      box-shadow: 0 0 0 3px rgba(104, 169, 151, 0.14);
+    }
+
+    .motion-state { color: var(--ink-light); font-size: 9px; font-weight: 400; }
+
+    .adornment-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    .adornment-toggle {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 7px;
+      align-items: center;
+      padding: 8px;
+      border: 1px solid rgba(26, 26, 26, 0.14);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.36);
+      color: var(--ink-light);
+      font-size: 10px;
+      text-align: left;
+      transition: 0.2s ease;
+    }
+
+    .adornment-toggle:hover,
+    .adornment-toggle:focus-visible { border-color: rgba(26, 26, 26, 0.34); outline: none; }
+
+    .adornment-toggle.is-active {
+      border-color: var(--tryon-cyan);
+      background: rgba(58, 125, 123, 0.1);
+      color: var(--tryon-cyan);
+      font-weight: 700;
+    }
+
+    .adornment-glyph {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(26, 26, 26, 0.07);
+      color: var(--tryon-ochre);
+      font-family: var(--font-brush);
+      font-size: 13px;
+    }
+
+    .adornment-toggle.is-active .adornment-glyph {
+      background: rgba(58, 125, 123, 0.12);
+      color: var(--tryon-cyan);
+    }
+
+    .privacy-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-top: 17px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(26, 26, 26, 0.15);
+      color: var(--ink-light);
+      font-size: 10px;
+      line-height: 1.65;
+    }
+
+    .privacy-mark {
+      flex: 0 0 20px;
+      width: 20px;
+      height: 20px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(58, 125, 123, 0.34);
+      border-radius: 50%;
+      color: var(--tryon-cyan);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    /* 越剧姿态挑战（换装 + 标准身段比对打分） */
+    .pose-toggle {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 9px 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 9px 10px;
+      border: 1px solid rgba(26, 26, 26, 0.14);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.36);
+      color: var(--ink-light);
+      font-size: 11px;
+      text-align: left;
+      transition: 0.2s ease;
+    }
+    .pose-toggle.is-active { border-color: var(--tryon-cyan); background: rgba(58, 125, 123, 0.1); color: var(--tryon-cyan); font-weight: 700; }
+    .pose-toggle .motion-dot { background: #a29c93; box-shadow: 0 0 0 3px rgba(162, 156, 147, 0.12); }
+    .pose-toggle.is-active .motion-dot { background: #68a997; box-shadow: 0 0 0 3px rgba(104, 169, 151, 0.14); }
+
+    .pose-body { display: grid; gap: 10px; margin-top: 10px; }
+    .pose-body.hidden { display: none; }
+
+    .pose-ref-row {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 12px;
+      border: 1px solid rgba(58, 125, 123, 0.28);
+      border-radius: 10px;
+      background: rgba(23, 24, 22, 0.92);
+    }
+    #poseRefCanvas { display: block; width: 96px; height: 120px; }
+    .pose-ref-text { display: grid; gap: 3px; }
+    .pose-ref-text strong { color: #e8c98d; font-size: 12px; letter-spacing: 0.14em; }
+    .pose-ref-text span { color: rgba(255, 255, 255, 0.66); font-size: 11px; line-height: 1.6; }
+
+    .pose-select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid rgba(26, 26, 26, 0.14);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.5);
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 12px;
+    }
+
+    .pose-score-row {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 14px;
+      border: 1px solid rgba(193, 39, 45, 0.2);
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(255, 252, 246, 0.92), rgba(245, 240, 232, 0.8));
+    }
+    .pose-score-num {
+      font-family: var(--font-brush);
+      font-size: 34px;
+      line-height: 1;
+      color: var(--tryon-red);
+      text-align: center;
+    }
+    .pose-score-meta { display: grid; gap: 7px; }
+    .pose-status-text { color: var(--ink-light); font-size: 11px; letter-spacing: 0.06em; }
+    .pose-score-bar { height: 8px; overflow: hidden; border-radius: 99px; background: rgba(26, 26, 26, 0.09); }
+    .pose-score-bar i { display: block; width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--tryon-cyan), var(--tryon-red)); transition: width 0.25s ease; }
+
+    .pose-hint { min-height: 18px; color: var(--tryon-ochre); font-size: 11px; line-height: 1.6; }
+
+    .pose-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .pose-btn {
+      padding: 9px 10px;
+      border: 1px solid rgba(26, 26, 26, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.5);
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      transition: 0.2s ease;
+    }
+    .pose-btn:hover:not(:disabled) { border-color: var(--tryon-red); color: var(--tryon-red); }
+    .pose-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .pose-btn.primary { background: var(--tryon-red); border-color: var(--tryon-red); color: #fff; }
+    .pose-btn.primary:hover:not(:disabled) { filter: brightness(1.08); color: #fff; }
+    .pose-btn.recording { border-color: var(--tryon-red); color: var(--tryon-red); animation: trackingPulse 1.2s ease-in-out infinite; }
+
+    .pose-hud {
+      position: absolute;
+      z-index: 7;
+      top: 74px;
+      right: 26px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      background: rgba(13, 16, 14, 0.62);
+      color: #fff;
+      font-size: 12px;
+      backdrop-filter: blur(14px);
+      pointer-events: none;
+    }
+    .pose-hud-score { font-family: var(--font-brush); font-size: 24px; color: #e8c98d; line-height: 1; }
+    .pose-hud.countdown .pose-hud-score { font-size: 30px; }
+    .pose-hud.recording { border-color: rgba(214, 105, 105, 0.6); }
+
+    .pose-result-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1250;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(15, 16, 14, 0.8);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.25s ease;
+      backdrop-filter: blur(10px);
+    }
+    .pose-result-modal.is-open { opacity: 1; visibility: visible; }
+    .pose-result-dialog {
+      width: min(430px, 100%);
+      padding: 34px 32px 28px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 18px;
+      background: var(--tryon-paper);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.46);
+      text-align: center;
+      transform: translateY(12px);
+      transition: 0.28s ease;
+    }
+    .pose-result-modal.is-open .pose-result-dialog { transform: none; }
+    .pose-result-seal {
+      width: 46px;
+      height: 46px;
+      margin: 0 auto 14px;
+      display: grid;
+      place-items: center;
+      border-radius: 4px;
+      background: var(--tryon-red);
+      color: #fff8ed;
+      font-family: var(--font-brush);
+      font-size: 21px;
+      transform: rotate(-3deg);
+    }
+    .pose-result-dialog h2 { margin-bottom: 6px; font-family: var(--font-brush); font-size: 28px; font-weight: 400; letter-spacing: 0.08em; }
+    .pose-result-action { margin-bottom: 18px; color: var(--ink-light); font-size: 12px; }
+    .pose-result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+    .pose-result-grid div { padding: 13px 6px; border: 1px solid rgba(26, 26, 26, 0.1); border-radius: 10px; background: rgba(255, 255, 255, 0.45); }
+    .pose-result-grid b { display: block; font-family: var(--font-brush); font-size: 26px; color: var(--tryon-red); line-height: 1.1; }
+    .pose-result-grid span { display: block; margin-top: 3px; color: var(--ink-light); font-size: 10px; letter-spacing: 0.1em; }
+    .pose-result-hint { margin-bottom: 20px; color: var(--ink-light); font-size: 12px; line-height: 1.8; }
+    .pose-result-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+
+    .wardrobe {
+      margin-top: 18px;
+      padding: 18px 20px 20px;
+      overflow: hidden;
+      border: 1px solid rgba(26, 26, 26, 0.1);
+      border-radius: 17px;
+      background: rgba(255, 253, 247, 0.72);
+      box-shadow: 0 18px 48px -40px rgba(26, 26, 26, 0.75);
+    }
+
+    .wardrobe-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 13px;
+    }
+
+    .wardrobe-title {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-family: var(--font-brush);
+      font-size: 22px;
+      letter-spacing: 0.1em;
+    }
+
+    .wardrobe-title small {
+      color: var(--ink-light);
+      font-family: var(--font-serif);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+
+    .rail-actions { display: flex; gap: 7px; }
+
+    .rail-button {
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(26, 26, 26, 0.16);
+      border-radius: 50%;
+      color: var(--ink-light);
+      font-size: 18px;
+      transition: 0.2s ease;
+    }
+
+    .rail-button:hover,
+    .rail-button:focus-visible {
+      border-color: var(--tryon-red);
+      color: var(--tryon-red);
+      outline: none;
+    }
+
+    .costume-rail {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(205px, 1fr);
+      gap: 11px;
+      overflow-x: auto;
+      padding: 2px 2px 7px;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+    }
+
+    .costume-card {
+      position: relative;
+      min-width: 0;
+      display: grid;
+      grid-template-columns: 78px 1fr;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      border: 1px solid rgba(26, 26, 26, 0.11);
+      border-radius: 11px;
+      background: rgba(246, 241, 232, 0.74);
+      text-align: left;
+      scroll-snap-align: start;
+      transition: 0.22s ease;
+    }
+
+    .costume-card:hover,
+    .costume-card:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(193, 39, 45, 0.38);
+      outline: none;
+    }
+
+    .costume-card.is-active {
+      border-color: var(--tryon-red);
+      background: rgba(255, 252, 246, 0.96);
+      box-shadow: 0 8px 20px -15px rgba(193, 39, 45, 0.65);
+    }
+
+    .costume-card.is-active::after {
+      content: "选中";
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      padding: 2px 5px;
+      border-radius: 3px;
+      background: var(--tryon-red);
+      color: #fff;
+      font-size: 8px;
+      letter-spacing: 0.08em;
+    }
+
+    .costume-thumb {
+      width: 78px;
+      height: 92px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 8px;
+      background:
+        linear-gradient(45deg, rgba(26, 26, 26, 0.035) 25%, transparent 25% 75%, rgba(26, 26, 26, 0.035) 75%),
+        linear-gradient(45deg, rgba(26, 26, 26, 0.035) 25%, transparent 25% 75%, rgba(26, 26, 26, 0.035) 75%),
+        #eee8dc;
+      background-position: 0 0, 5px 5px;
+      background-size: 10px 10px;
+    }
+
+    .costume-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 5px 6px rgba(26, 26, 26, 0.16));
+    }
+
+    .costume-tag {
+      display: inline-block;
+      margin-bottom: 4px;
+      color: var(--tryon-cyan);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+    }
+
+    .costume-name {
+      display: block;
+      padding-right: 22px;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .costume-feature {
+      display: block;
+      margin-top: 4px;
+      color: var(--ink-light);
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .fullscreen-wardrobe {
+      position: absolute;
+      z-index: 9;
+      left: 50%;
+      bottom: 90px;
+      display: none;
+      gap: 8px;
+      max-width: min(84vw, 700px);
+      overflow-x: auto;
+      padding: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 14px;
+      background: rgba(13, 16, 14, 0.52);
+      transform: translateX(-50%);
+      backdrop-filter: blur(14px);
+    }
+
+    .fullscreen-costume {
+      flex: 0 0 58px;
+      width: 58px;
+      height: 66px;
+      overflow: hidden;
+      padding: 4px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.09);
+    }
+
+    .fullscreen-costume img { width: 100%; height: 100%; object-fit: contain; }
+    .fullscreen-costume.is-active { border-color: #e8c98d; background: rgba(232, 201, 141, 0.14); }
+
+    .stage-shell:fullscreen,
+    .stage-shell:-webkit-full-screen {
+      width: 100vw;
+      height: 100vh;
+      aspect-ratio: auto !important;
+      border: 0;
+      border-radius: 0;
+      background: #000;
+    }
+
+    .stage-shell:fullscreen #outputCanvas,
+    .stage-shell:-webkit-full-screen #outputCanvas { object-fit: contain; }
+
+    .fullscreen-exit { display: none; }
+
+    .stage-shell:fullscreen .fullscreen-exit,
+    .stage-shell:-webkit-full-screen .fullscreen-exit {
+      position: fixed;
+      z-index: 1100;
+      display: inline-flex;
+      top: max(14px, env(safe-area-inset-top));
+      right: max(14px, env(safe-area-inset-right));
+      border-color: rgba(255, 255, 255, 0.38);
+      background: rgba(20, 22, 20, 0.88);
+    }
+
+    .stage-shell:fullscreen .fullscreen-wardrobe,
+    .stage-shell:-webkit-full-screen .fullscreen-wardrobe { display: flex; }
+
+    .photo-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(15, 16, 14, 0.8);
+      opacity: 0;
+      visibility: hidden;
+      transition: 0.25s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .photo-modal.is-open { opacity: 1; visibility: visible; }
+
+    .photo-dialog {
+      width: min(880px, 100%);
+      max-height: calc(100vh - 48px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(210px, 0.65fr);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 18px;
+      background: var(--tryon-paper);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.46);
+      transform: translateY(12px) scale(0.98);
+      transition: 0.28s ease;
+    }
+
+    .photo-modal.is-open .photo-dialog { transform: none; }
+
+    .photo-preview-wrap {
+      min-height: 330px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background: #111512;
+    }
+
+    #photoPreview { width: 100%; height: 100%; max-height: 72vh; object-fit: contain; }
+
+    .photo-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 30px;
+    }
+
+    .photo-seal {
+      width: 44px;
+      height: 44px;
+      margin-bottom: 18px;
+      display: grid;
+      place-items: center;
+      border-radius: 4px;
+      background: var(--tryon-red);
+      color: #fff;
+      font-family: var(--font-brush);
+      font-size: 20px;
+      transform: rotate(-3deg);
+    }
+
+    .photo-info h2 {
+      margin-bottom: 8px;
+      font-family: var(--font-brush);
+      font-size: 30px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+    }
+
+    .photo-info p {
+      margin-bottom: 23px;
+      color: var(--ink-light);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .photo-actions { display: grid; gap: 9px; }
+
+    .photo-save,
+    .photo-retake {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+    }
+
+    .photo-save { background: var(--tryon-red); color: #fff; }
+    .photo-retake { border: 1px solid rgba(26, 26, 26, 0.18); color: var(--ink); }
+
+    .no-scroll { overflow: hidden; }
+
+    @media (max-width: 1080px) {
+      .experience-grid { grid-template-columns: minmax(0, 1fr) 290px; }
+      .knowledge-card, .control-panel { padding-left: 19px; padding-right: 19px; }
+      .knowledge-intro { display: none; }
+      .knowledge-item { grid-template-columns: 56px 1fr; }
+    }
+
+    @media (max-width: 900px) {
+      .tryon-main { padding-top: 22px; }
+      .tryon-intro { align-items: flex-start; flex-direction: column; }
+      .intro-tip { display: none; }
+      .tryon-title small { display: block; margin: 9px 0 0; }
+      .experience-grid { grid-template-columns: 1fr; }
+      .side-panel {
+        max-height: none;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        overflow: visible;
+      }
+      .knowledge-card { border-right: 1px solid rgba(26, 26, 26, 0.1); border-bottom: 0; }
+      .knowledge-intro { display: block; }
+    }
+
+    @media (min-width: 901px) and (max-height: 780px) {
+      .tryon-main { padding-top: 14px; }
+      .tryon-intro { display: none; }
+      .stage-shell {
+        width: min(100%, calc((100vh - 94px) * 16 / 9));
+        width: min(100%, calc((100dvh - 94px) * 16 / 9));
+        justify-self: center;
+      }
+      .side-panel {
+        max-height: calc(100vh - 94px);
+        max-height: calc(100dvh - 94px);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .tryon-main { padding: 17px 0 32px; }
+      .tryon-title { font-size: 39px; }
+      .stage-shell { border-radius: 13px; }
+      .stage-topbar { top: 14px; left: 14px; right: 14px; }
+      .stage-action { padding: 7px 10px; }
+      .stage-actions .switch-label { display: none; }
+      .tracking-badge { padding: 7px 10px; font-size: 10px; }
+      .stage-caption { left: 16px; bottom: 16px; max-width: 140px; }
+      .stage-caption .role { font-size: 8px; }
+      .stage-caption .name { font-size: 19px; }
+      .capture-wrap { bottom: 13px; }
+      .capture-button { width: 48px; height: 48px; }
+      .capture-label { display: none; }
+      .side-panel { grid-template-columns: 1fr; }
+      .knowledge-card { border-right: 0; border-bottom: 1px solid rgba(26, 26, 26, 0.1); }
+      .knowledge-intro { display: none; }
+      .knowledge-list { grid-template-columns: 1fr 1fr; }
+      .knowledge-item { display: block; }
+      .knowledge-item dt { margin-bottom: 2px; }
+      .knowledge-item:nth-child(2) { display: none; }
+      .costume-rail { grid-auto-columns: 86%; }
+      .wardrobe { padding-left: 12px; padding-right: 12px; }
+      .photo-dialog { grid-template-columns: 1fr; overflow-y: auto; }
+      .photo-preview-wrap { min-height: 240px; max-height: 52vh; }
+      .photo-info { padding: 21px; }
+      .photo-seal { display: none; }
+      .photo-info h2 { font-size: 26px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body class="page-tryon">
+  <button class="stage-action" id="fullscreenBtn" type="button">全屏入戏</button>
+  <div class="app-shell">
+    <main class="main tryon-main">
+      <div class="container">
+        <header class="tryon-intro">
+          <div>
+            <div class="eyebrow">越剧沉浸课堂</div>
+            <h1 class="tryon-title">一镜入戏<small>虚拟试衣 · 识行当 · 品流派</small></h1>
+          </div>
+          <div class="intro-tip">
+            <strong>站至镜头前约两米，露出肩部与上半身</strong>
+            服装将自动贴合肩线并随动作流转。所有画面只在本机浏览器中处理，不会上传。
+          </div>
+        </header>
+
+        <section class="experience-grid" aria-label="虚拟试衣体验区">
+          <div class="stage-shell" id="stageShell">
+            <video id="cameraVideo" autoplay muted playsinline aria-hidden="true"></video>
+            <canvas id="outputCanvas" width="1280" height="720" aria-label="实时虚拟试衣画面"></canvas>
+
+            <div class="stage-topbar">
+              <div class="tracking-badge searching" id="trackingBadge" role="status" aria-live="polite">
+                <span class="tracking-dot"></span>
+                <span id="trackingText">正在准备识别</span>
+                <span id="fpsText"></span>
+              </div>
+              <div class="stage-actions">
+                <button class="stage-action" id="switchCameraBtn" type="button" aria-label="切换前后摄像头">换镜头 <span class="switch-label">前后</span></button>
+                <button class="stage-action fullscreen-exit" id="fullscreenExitBtn" type="button">退出全屏</button>
+              </div>
+            </div>
+
+            <div class="stage-caption" aria-live="polite">
+              <span class="role" id="stageRole">小生 · 徐派</span>
+              <span class="name" id="stageName">朱砂蟒袍</span>
+            </div>
+
+            <div class="capture-wrap">
+              <button class="capture-button" id="captureBtn" type="button" aria-label="拍照留影"></button>
+              <span class="capture-label">留影</span>
+            </div>
+
+            <div class="fullscreen-wardrobe" id="fullscreenWardrobe" aria-label="全屏服装切换"></div>
+
+            <div class="pose-hud hidden" id="poseHud" role="status" aria-live="polite">
+              <span class="pose-hud-status" id="poseHudStatus">姿态挑战</span>
+              <span class="pose-hud-score" id="poseHudScore">--</span>
+            </div>
+
+            <div class="stage-loader" id="stageLoader">
+              <div>
+                <div class="loader-emblem" id="loaderEmblem">镜</div>
+                <div class="loader-title" id="loaderTitle">请允许使用摄像头</div>
+                <p class="loader-copy" id="loaderCopy">授权后即可在本机实时体验越剧服装。首次进入需稍候片刻加载人体识别能力。</p>
+                <button class="loader-retry" id="loaderRetry" type="button">重新启用摄像头</button>
+              </div>
+            </div>
+          </div>
+
+          <aside class="side-panel" aria-label="行当科普与画面设置">
+            <article class="knowledge-card" id="knowledgeCard"></article>
+
+            <div class="control-panel">
+              <div class="control-group">
+                <div class="control-title"><span>更换景致</span><small>人体背景智能分离</small></div>
+                <div class="scene-grid" id="sceneGrid">
+                  <button class="scene-option is-active" type="button" data-bg="camera" aria-label="原始镜头"></button>
+                  <button class="scene-option" type="button" data-bg="stage" aria-label="越剧戏台"></button>
+                  <button class="scene-option" type="button" data-bg="mountains" aria-label="水墨远山"></button>
+                  <button class="scene-option" type="button" data-bg="garden" aria-label="江南园林"></button>
+                  <button class="scene-option" type="button" data-bg="academy" aria-label="雨窗书院"></button>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <div class="control-title"><span>画意滤镜</span><small>实时合成</small></div>
+                <div class="filter-row" id="filterRow">
+                  <button class="filter-option is-active" type="button" data-filter="natural">本色</button>
+                  <button class="filter-option" type="button" data-filter="ink">水墨</button>
+                  <button class="filter-option" type="button" data-filter="gongbi">工笔重彩</button>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <div class="control-title"><span>动态捕捉</span><small>肩 · 肘 · 腕</small></div>
+                <button class="motion-toggle is-active" id="motionToggle" type="button" aria-pressed="true">
+                  <span class="motion-dot" aria-hidden="true"></span>
+                  <span>袖摆骨骼跟随</span>
+                  <span class="motion-state" id="motionState">已开启</span>
+                </button>
+              </div>
+
+              <div class="control-group">
+                <div class="control-title"><span>越剧姿态挑战</span><small id="poseServiceState">未连接</small></div>
+                <button class="pose-toggle" id="poseToggle" type="button" aria-pressed="false">
+                  <span class="motion-dot" aria-hidden="true"></span>
+                  <span>身段比对打分</span>
+                  <span class="motion-state" id="poseToggleState">已关闭</span>
+                </button>
+                <div class="pose-body hidden" id="poseBody">
+                  <select class="pose-select" id="poseActionSelect" aria-label="选择标准动作"></select>
+                  <div class="pose-ref-row">
+                    <canvas id="poseRefCanvas" width="96" height="120" aria-label="参考身段动画"></canvas>
+                    <div class="pose-ref-text">
+                      <strong>参考身段</strong>
+                      <span id="poseRefDesc">照着小人示范做整段动作，再开始挑战</span>
+                    </div>
+                  </div>
+                  <div class="pose-score-row">
+                    <div class="pose-score-num" id="poseScoreNum">--</div>
+                    <div class="pose-score-meta">
+                      <span class="pose-status-text" id="poseStatusText">等待开启</span>
+                      <div class="pose-score-bar"><i id="poseScoreBar"></i></div>
+                    </div>
+                  </div>
+                  <div class="pose-hint" id="poseHint">摆出标准身段，系统将实时比对打分</div>
+                  <div class="pose-actions">
+                    <button class="pose-btn primary" id="poseStartBtn" type="button" disabled>开始挑战</button>
+                    <button class="pose-btn" id="poseFinishBtn" type="button" disabled>结束挑战</button>
+                    <button class="pose-btn" id="poseRetryBtn" type="button" disabled>再试一次</button>
+                    <button class="pose-btn" id="poseRecordBtn" type="button">录制模板</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <div class="control-title"><span>行当头饰</span><small>整体跟随头部</small></div>
+                <div class="adornment-grid">
+                  <button class="adornment-toggle is-active" id="headwearToggle" type="button" aria-pressed="true">
+                    <span class="adornment-glyph" aria-hidden="true">冠</span><span>配套头饰</span>
+                  </button>
+                </div>
+                <label class="calibration-row">
+                  <span>头饰大小</span>
+                  <input id="headwearScaleRange" type="range" min="70" max="220" value="115" aria-label="头饰大小" />
+                  <span class="calibration-value" id="headwearScaleValue">115%</span>
+                </label>
+                <label class="calibration-row">
+                  <span>头饰高低</span>
+                  <input id="headwearHeightRange" type="range" min="-20" max="20" value="0" aria-label="头饰高低" />
+                  <span class="calibration-value" id="headwearHeightValue">居中</span>
+                </label>
+              </div>
+
+              <div class="control-group">
+                <div class="control-title"><span>贴合微调</span><small>自动识别后可校准</small></div>
+                <label class="calibration-row">
+                  <span>大小</span>
+                  <input id="scaleRange" type="range" min="82" max="122" value="100" aria-label="服装大小" />
+                  <span class="calibration-value" id="scaleValue">100%</span>
+                </label>
+                <label class="calibration-row">
+                  <span>高低</span>
+                  <input id="heightRange" type="range" min="-12" max="12" value="0" aria-label="服装高低" />
+                  <span class="calibration-value" id="heightValue">居中</span>
+                </label>
+              </div>
+
+              <div class="privacy-note">
+                <span class="privacy-mark">安</span>
+                <span>摄像头画面、姿态关键点与照片均仅在当前设备处理；关闭页面后实时数据即释放。</span>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="wardrobe" aria-labelledby="wardrobeTitle">
+          <div class="wardrobe-head">
+            <h2 class="wardrobe-title" id="wardrobeTitle">越衣六品<small>横向滑动，点击换装</small></h2>
+            <div class="rail-actions">
+              <button class="rail-button" id="railPrev" type="button" aria-label="上一组服装">‹</button>
+              <button class="rail-button" id="railNext" type="button" aria-label="下一组服装">›</button>
+            </div>
+          </div>
+          <div class="costume-rail" id="costumeRail" tabindex="0"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="photo-modal" id="photoModal" role="dialog" aria-modal="true" aria-labelledby="photoTitle">
+    <div class="photo-dialog">
+      <div class="photo-preview-wrap"><img id="photoPreview" alt="虚拟试衣留影预览" /></div>
+      <div class="photo-info">
+        <div class="photo-seal">入戏</div>
+        <h2 id="photoTitle">此刻，已入戏</h2>
+        <p id="photoDescription">画面已在本机合成。保存后可用于课堂作业、角色赏析或个人纪念。</p>
+        <div class="photo-actions">
+          <a class="photo-save" id="downloadPhoto" href="#" download="越韵智传-虚拟试衣.png">保存到相册</a>
+          <button class="photo-retake" id="retakeBtn" type="button">重拍</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pose-result-modal" id="poseResultModal" role="dialog" aria-modal="true" aria-labelledby="poseResultTitle">
+    <div class="pose-result-dialog">
+      <div class="pose-result-seal">韵</div>
+      <h2 id="poseResultTitle">身段比对完成</h2>
+      <p class="pose-result-action" id="prAction">云手 · 基础身段</p>
+      <div class="pose-result-grid">
+        <div><b id="prBest">--</b><span>最高分</span></div>
+        <div><b id="prAvg">--</b><span>平均分</span></div>
+        <div><b id="prCompletion">--</b><span>动作完成度</span></div>
+      </div>
+      <p class="pose-result-hint" id="prHint">成绩仅保留在本次页面会话中。</p>
+      <div class="pose-result-actions">
+        <button class="pose-btn primary" id="prRetryBtn" type="button">再试一次</button>
+        <button class="pose-btn" id="prCloseBtn" type="button">返回换装</button>
+      </div>
+    </div>
+  </div>
+
+<script src="/js/common.js?v=20260911-mtwo77gk"></script>
+  <script>
+    (() => {
+      'use strict';
+
+      const ASSET_ROOT = '/assets/virtual-tryon';
+      const MEDIAPIPE_ROOT = 'https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404';
+      const MEDIAPIPE_SCRIPT = `${MEDIAPIPE_ROOT}/pose.js`;
+      const COSTUME_SHOULDER_ANCHOR = 0.125;
+      let poseScriptPromise = null;
+
+      const costumes = [
+        {
+          id: 'xu', role: '小生', school: '徐派', name: '徐派小生蟒袍', stageName: '朱砂蟒袍',
+          feature: '朱砂为骨 · 金绣云海 · 英气昂扬', seal: '生',
+          image: ASSET_ROOT + '/costumes/optimized/xu-xiaosheng-mangpao-open-neck-768.webp',
+          thumb: ASSET_ROOT + '/costumes/thumbs/xu-xiaosheng-mangpao-open-neck-160.webp', widthFactor: 3.08,
+          intro: '小生是越剧极具辨识度的行当，常由女演员塑造儒雅、俊朗或慷慨激越的男性人物。本套以朱红与古金突出徐派小生的昂扬气度。',
+          lineage: '徐玉兰创立徐派小生艺术，钱惠丽、郑国凤等持续传承。',
+          voice: '高亢激昂、热情奔放，刚柔并蓄，旋律华彩跌宕。',
+          plays: '《红楼梦》《西厢记》《追鱼》《北地王》',
+          actors: '徐玉兰、钱惠丽、郑国凤'
+        },
+        {
+          id: 'yuan', role: '花旦', school: '袁派', name: '袁派花旦对襟褂', stageName: '桃夭对襟褂',
+          feature: '藕粉淡青 · 花蝶细绣 · 温润秀美', seal: '旦',
+          image: ASSET_ROOT + '/costumes/optimized/yuan-huadan-duijin-open-neck-768.webp',
+          thumb: ASSET_ROOT + '/costumes/thumbs/yuan-huadan-duijin-open-neck-160.webp', widthFactor: 3.0,
+          intro: '花旦善于表现明快、灵动而富有生活气息的女性形象。袁派重人物内心，本套以藕粉、淡青和江南花蝶纹样呈现含蓄秀美。',
+          lineage: '袁雪芬在新越剧改革中创立袁派，方亚芬等后继传承。',
+          voice: '质朴深沉、委婉缠绵，注重情感层次与人物心理。',
+          plays: '《祥林嫂》《西厢记》《梁山伯与祝英台》《山河恋》',
+          actors: '袁雪芬、方亚芬'
+        },
+        {
+          id: 'fan', role: '小生', school: '范派', name: '范派小生褶子', stageName: '月白书生褶子',
+          feature: '月白素绢 · 竹兰清影 · 儒雅端方', seal: '雅',
+          image: ASSET_ROOT + '/costumes/optimized/fan-xiaosheng-zhezi-open-neck-768.webp',
+          thumb: ASSET_ROOT + '/costumes/thumbs/fan-xiaosheng-zhezi-open-neck-160.webp', widthFactor: 3.12,
+          intro: '褶子是舞台上常见的长衫类服装，适合书生、才子等人物。本套以月白、竹兰与青色束带表现范派小生的质朴与端庄。',
+          lineage: '范瑞娟创立范派小生艺术，章瑞虹、吴凤花等接续发展。',
+          voice: '浑厚开阔、质朴稳健，男性气质鲜明，抒情中见力度。',
+          plays: '《梁山伯与祝英台》《孔雀东南飞》《李娃传》《打金枝》',
+          actors: '范瑞娟、章瑞虹、吴凤花'
+        },
+        {
+          id: 'fu', role: '花旦', school: '傅派', name: '傅派花旦水袖戏服', stageName: '流云水袖衣',
+          feature: '珠白绣花 · 长袖若云 · 明丽飘逸', seal: '袖',
+          image: ASSET_ROOT + '/costumes/optimized/fu-huadan-shuixiu-open-neck-768.webp',
+          thumb: ASSET_ROOT + '/costumes/thumbs/fu-huadan-shuixiu-open-neck-160.webp', widthFactor: 3.18,
+          intro: '水袖借抛、甩、拂、扬等身段延展人物情绪。本套以珠白丝绸、花卉细绣和长水袖回应傅派明亮、俏丽的舞台气质。',
+          lineage: '傅全香创立傅派花旦艺术，何英、陈飞等传承其声腔与表演。',
+          voice: '嗓音明亮宽广，真假声衔接自然，花腔俏丽多变。',
+          plays: '《梁山伯与祝英台》《情探》《孔雀东南飞》《李娃传》',
+          actors: '傅全香、何英、陈飞'
+        },
+        {
+          id: 'laosheng', role: '老生', school: '张派参照', name: '老生员外袍', stageName: '墨绿员外袍',
+          feature: '墨绿赭褐 · 寿纹如意 · 沉稳持重', seal: '老',
+          image: ASSET_ROOT + '/costumes/optimized/laosheng-yuanwaipao-open-neck-768.webp',
+          thumb: ASSET_ROOT + '/costumes/thumbs/laosheng-yuanwaipao-open-neck-160.webp', widthFactor: 3.02,
+          intro: '越剧老生分正生、老外等类型，员外袍多用于表现年长、稳重而有身份的人物。本套为通用行当服装，并以张派老生气质作为科普参照。',
+          lineage: '张桂凤创立张派老生艺术；越剧另有吴小楼、徐天红、商芳臣等老生艺术传统。',
+          voice: '高亢铿锵、刚健质朴、苍劲持重，重在刻画人物身份与性格。',
+          plays: '《二堂放子》《打金枝》《梁山伯与祝英台》《西厢记》',
+          actors: '张桂凤、董柯娣'
+        },
+        {
+          id: 'chou', role: '丑角', school: '行当传承', name: '丑角短打', stageName: '百衲短打衣',
+          feature: '赭黄靛青 · 拼锦短打 · 机趣俏皮', seal: '趣',
+          image: ASSET_ROOT + '/costumes/optimized/chou-duanda-open-neck-768.webp',
+          thumb: ASSET_ROOT + '/costumes/thumbs/chou-duanda-open-neck-160.webp', widthFactor: 2.82,
+          intro: '越剧小丑包含长衫丑、官丑、短衫丑、女丑等类型。短打强调行动便捷与喜剧节奏，本套以民间拼锦纹样表现机敏活泼。',
+          lineage: '丑行以角色类型和表演程式代际相传，不归入十二大主要唱腔流派。',
+          voice: '以念白、做功和节奏见长，语言生活化，唱腔服务于喜剧情境。',
+          plays: '《九斤姑娘》《王老虎抢亲》《三笑》',
+          actors: '金瑞苗等前辈丑行演员'
+        }
+      ];
+
+      // 每套服装在素材中的简化绑定姿态：左侧袖子的肩、肘、腕中心点与半袖宽。
+      // 右侧袖子会自动镜像；运行时分别绑定到 MediaPipe 的肩—肘—腕关键点。
+      const costumeRigs = {
+        xu:       { points: [[0.34, 0.15], [0.19, 0.30], [0.065, 0.47]], widths: [0.085, 0.135, 0.16] },
+        yuan:     { points: [[0.35, 0.15], [0.20, 0.34], [0.075, 0.55]], widths: [0.08, 0.13, 0.15] },
+        fan:      { points: [[0.35, 0.16], [0.22, 0.36], [0.09, 0.79]], widths: [0.085, 0.15, 0.19] },
+        fu:       { points: [[0.35, 0.16], [0.21, 0.38], [0.075, 0.86]], widths: [0.085, 0.16, 0.205] },
+        laosheng: { points: [[0.35, 0.16], [0.20, 0.35], [0.09, 0.59]], widths: [0.09, 0.145, 0.17] },
+        chou:     { points: [[0.35, 0.18], [0.20, 0.29], [0.085, 0.40]], widths: [0.09, 0.12, 0.135] }
+      };
+
+      const headwearAssets = {
+        xu: {
+          src: ASSET_ROOT + '/headwear/optimized/xu-xiaosheng-crown-512.webp',
+          scale: 1.58, anchorY: 0.68, lift: 0.46
+        },
+        yuan: {
+          src: ASSET_ROOT + '/headwear/optimized/yuan-huadan-ornament-512.webp',
+          scale: 1.72, anchorY: 0.50, lift: 0.48
+        },
+        fan: {
+          src: ASSET_ROOT + '/headwear/optimized/fan-xiaosheng-rujin-512.webp',
+          scale: 1.38, anchorY: 0.43, lift: 0.45
+        },
+        fu: {
+          src: ASSET_ROOT + '/headwear/optimized/fu-huadan-ornament-512.webp',
+          scale: 1.78, anchorY: 0.55, lift: 0.49
+        },
+        laosheng: {
+          src: ASSET_ROOT + '/headwear/optimized/laosheng-yuanwai-cap-512.webp',
+          scale: 1.32, anchorY: 0.76, lift: 0.43
+        },
+        chou: {
+          src: ASSET_ROOT + '/headwear/optimized/chou-soft-cap-512.webp',
+          scale: 1.30, anchorY: 0.57, lift: 0.43
+        }
+      };
+
+      // 越剧为「俊扮」，不勾脸谱（脸谱是京剧程式），因此只保留头饰装扮。
+
+      const backgrounds = {
+        stage: ASSET_ROOT + '/backgrounds/optimized/yue-opera-stage-1280.webp',
+        mountains: ASSET_ROOT + '/backgrounds/optimized/ink-mountains-1280.webp',
+        garden: ASSET_ROOT + '/backgrounds/optimized/jiangnan-garden-1280.webp',
+        academy: ASSET_ROOT + '/backgrounds/optimized/rainy-academy-1280.webp'
+      };
+
+      const backgroundThumbs = {
+        stage: ASSET_ROOT + '/backgrounds/thumbs/yue-opera-stage-160.webp',
+        mountains: ASSET_ROOT + '/backgrounds/thumbs/ink-mountains-160.webp',
+        garden: ASSET_ROOT + '/backgrounds/thumbs/jiangnan-garden-160.webp',
+        academy: ASSET_ROOT + '/backgrounds/thumbs/rainy-academy-160.webp'
+      };
+
+      const filterMap = {
+        natural: 'none',
+        ink: 'grayscale(0.68) sepia(0.2) contrast(1.28) brightness(1.04)',
+        gongbi: 'saturate(1.38) contrast(1.1) brightness(1.04)'
+      };
+
+      const state = {
+        costumeIndex: 0,
+        background: 'camera',
+        filter: 'natural',
+        manualScale: 1,
+        verticalOffset: 0,
+        skeletonEnabled: true,
+        skeletonActive: false,
+        smoothedJoints: new Map(),
+        headwearEnabled: true,
+        headwearScale: 1.15,
+        headwearOffset: 0,
+        facingMode: 'user',
+        stream: null,
+        pose: null,
+        poseReady: false,
+        cameraReady: false,
+        processing: false,
+        loopToken: 0,
+        smoothedPose: null,
+        lastPoseSeen: 0,
+        resultFrames: 0,
+        fpsStartedAt: performance.now(),
+        firstFrameDrawn: false,
+        assetsWarmed: false
+      };
+
+      const costumeImages = new Map();
+      const headwearImages = new Map();
+      const backgroundImages = new Map();
+      const video = document.getElementById('cameraVideo');
+      const canvas = document.getElementById('outputCanvas');
+      const ctx = canvas.getContext('2d', { alpha: true });
+      const stageShell = document.getElementById('stageShell');
+      const loader = document.getElementById('stageLoader');
+      const loaderTitle = document.getElementById('loaderTitle');
+      const loaderCopy = document.getElementById('loaderCopy');
+      const loaderEmblem = document.getElementById('loaderEmblem');
+      const loaderRetry = document.getElementById('loaderRetry');
+      const trackingBadge = document.getElementById('trackingBadge');
+      const trackingText = document.getElementById('trackingText');
+      const fpsText = document.getElementById('fpsText');
+      const photoModal = document.getElementById('photoModal');
+      const photoPreview = document.getElementById('photoPreview');
+      const downloadPhoto = document.getElementById('downloadPhoto');
+
+      function ensureCostumeImage(costume) {
+        if (costumeImages.has(costume.id)) return costumeImages.get(costume.id);
+        const image = new Image();
+        image.decoding = 'async';
+        image.src = costume.image;
+        costumeImages.set(costume.id, image);
+        return image;
+      }
+
+      function ensureHeadwearImage(costume) {
+        if (headwearImages.has(costume.id)) return headwearImages.get(costume.id);
+        const asset = headwearAssets[costume.id];
+        if (!asset) return null;
+        const image = new Image();
+        image.decoding = 'async';
+        image.src = asset.src;
+        headwearImages.set(costume.id, image);
+        return image;
+      }
+
+      function ensureBackgroundImage(key) {
+        if (key === 'camera') return null;
+        if (backgroundImages.has(key)) return backgroundImages.get(key);
+        const image = new Image();
+        image.decoding = 'async';
+        image.src = backgrounds[key];
+        backgroundImages.set(key, image);
+        return image;
+      }
+
+      function preloadImages() {
+        ensureCostumeImage(costumes[state.costumeIndex]);
+        ensureHeadwearImage(costumes[state.costumeIndex]);
+      }
+
+      function warmCostumeImages() {
+        if (state.assetsWarmed) return;
+        state.assetsWarmed = true;
+        const warmRemaining = () => costumes.forEach(ensureCostumeImage);
+        if ('requestIdleCallback' in window) window.requestIdleCallback(warmRemaining, { timeout: 5000 });
+        else window.setTimeout(warmRemaining, 2500);
+      }
+
+      function renderCostumeRail() {
+        const rail = document.getElementById('costumeRail');
+        rail.innerHTML = costumes.map((item, index) => `
+          <button class="costume-card ${index === state.costumeIndex ? 'is-active' : ''}" type="button" data-index="${index}" aria-pressed="${index === state.costumeIndex}">
+            <span class="costume-thumb"><img src="${item.thumb}" alt="${item.name}透明服装缩略图" loading="${index < 3 ? 'eager' : 'lazy'}" decoding="async" /></span>
+            <span>
+              <span class="costume-tag">${item.role} · ${item.school}</span>
+              <span class="costume-name">${item.name}</span>
+              <span class="costume-feature">${item.feature}</span>
+            </span>
+          </button>
+        `).join('');
+
+        const fullRail = document.getElementById('fullscreenWardrobe');
+        fullRail.innerHTML = costumes.map((item, index) => `
+          <button class="fullscreen-costume ${index === state.costumeIndex ? 'is-active' : ''}" type="button" data-index="${index}" aria-label="切换到${item.name}" aria-pressed="${index === state.costumeIndex}">
+            <img src="${item.thumb}" alt="" loading="lazy" decoding="async" />
+          </button>
+        `).join('');
+      }
+
+      function renderKnowledge() {
+        const item = costumes[state.costumeIndex];
+        const card = document.getElementById('knowledgeCard');
+        card.classList.remove('roll-open');
+        card.innerHTML = `
+          <div class="knowledge-heading">
+            <div>
+              <div class="knowledge-kicker">行当小笺 · ${item.school}</div>
+              <h2 class="knowledge-title">${item.role}</h2>
+            </div>
+            <div class="knowledge-seal">${item.seal}</div>
+          </div>
+          <p class="knowledge-intro">${item.intro}</p>
+          <dl class="knowledge-list">
+            <div class="knowledge-item"><dt>流派传承</dt><dd>${item.lineage}</dd></div>
+            <div class="knowledge-item"><dt>唱腔特征</dt><dd>${item.voice}</dd></div>
+            <div class="knowledge-item"><dt>代表剧目</dt><dd>${item.plays}</dd></div>
+            <div class="knowledge-item"><dt>代表演员</dt><dd>${item.actors}</dd></div>
+          </dl>
+        `;
+        requestAnimationFrame(() => card.classList.add('roll-open'));
+        document.getElementById('stageRole').textContent = `${item.role} · ${item.school}`;
+        document.getElementById('stageName').textContent = item.stageName;
+      }
+
+      function selectCostume(index) {
+        state.costumeIndex = Number(index);
+        ensureCostumeImage(costumes[state.costumeIndex]);
+        ensureHeadwearImage(costumes[state.costumeIndex]);
+        state.smoothedPose = null;
+        document.querySelectorAll('[data-index]').forEach((button) => {
+          const selected = Number(button.dataset.index) === state.costumeIndex;
+          button.classList.toggle('is-active', selected);
+          button.setAttribute('aria-pressed', String(selected));
+        });
+        renderKnowledge();
+      }
+
+      function setLoader(title, copy, emblem, isError = false) {
+        loader.classList.remove('is-hidden');
+        loaderTitle.textContent = title;
+        loaderCopy.textContent = copy;
+        loaderEmblem.textContent = emblem;
+        loaderRetry.classList.toggle('is-visible', isError);
+      }
+
+      function updateTracking(mode, text) {
+        trackingBadge.classList.toggle('searching', mode === 'searching');
+        trackingBadge.classList.toggle('offline', mode === 'offline');
+        trackingText.textContent = text;
+      }
+
+      function loadPoseLibrary() {
+        if (typeof window.Pose === 'function') return Promise.resolve();
+        if (poseScriptPromise) return poseScriptPromise;
+        poseScriptPromise = new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = MEDIAPIPE_SCRIPT;
+          script.async = true;
+          script.crossOrigin = 'anonymous';
+          script.onload = resolve;
+          script.onerror = () => {
+            poseScriptPromise = null;
+            reject(new Error('人体识别组件未能加载，请检查网络后重试。'));
+          };
+          document.head.appendChild(script);
+        });
+        return poseScriptPromise;
+      }
+
+      async function initPose() {
+        await loadPoseLibrary();
+        if (typeof window.Pose !== 'function') {
+          throw new Error('人体识别组件未能加载，请检查网络后重试。');
+        }
+        const pose = new window.Pose({ locateFile: (file) => `${MEDIAPIPE_ROOT}/${file}` });
+        pose.setOptions({
+          modelComplexity: 0,
+          smoothLandmarks: true,
+          enableSegmentation: true,
+          smoothSegmentation: true,
+          minDetectionConfidence: 0.55,
+          minTrackingConfidence: 0.55
+        });
+        pose.onResults(handlePoseResults);
+        state.pose = pose;
+        if (typeof pose.initialize === 'function') await pose.initialize();
+        state.poseReady = true;
+      }
+
+      async function openCamera() {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          throw new Error('当前浏览器不支持摄像头访问，请使用最新版 Chrome、Edge 或 Safari。');
+        }
+
+        if (state.stream) state.stream.getTracks().forEach((track) => track.stop());
+        state.stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            facingMode: { ideal: state.facingMode },
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+            frameRate: { ideal: 30, max: 30 }
+          },
+          audio: false
+        });
+        video.srcObject = state.stream;
+        await video.play();
+        await new Promise((resolve) => {
+          if (video.readyState >= 2 && video.videoWidth) resolve();
+          else video.addEventListener('loadedmetadata', resolve, { once: true });
+        });
+        canvas.width = video.videoWidth || 1280;
+        canvas.height = video.videoHeight || 720;
+        stageShell.style.aspectRatio = `${canvas.width} / ${canvas.height}`;
+        state.cameraReady = true;
+      }
+
+      async function boot() {
+        state.loopToken += 1;
+        state.cameraReady = false;
+        state.poseReady = false;
+        state.firstFrameDrawn = false;
+        loaderRetry.classList.remove('is-visible');
+        setLoader('请允许使用摄像头', '授权后即可在本机实时体验越剧服装。首次进入需稍候片刻加载人体识别能力。', '镜');
+        updateTracking('searching', '正在准备识别');
+
+        try {
+          const cameraTask = openCamera().then(() => {
+            loader.classList.add('is-hidden');
+            updateTracking('searching', '正在加载身形识别');
+            startCameraPreview();
+          });
+          await Promise.all([cameraTask, initPose()]);
+          updateTracking('searching', '正在识别肩线');
+          launchDetection();
+        } catch (error) {
+          console.error(error);
+          const isPermission = error && (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError');
+          const copy = isPermission
+            ? '摄像头权限未开启。请在浏览器地址栏的权限设置中允许摄像头，然后点击下方按钮。'
+            : (error.message || '请确认页面运行在 HTTPS 或 localhost，并检查摄像头是否被其他应用占用。');
+          setLoader('暂时无法开启镜头', copy, '候', true);
+          updateTracking('offline', '镜头未连接');
+        }
+      }
+
+      function startCameraPreview() {
+        const token = ++state.loopToken;
+        const drawPreview = () => {
+          if (token !== state.loopToken || !state.cameraReady || state.poseReady || video.readyState < 2) return;
+          ctx.save();
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.translate(canvas.width, 0);
+          ctx.scale(-1, 1);
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          ctx.restore();
+          requestAnimationFrame(drawPreview);
+        };
+        requestAnimationFrame(drawPreview);
+      }
+
+      function launchDetection() {
+        const token = ++state.loopToken;
+        state.processing = false;
+
+        if ('requestVideoFrameCallback' in HTMLVideoElement.prototype) {
+          const step = async () => {
+            if (token !== state.loopToken || !state.cameraReady || !state.poseReady) return;
+            if (!state.processing && video.readyState >= 2) {
+              state.processing = true;
+              try { await state.pose.send({ image: video }); }
+              catch (error) { console.warn('姿态识别帧处理失败', error); }
+              finally { state.processing = false; }
+            }
+            if (token === state.loopToken) video.requestVideoFrameCallback(step);
+          };
+          video.requestVideoFrameCallback(step);
+        } else {
+          let lastRun = 0;
+          const step = async (time) => {
+            if (token !== state.loopToken || !state.cameraReady || !state.poseReady) return;
+            if (!state.processing && time - lastRun >= 30 && video.readyState >= 2) {
+              lastRun = time;
+              state.processing = true;
+              try { await state.pose.send({ image: video }); }
+              catch (error) { console.warn('姿态识别帧处理失败', error); }
+              finally { state.processing = false; }
+            }
+            if (token === state.loopToken) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+        }
+      }
+
+      function handlePoseResults(results) {
+        warmCostumeImages();
+        drawComposite(results);
+        poseMaybeSendFrame(results);
+        state.resultFrames += 1;
+        const now = performance.now();
+        const elapsed = now - state.fpsStartedAt;
+        if (elapsed >= 1000) {
+          const fps = Math.round(state.resultFrames * 1000 / elapsed);
+          fpsText.textContent = `· ${fps} 帧/秒`;
+          state.resultFrames = 0;
+          state.fpsStartedAt = now;
+        }
+      }
+
+      function drawComposite(results) {
+        const width = canvas.width;
+        const height = canvas.height;
+        ctx.save();
+        ctx.clearRect(0, 0, width, height);
+        ctx.translate(width, 0);
+        ctx.scale(-1, 1);
+        ctx.filter = filterMap[state.filter];
+
+        if (state.background !== 'camera' && results.segmentationMask) {
+          ctx.drawImage(results.segmentationMask, 0, 0, width, height);
+          ctx.globalCompositeOperation = 'source-in';
+          ctx.drawImage(video, 0, 0, width, height);
+          ctx.globalCompositeOperation = 'destination-over';
+          const backgroundImage = backgroundImages.get(state.background);
+          if (backgroundImage && backgroundImage.complete) drawImageCover(ctx, backgroundImage, width, height);
+          else {
+            ctx.fillStyle = '#e8e0d2';
+            ctx.fillRect(0, 0, width, height);
+          }
+          ctx.globalCompositeOperation = 'source-over';
+        } else {
+          ctx.drawImage(video, 0, 0, width, height);
+        }
+
+        const landmarks = results.poseLandmarks;
+        const hasPose = drawCostume(landmarks, width, height);
+        const facePose = buildFacePose(landmarks, width, height);
+        if (facePose) {
+          const costume = costumes[state.costumeIndex];
+          if (state.headwearEnabled) drawHeadwear(ctx, facePose, costume);
+        }
+        ctx.restore();
+
+        if (!state.firstFrameDrawn) {
+          state.firstFrameDrawn = true;
+          loader.classList.add('is-hidden');
+        }
+
+        if (hasPose) {
+          state.lastPoseSeen = performance.now();
+          updateTracking('active', state.skeletonActive ? '骨骼跟随中' : '肩线跟随中');
+        } else {
+          updateTracking('searching', '请将肩部移入画面');
+        }
+      }
+
+      function drawCostume(landmarks, width, height) {
+        if (!landmarks || !landmarks[11] || !landmarks[12]) return false;
+        const left = landmarks[11];
+        const right = landmarks[12];
+        const leftHip = landmarks[23];
+        const rightHip = landmarks[24];
+        const visibility = Math.min(left.visibility ?? 1, right.visibility ?? 1);
+        if (visibility < 0.48) return false;
+
+        const lx = left.x * width;
+        const ly = left.y * height;
+        const rx = right.x * width;
+        const ry = right.y * height;
+        const shoulderWidth = Math.hypot(lx - rx, ly - ry);
+        if (shoulderWidth < width * 0.055) return false;
+
+        const costume = costumes[state.costumeIndex];
+        const image = costumeImages.get(costume.id);
+        if (!image || !image.complete || !image.naturalWidth) return false;
+
+        let centerX = (lx + rx) / 2;
+        let centerY = (ly + ry) / 2;
+        if (leftHip && rightHip && (leftHip.visibility ?? 1) > 0.25 && (rightHip.visibility ?? 1) > 0.25) {
+          const hipCenterX = ((leftHip.x + rightHip.x) / 2) * width;
+          centerX = centerX * 0.88 + hipCenterX * 0.12;
+        }
+
+        const target = {
+          x: centerX,
+          y: centerY,
+          width: shoulderWidth * costume.widthFactor * state.manualScale,
+          angle: Math.atan2(ly - ry, lx - rx)
+        };
+
+        if (!state.smoothedPose) {
+          state.smoothedPose = target;
+        } else {
+          const smooth = state.smoothedPose;
+          const alpha = 0.27;
+          smooth.x += (target.x - smooth.x) * alpha;
+          smooth.y += (target.y - smooth.y) * alpha;
+          smooth.width += (target.width - smooth.width) * 0.24;
+          let angleDelta = target.angle - smooth.angle;
+          while (angleDelta > Math.PI) angleDelta -= Math.PI * 2;
+          while (angleDelta < -Math.PI) angleDelta += Math.PI * 2;
+          smooth.angle += angleDelta * 0.2;
+        }
+
+        const pose = state.smoothedPose;
+        const drawWidth = pose.width;
+        const drawHeight = drawWidth * (image.naturalHeight / image.naturalWidth);
+        const yShift = drawHeight * state.verticalOffset;
+
+        ctx.save();
+        ctx.translate(pose.x, pose.y + yShift);
+        ctx.rotate(pose.angle);
+        ctx.globalAlpha = 0.98;
+        const useSkeleton = state.skeletonEnabled && hasArmTracking(landmarks);
+        if (useSkeleton) {
+          drawBoundCostume(ctx, image, costume, landmarks, width, height, pose, drawWidth, drawHeight, yShift);
+        } else {
+          ctx.drawImage(image, -drawWidth / 2, -drawHeight * COSTUME_SHOULDER_ANCHOR, drawWidth, drawHeight);
+        }
+        ctx.restore();
+        state.skeletonActive = useSkeleton;
+        return true;
+      }
+
+      function hasArmTracking(landmarks) {
+        return [13, 14, 15, 16].some((index) => {
+          const joint = landmarks[index];
+          return joint && (joint.visibility ?? 1) >= 0.32;
+        });
+      }
+
+      function getSmoothedJoint(landmarks, index, width, height) {
+        const landmark = landmarks[index];
+        if (!landmark || (landmark.visibility ?? 1) < 0.25) return null;
+        const target = { x: landmark.x * width, y: landmark.y * height };
+        const previous = state.smoothedJoints.get(index);
+        if (!previous) {
+          state.smoothedJoints.set(index, target);
+          return target;
+        }
+        const alpha = index === 11 || index === 12 ? 0.32 : 0.38;
+        previous.x += (target.x - previous.x) * alpha;
+        previous.y += (target.y - previous.y) * alpha;
+        return previous;
+      }
+
+      function drawBoundCostume(context, image, costume, landmarks, canvasWidth, canvasHeight, pose, drawWidth, drawHeight, yShift) {
+        const rig = costumeRigs[costume.id];
+        if (!rig) {
+          context.drawImage(image, -drawWidth / 2, -drawHeight * COSTUME_SHOULDER_ANCHOR, drawWidth, drawHeight);
+          return;
+        }
+
+        const rect = {
+          x: -drawWidth / 2,
+          y: -drawHeight * COSTUME_SHOULDER_ANCHOR,
+          width: drawWidth,
+          height: drawHeight
+        };
+
+        // 素材左袖对应人物右臂，素材右袖对应人物左臂（最终画面会镜像）。
+        drawSleeveMesh(context, image, rig, false, [12, 14, 16], landmarks, canvasWidth, canvasHeight, pose, yShift, rect);
+        drawSleeveMesh(context, image, rig, true, [11, 13, 15], landmarks, canvasWidth, canvasHeight, pose, yShift, rect);
+        drawTorsoLayer(context, image, rect);
+      }
+
+      function drawTorsoLayer(context, image, rect) {
+        const polygon = [
+          [0.24, 0.055], [0.76, 0.055], [0.72, 0.22], [0.67, 0.35],
+          [0.82, 1], [0.18, 1], [0.33, 0.35], [0.28, 0.22]
+        ];
+        context.save();
+        context.beginPath();
+        polygon.forEach(([u, v], index) => {
+          const x = rect.x + u * rect.width;
+          const y = rect.y + v * rect.height;
+          if (index === 0) context.moveTo(x, y);
+          else context.lineTo(x, y);
+        });
+        context.closePath();
+        context.clip();
+        context.drawImage(image, rect.x, rect.y, rect.width, rect.height);
+        context.restore();
+      }
+
+      function drawSleeveMesh(context, image, rig, mirror, jointIndexes, landmarks, canvasWidth, canvasHeight, pose, yShift, rect) {
+        const normalizedPoints = rig.points.map(([u, v]) => [mirror ? 1 - u : u, v]);
+        const sourceCenters = normalizedPoints.map(([u, v]) => ({
+          x: u * image.naturalWidth,
+          y: v * image.naturalHeight
+        }));
+        const baseCenters = normalizedPoints.map(([u, v]) => ({
+          x: rect.x + u * rect.width,
+          y: rect.y + v * rect.height
+        }));
+
+        const tracked = jointIndexes.map((index) => getSmoothedJoint(landmarks, index, canvasWidth, canvasHeight));
+        if (tracked[0] && !tracked[1] && tracked[2]) tracked[1] = lerpPoint(tracked[0], tracked[2], 0.52);
+        if (tracked[0] && tracked[1] && !tracked[2]) {
+          tracked[2] = {
+            x: tracked[1].x + (tracked[1].x - tracked[0].x) * 0.9,
+            y: tracked[1].y + (tracked[1].y - tracked[0].y) * 0.9
+          };
+        }
+
+        const localTracked = tracked.map((point) => point ? toGarmentLocal(point, pose, yShift) : null);
+        const targetCenters = [baseCenters[0]];
+        for (let segment = 0; segment < 2; segment += 1) {
+          const baseVector = subtractPoint(baseCenters[segment + 1], baseCenters[segment]);
+          const baseLength = vectorLength(baseVector);
+          let direction = normalizeVector(baseVector);
+          let segmentLength = baseLength;
+          if (localTracked[segment] && localTracked[segment + 1]) {
+            const trackedVector = subtractPoint(localTracked[segment + 1], localTracked[segment]);
+            if (vectorLength(trackedVector) > 4) {
+              direction = normalizeVector(trackedVector);
+              segmentLength = clamp(vectorLength(trackedVector), baseLength * 0.62, baseLength * 1.42);
+            }
+          }
+          const previous = targetCenters[segment];
+          targetCenters.push({
+            x: previous.x + direction.x * segmentLength,
+            y: previous.y + direction.y * segmentLength
+          });
+        }
+
+        const sourceSections = createRibbonSections(sourceCenters, rig.widths.map((value) => value * image.naturalWidth));
+        const targetSections = createRibbonSections(targetCenters, rig.widths.map((value) => value * rect.width));
+        for (let segment = 0; segment < 2; segment += 1) {
+          const sourceStart = sourceSections[segment];
+          const sourceEnd = sourceSections[segment + 1];
+          const targetStart = targetSections[segment];
+          const targetEnd = targetSections[segment + 1];
+          drawTexturedTriangle(context, image, sourceStart.a, sourceStart.b, sourceEnd.a, targetStart.a, targetStart.b, targetEnd.a);
+          drawTexturedTriangle(context, image, sourceStart.b, sourceEnd.b, sourceEnd.a, targetStart.b, targetEnd.b, targetEnd.a);
+        }
+      }
+
+      function createRibbonSections(points, halfWidths) {
+        return points.map((point, index) => {
+          const before = points[Math.max(0, index - 1)];
+          const after = points[Math.min(points.length - 1, index + 1)];
+          const tangent = normalizeVector(subtractPoint(after, before));
+          const normal = { x: -tangent.y, y: tangent.x };
+          return {
+            a: { x: point.x + normal.x * halfWidths[index], y: point.y + normal.y * halfWidths[index] },
+            b: { x: point.x - normal.x * halfWidths[index], y: point.y - normal.y * halfWidths[index] }
+          };
+        });
+      }
+
+      function drawTexturedTriangle(context, image, s0, s1, s2, d0, d1, d2) {
+        const denominator = s0.x * (s1.y - s2.y) + s1.x * (s2.y - s0.y) + s2.x * (s0.y - s1.y);
+        if (Math.abs(denominator) < 0.0001) return;
+        const a = (d0.x * (s1.y - s2.y) + d1.x * (s2.y - s0.y) + d2.x * (s0.y - s1.y)) / denominator;
+        const b = (d0.y * (s1.y - s2.y) + d1.y * (s2.y - s0.y) + d2.y * (s0.y - s1.y)) / denominator;
+        const c = (d0.x * (s2.x - s1.x) + d1.x * (s0.x - s2.x) + d2.x * (s1.x - s0.x)) / denominator;
+        const d = (d0.y * (s2.x - s1.x) + d1.y * (s0.x - s2.x) + d2.y * (s1.x - s0.x)) / denominator;
+        const e = (d0.x * (s1.x * s2.y - s2.x * s1.y) + d1.x * (s2.x * s0.y - s0.x * s2.y) + d2.x * (s0.x * s1.y - s1.x * s0.y)) / denominator;
+        const f = (d0.y * (s1.x * s2.y - s2.x * s1.y) + d1.y * (s2.x * s0.y - s0.x * s2.y) + d2.y * (s0.x * s1.y - s1.x * s0.y)) / denominator;
+
+        context.save();
+        context.beginPath();
+        context.moveTo(d0.x, d0.y);
+        context.lineTo(d1.x, d1.y);
+        context.lineTo(d2.x, d2.y);
+        context.closePath();
+        context.clip();
+        context.transform(a, b, c, d, e, f);
+        context.drawImage(image, 0, 0);
+        context.restore();
+      }
+
+      function toGarmentLocal(point, pose, yShift) {
+        const dx = point.x - pose.x;
+        const dy = point.y - (pose.y + yShift);
+        const cosine = Math.cos(pose.angle);
+        const sine = Math.sin(pose.angle);
+        return {
+          x: dx * cosine + dy * sine,
+          y: -dx * sine + dy * cosine
+        };
+      }
+
+      function subtractPoint(a, b) { return { x: a.x - b.x, y: a.y - b.y }; }
+      function vectorLength(vector) { return Math.hypot(vector.x, vector.y); }
+      function normalizeVector(vector) {
+        const length = vectorLength(vector) || 1;
+        return { x: vector.x / length, y: vector.y / length };
+      }
+      function lerpPoint(a, b, amount) {
+        return { x: a.x + (b.x - a.x) * amount, y: a.y + (b.y - a.y) * amount };
+      }
+      function clamp(value, minimum, maximum) { return Math.max(minimum, Math.min(maximum, value)); }
+
+      function buildFacePose(landmarks, width, height) {
+        if (!landmarks) return null;
+        const leftEar = getSmoothedJoint(landmarks, 7, width, height);
+        const rightEar = getSmoothedJoint(landmarks, 8, width, height);
+        const leftEye = getSmoothedJoint(landmarks, 2, width, height);
+        const rightEye = getSmoothedJoint(landmarks, 5, width, height);
+        let anchor = null;
+        let headWidth = 0;
+        let angle = 0;
+
+        if (leftEar && rightEar) {
+          const earDistance = Math.hypot(leftEar.x - rightEar.x, leftEar.y - rightEar.y);
+          if (earDistance >= width * 0.035) {
+            anchor = lerpPoint(leftEar, rightEar, 0.5);
+            headWidth = earDistance;
+            angle = Math.atan2(leftEar.y - rightEar.y, leftEar.x - rightEar.x);
+          }
+        }
+        if (!anchor && leftEye && rightEye) {
+          const eyeDistance = Math.hypot(leftEye.x - rightEye.x, leftEye.y - rightEye.y);
+          if (eyeDistance >= width * 0.012) {
+            anchor = lerpPoint(leftEye, rightEye, 0.5);
+            headWidth = eyeDistance * 2.35;
+            angle = Math.atan2(leftEye.y - rightEye.y, leftEye.x - rightEye.x);
+          }
+        }
+        if (!anchor) return null;
+        return { anchor, headWidth: clamp(headWidth, width * 0.06, width * 0.34), angle, opacity: 1 };
+      }
+
+      function drawHeadwear(context, face, costume) {
+        const asset = headwearAssets[costume.id];
+        const image = headwearImages.get(costume.id);
+        if (!asset || !image || !image.complete || !image.naturalWidth) return;
+        const drawWidth = face.headWidth * asset.scale * state.headwearScale;
+        const drawHeight = drawWidth * (image.naturalHeight / image.naturalWidth);
+        const forehead = {
+          x: face.anchor.x,
+          y: face.anchor.y - face.headWidth * asset.lift + face.headWidth * state.headwearOffset
+        };
+
+        context.save();
+        context.translate(forehead.x, forehead.y);
+        context.rotate(face.angle);
+        context.globalAlpha *= Math.min(0.98, face.opacity * 1.04);
+        context.drawImage(image, -drawWidth / 2, -drawHeight * asset.anchorY, drawWidth, drawHeight);
+        context.restore();
+      }
+
+      function drawImageCover(context, image, width, height) {
+        const imageRatio = image.naturalWidth / image.naturalHeight;
+        const canvasRatio = width / height;
+        let sourceX = 0;
+        let sourceY = 0;
+        let sourceWidth = image.naturalWidth;
+        let sourceHeight = image.naturalHeight;
+        if (imageRatio > canvasRatio) {
+          sourceWidth = image.naturalHeight * canvasRatio;
+          sourceX = (image.naturalWidth - sourceWidth) / 2;
+        } else {
+          sourceHeight = image.naturalWidth / canvasRatio;
+          sourceY = (image.naturalHeight - sourceHeight) / 2;
+        }
+        context.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, width, height);
+      }
+
+      function chooseBackground(key, button) {
+        ensureBackgroundImage(key);
+        state.background = key;
+        document.querySelectorAll('.scene-option').forEach((item) => item.classList.toggle('is-active', item === button));
+      }
+
+      function chooseFilter(key, button) {
+        state.filter = key;
+        document.querySelectorAll('.filter-option').forEach((item) => item.classList.toggle('is-active', item === button));
+      }
+
+      function capturePhoto() {
+        if (!state.firstFrameDrawn) {
+          if (typeof toast === 'function') toast('镜头尚未准备好，请稍候', 'err');
+          return;
+        }
+        const dataUrl = canvas.toDataURL('image/png');
+        const item = costumes[state.costumeIndex];
+        photoPreview.src = dataUrl;
+        downloadPhoto.href = dataUrl;
+        const now = new Date();
+        const stamp = [now.getFullYear(), String(now.getMonth() + 1).padStart(2, '0'), String(now.getDate()).padStart(2, '0')].join('');
+        downloadPhoto.download = `越韵智传-${item.name}-${stamp}.png`;
+        document.getElementById('photoDescription').textContent = `已记录“${item.name}”试穿画面。图片仅保存在当前设备，可用于课堂作业、角色赏析或个人纪念。`;
+        photoModal.classList.add('is-open');
+        document.body.classList.add('no-scroll');
+        document.getElementById('retakeBtn').focus();
+      }
+
+      function closePhotoModal() {
+        photoModal.classList.remove('is-open');
+        document.body.classList.remove('no-scroll');
+        document.getElementById('captureBtn').focus();
+      }
+
+      async function toggleFullscreen() {
+        const active = document.fullscreenElement || document.webkitFullscreenElement;
+        if (active) {
+          const exit = document.exitFullscreen || document.webkitExitFullscreen;
+          if (exit) await exit.call(document);
+        } else {
+          const request = stageShell.requestFullscreen || stageShell.webkitRequestFullscreen;
+          if (request) await request.call(stageShell);
+          else if (typeof toast === 'function') toast('当前浏览器暂不支持全屏模式', 'err');
+        }
+      }
+
+      async function switchCamera() {
+        state.facingMode = state.facingMode === 'user' ? 'environment' : 'user';
+        state.loopToken += 1;
+        state.cameraReady = false;
+        setLoader('正在切换镜头', '请稍候，新的镜头画面即将出现。', '镜');
+        try {
+          await openCamera();
+          loader.classList.add('is-hidden');
+          launchDetection();
+        } catch (error) {
+          state.facingMode = state.facingMode === 'user' ? 'environment' : 'user';
+          setLoader('镜头切换失败', '当前设备可能只有一个可用摄像头，请返回原镜头继续体验。', '候', true);
+        }
+      }
+
+      // ============ 越剧姿态挑战：换装画面 + 标准身段 DTW 比对打分 ============
+      // 浏览器端 MediaPipe 已产出 33 个关键点；每 ~125ms 发给本机 pose-eval
+      // 服务（127.0.0.1:8767）做滑窗 DTW 评分。服务未启动时换装不受影响。
+      const POSE_EVAL_HTTP = 'http://127.0.0.1:8767';
+      const POSE_EVAL_WS = 'ws://127.0.0.1:8767/ws/pose';
+
+      const poseEval = {
+        enabled: false,
+        ws: null,
+        wsReady: false,
+        actions: null,
+        sessionActive: false,
+        recording: false,
+        status: 'idle',
+        actionId: null,
+        countdownTimer: null,
+        reconnectTimer: null,
+        lastSentAt: 0,
+        recentScores: []
+      };
+
+      const poseToggle = document.getElementById('poseToggle');
+      const poseToggleState = document.getElementById('poseToggleState');
+      const poseServiceState = document.getElementById('poseServiceState');
+      const poseBody = document.getElementById('poseBody');
+      const poseActionSelect = document.getElementById('poseActionSelect');
+      const poseScoreNum = document.getElementById('poseScoreNum');
+      const poseStatusText = document.getElementById('poseStatusText');
+      const poseScoreBar = document.getElementById('poseScoreBar');
+      const poseHint = document.getElementById('poseHint');
+      const poseStartBtn = document.getElementById('poseStartBtn');
+      const poseFinishBtn = document.getElementById('poseFinishBtn');
+      const poseRetryBtn = document.getElementById('poseRetryBtn');
+      const poseRecordBtn = document.getElementById('poseRecordBtn');
+      const poseHud = document.getElementById('poseHud');
+      const poseHudStatus = document.getElementById('poseHudStatus');
+      const poseHudScore = document.getElementById('poseHudScore');
+      const poseResultModal = document.getElementById('poseResultModal');
+      const poseRefCanvas = document.getElementById('poseRefCanvas');
+      const poseRefCtx = poseRefCanvas.getContext('2d');
+
+      // 参考身段小人：服务端 demo 关节顺序 [鼻, 左肩, 右肩, 左肘, 右肘,
+      // 左腕, 右腕, 左髋, 右髋, 左膝, 右膝]，坐标为「髋中心+肩宽尺度」单位
+      const REF_BONES = [
+        [1, 2],                   // 肩连线
+        [1, 3], [3, 5],           // 左臂
+        [2, 4], [4, 6],           // 右臂
+        [1, 7], [2, 8],           // 躯干
+        [7, 8],                   // 髋连线
+        [7, 9], [8, 10]           // 双腿
+      ];
+      const REF_UNIT = 0.185;     // 1 肩宽在参考画布中占的像素比例
+      const REF_FRAME_MS = 260;   // 每个关键帧的播放时长
+      let refAnim = { frames: [], startedAt: 0 };
+
+      function poseRefDrawLoop(now) {
+        if (!poseEval.enabled) { refAnim.frames = []; return; }
+        if (refAnim.frames.length > 0) {
+          const frameIndex = Math.floor((now - refAnim.startedAt) / REF_FRAME_MS) % refAnim.frames.length;
+          const pts = refAnim.frames[frameIndex];
+          const w = poseRefCanvas.width;
+          const h = poseRefCanvas.height;
+          poseRefCtx.clearRect(0, 0, w, h);
+          poseRefCtx.fillStyle = '#171816';
+          poseRefCtx.fillRect(0, 0, w, h);
+          // 髋中心(0.5, 0.62) 为原点，向上为负 y（与画面坐标一致）
+          const px = (p) => ({ x: (0.5 + p[0] * REF_UNIT) * w, y: (0.62 + p[1] * REF_UNIT) * h });
+          poseRefCtx.strokeStyle = '#e8c98d';
+          poseRefCtx.lineWidth = 2;
+          poseRefCtx.lineCap = 'round';
+          poseRefCtx.beginPath();
+          for (const [a, b] of REF_BONES) {
+            const pa = px(pts[a]);
+            const pb = px(pts[b]);
+            poseRefCtx.moveTo(pa.x, pa.y);
+            poseRefCtx.lineTo(pb.x, pb.y);
+          }
+          poseRefCtx.stroke();
+          // 头部（鼻位置画圆）+ 关节点
+          const nose = px(pts[0]);
+          poseRefCtx.beginPath();
+          poseRefCtx.arc(nose.x, nose.y + 6, 6, 0, Math.PI * 2);
+          poseRefCtx.stroke();
+          poseRefCtx.fillStyle = '#e8c98d';
+          for (const [i] of REF_BONES) {
+            const p = px(pts[i]);
+            poseRefCtx.beginPath();
+            poseRefCtx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
+            poseRefCtx.fill();
+          }
+        }
+        requestAnimationFrame(poseRefDrawLoop);
+      }
+
+      function poseSetRefFrames(frames) {
+        refAnim.frames = Array.isArray(frames) && frames.length ? frames : [];
+        refAnim.startedAt = performance.now();
+      }
+
+      const poseStatusLabels = {
+        idle: '未开启',
+        connecting: '连接评分服务中…',
+        waiting: '请站到镜头前，保持肩髋可见',
+        ready: '姿态已就绪，可以开始挑战',
+        countdown: '准备倒计时…',
+        matching: '身段比对中…',
+        recording: '模板录制中…',
+        finished: '本次挑战已完成',
+        error: '评分服务未连接，换装不受影响'
+      };
+
+      function poseSend(payload) {
+        if (poseEval.ws && poseEval.ws.readyState === WebSocket.OPEN) {
+          try { poseEval.ws.send(JSON.stringify(payload)); } catch (error) { console.warn('姿态帧发送失败', error); }
+        }
+      }
+
+      async function poseCheckService() {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), 2500);
+        try {
+          const response = await fetch(`${POSE_EVAL_HTTP}/health`, { signal: controller.signal });
+          return response.ok;
+        } catch { return false; }
+        finally { clearTimeout(timer); }
+      }
+
+      function poseScheduleReconnect() {
+        if (!poseEval.enabled || poseEval.reconnectTimer) return;
+        poseEval.reconnectTimer = setTimeout(() => {
+          poseEval.reconnectTimer = null;
+          if (poseEval.enabled) poseConnect();
+        }, 5000);
+      }
+
+      async function poseConnect() {
+        poseEval.status = 'connecting';
+        updatePoseUI();
+        // 健康检查仅作提示：某些环境会拦截跨源 fetch 但放行 WebSocket，
+        // 因此检查失败时仍尝试直连，以 WebSocket 实际结果为准。
+        const serviceOk = await poseCheckService();
+        if (!poseEval.enabled) return;
+        if (!serviceOk && window.console) console.info('[pose] 健康检查未通过，仍尝试 WebSocket 直连 127.0.0.1:8767');
+        try {
+          const socket = new WebSocket(POSE_EVAL_WS);
+          poseEval.ws = socket;
+          socket.onopen = () => {
+            poseEval.wsReady = true;
+            poseEval.status = 'waiting';
+            updatePoseUI();
+          };
+          socket.onmessage = (event) => {
+            try { poseHandleMessage(JSON.parse(event.data)); }
+            catch (error) { console.warn('姿态评分消息解析失败', error); }
+          };
+          socket.onclose = () => {
+            poseEval.wsReady = false;
+            if (poseEval.sessionActive) poseEval.sessionActive = false;
+            if (poseEval.recording) poseEval.recording = false;
+            if (poseEval.enabled) {
+              poseEval.status = 'error';
+              updatePoseUI();
+              poseScheduleReconnect();
+            }
+          };
+        } catch (error) {
+          poseEval.status = 'error';
+          updatePoseUI();
+          poseScheduleReconnect();
+        }
+      }
+
+      function poseDisconnect() {
+        poseEval.enabled = false;
+        poseEval.sessionActive = false;
+        poseEval.recording = false;
+        poseEval.wsReady = false;
+        poseEval.status = 'idle';
+        poseEval.recentScores = [];
+        clearTimeout(poseEval.reconnectTimer);
+        poseEval.reconnectTimer = null;
+        clearTimeout(poseEval.countdownTimer);
+        poseEval.countdownTimer = null;
+        if (poseEval.ws) {
+          try { poseEval.ws.close(); } catch (error) { /* 忽略关闭异常 */ }
+          poseEval.ws = null;
+        }
+        refAnim.frames = [];
+        poseRefCtx.clearRect(0, 0, poseRefCanvas.width, poseRefCanvas.height);
+        updatePoseUI();
+      }
+
+      function poseHandleMessage(message) {
+        if (message.type === 'hello') {
+          posePopulateActions(message.actions || []);
+        } else if (message.type === 'started') {
+          poseEval.sessionActive = true;
+          poseEval.status = 'matching';
+          poseEval.recentScores = [];
+          updatePoseUI();
+        } else if (message.type === 'score') {
+          if (poseEval.recording) poseEval.status = 'recording';
+          else if (poseEval.sessionActive) poseEval.status = 'matching';
+          else poseEval.status = message.status === 'ready' ? 'ready' : 'waiting';
+          poseDisplayScore(message);
+          updatePoseUI();
+        } else if (message.type === 'result') {
+          poseEval.sessionActive = false;
+          poseEval.status = 'finished';
+          updatePoseUI();
+          poseShowResult(message);
+        } else if (message.type === 'record_state') {
+          poseEval.recording = Boolean(message.recording);
+          updatePoseUI();
+        } else if (message.type === 'record_done') {
+          poseEval.recording = false;
+          if (typeof toast === 'function') toast(message.message || '模板录制结束', message.ok ? 'ok' : 'err');
+          if (message.ok && message.action) {
+            posePopulateActions(message.actions || []);
+            poseEval.actionId = message.action.id;
+            poseActionSelect.value = message.action.id;
+            poseApplyAction(poseEval.actionId);
+          }
+          poseEval.status = 'waiting';
+          updatePoseUI();
+        } else if (message.type === 'error' && typeof toast === 'function') {
+          toast(message.message || '评分服务异常', 'err');
+        }
+      }
+
+      function posePopulateActions(actions) {
+        if (!Array.isArray(actions) || actions.length === 0) return;
+        poseEval.actions = actions;
+        poseActionSelect.innerHTML = actions.map((action) =>
+          `<option value="${action.id}">${action.name} · ${action.frames} 帧${action.builtin ? '' : '（自录）'}</option>`
+        ).join('');
+        if (!poseEval.actionId || !actions.some((action) => action.id === poseEval.actionId)) {
+          poseEval.actionId = actions[0].id;
+        }
+        poseActionSelect.value = poseEval.actionId;
+        poseApplyAction(poseEval.actionId);
+      }
+
+      function poseApplyAction(actionId) {
+        const action = (poseEval.actions || []).find((item) => item.id === actionId);
+        poseSetRefFrames(action ? action.demo : []);
+        document.getElementById('poseRefDesc').textContent = action
+          ? (action.builtin ? '照着小人示范做整段动作，再开始挑战' : '自录模板：照示范者动作挑战')
+          : '暂无参考身段';
+      }
+
+      function poseDisplayScore(message) {
+        let shown = null;
+        if (typeof message.score === 'number') {
+          poseEval.recentScores.push(message.score);
+          if (poseEval.recentScores.length > 5) poseEval.recentScores.shift();
+          const sorted = [...poseEval.recentScores].sort((a, b) => a - b);
+          shown = sorted[Math.floor(sorted.length / 2)];
+        } else if (!poseEval.sessionActive) {
+          poseEval.recentScores = [];
+        }
+        poseScoreNum.textContent = shown === null ? '--' : String(Math.round(shown));
+        poseScoreBar.style.width = shown === null ? '0%' : `${Math.max(0, Math.min(100, shown))}%`;
+        poseHudScore.textContent = shown === null ? '--' : String(Math.round(shown));
+        const completion = typeof message.completion === 'number' ? message.completion : null;
+        const hint = Array.isArray(message.hints) ? message.hints[0] : null;
+        if (poseEval.recording) {
+          poseHint.textContent = hint || '模板录制中，完成后自动保存';
+        } else if (hint) {
+          poseHint.textContent = hint;
+        } else if (completion !== null && completion > 0 && completion < 1) {
+          poseHint.textContent = `动作采集 ${Math.round(completion * 100)}%，请持续完成整段身段`;
+        } else {
+          poseHint.textContent = poseEval.sessionActive ? '保持节奏，重复标准身段' : '摆出标准身段，系统将实时比对打分';
+        }
+      }
+
+      function poseShowResult(result) {
+        const option = poseActionSelect.selectedOptions[0];
+        document.getElementById('prAction').textContent = option ? option.textContent : '标准身段';
+        document.getElementById('prBest').textContent = result.best === null || result.best === undefined ? '--' : String(result.best);
+        document.getElementById('prAvg').textContent = result.avg === null || result.avg === undefined ? '--' : String(result.avg);
+        document.getElementById('prCompletion').textContent = `${Math.round(result.completion || 0)}%`;
+        document.getElementById('prHint').textContent = (Array.isArray(result.hints) && result.hints[0]) || '成绩仅保留在本次页面会话中。';
+        poseResultModal.classList.add('is-open');
+        document.body.classList.add('no-scroll');
+      }
+
+      function poseCloseResult() {
+        poseResultModal.classList.remove('is-open');
+        document.body.classList.remove('no-scroll');
+      }
+
+      function poseStartChallenge() {
+        if (!poseEval.wsReady || !poseEval.actionId || poseEval.sessionActive || poseEval.recording) return;
+        clearTimeout(poseEval.countdownTimer);
+        poseEval.status = 'countdown';
+        let count = 3;
+        poseHudStatus.textContent = '准备';
+        poseHudScore.textContent = String(count);
+        poseHud.classList.add('countdown');
+        updatePoseUI();
+        poseEval.countdownTimer = setInterval(() => {
+          count -= 1;
+          if (count > 0) {
+            poseHudScore.textContent = String(count);
+            return;
+          }
+          clearInterval(poseEval.countdownTimer);
+          poseEval.countdownTimer = null;
+          poseHud.classList.remove('countdown');
+          poseHudStatus.textContent = '比对中';
+          poseHudScore.textContent = '--';
+          poseEval.recentScores = [];
+          poseSend({ type: 'start', actionId: poseEval.actionId });
+          poseEval.sessionActive = true;
+          poseEval.status = 'matching';
+          updatePoseUI();
+          if (typeof toast === 'function') toast('挑战开始，请重复标准身段', 'ok');
+        }, 1000);
+      }
+
+      function poseFinishChallenge() {
+        if (!poseEval.sessionActive && poseEval.status !== 'countdown') return;
+        clearTimeout(poseEval.countdownTimer);
+        poseEval.countdownTimer = null;
+        poseHud.classList.remove('countdown');
+        if (!poseEval.sessionActive) {
+          poseEval.status = 'waiting';
+          updatePoseUI();
+          return;
+        }
+        poseSend({ type: 'finish' });
+      }
+
+      function poseRetry() {
+        poseCloseResult();
+        poseEval.recentScores = [];
+        poseEval.status = 'waiting';
+        poseScoreNum.textContent = '--';
+        poseScoreBar.style.width = '0%';
+        poseHudScore.textContent = '--';
+        updatePoseUI();
+      }
+
+      function poseToggleRecord() {
+        if (!poseEval.wsReady || poseEval.sessionActive) return;
+        if (!poseEval.recording) {
+          poseEval.recording = true;
+          poseEval.status = 'recording';
+          poseSend({ type: 'record_start' });
+          if (typeof toast === 'function') toast('开始录制模板：请完整演示一遍身段', 'ok');
+        } else {
+          poseSend({ type: 'record_stop', name: `自录身段 ${new Date().toTimeString().slice(0, 5)}` });
+        }
+        updatePoseUI();
+      }
+
+      function poseMaybeSendFrame(results) {
+        if (!poseEval.enabled || !poseEval.wsReady) return;
+        const now = performance.now();
+        if (now - poseEval.lastSentAt < 125) return;
+        if (!results.poseLandmarks || results.poseLandmarks.length < 25) {
+          if (!poseEval.sessionActive && !poseEval.recording && poseEval.status !== 'countdown' && poseEval.status === 'ready') {
+            poseEval.status = 'waiting';
+            updatePoseUI();
+          }
+          return;
+        }
+        poseEval.lastSentAt = now;
+        const landmarks = results.poseLandmarks.map((point) => [
+          point.x, point.y, point.z, point.visibility ?? 1
+        ]);
+        poseSend({ type: 'frame', landmarks, ts: Date.now() });
+      }
+
+      function updatePoseUI() {
+        const active = poseEval.enabled;
+        poseToggle.classList.toggle('is-active', active);
+        poseToggle.setAttribute('aria-pressed', String(active));
+        poseToggleState.textContent = active ? '已开启' : '已关闭';
+        poseBody.classList.toggle('hidden', !active);
+        poseHud.classList.toggle('hidden', !active || poseEval.status === 'idle' || poseEval.status === 'connecting');
+
+        poseServiceState.textContent = poseEval.wsReady ? '已连接' : (poseEval.status === 'connecting' ? '连接中' : (poseEval.status === 'error' ? '服务未启动' : '未连接'));
+        poseStatusText.textContent = poseStatusLabels[poseEval.status] || poseStatusLabels.waiting;
+
+        if (poseEval.status !== 'countdown') {
+          poseHudStatus.textContent = poseEval.recording ? '录制模板'
+            : poseEval.sessionActive ? '比对中'
+            : poseEval.status === 'ready' ? '已就绪' : '姿态挑战';
+        }
+        poseHud.classList.toggle('recording', poseEval.recording);
+
+        const canStart = poseEval.wsReady && !poseEval.sessionActive && !poseEval.recording && poseEval.status !== 'countdown' && Boolean(poseEval.actionId);
+        poseStartBtn.disabled = !canStart;
+        poseStartBtn.textContent = poseEval.status === 'finished' ? '再次开始' : '开始挑战';
+        poseFinishBtn.disabled = !(poseEval.sessionActive || poseEval.status === 'countdown');
+        poseRetryBtn.disabled = poseEval.status !== 'finished';
+        poseRecordBtn.disabled = !poseEval.wsReady || poseEval.sessionActive;
+        poseRecordBtn.textContent = poseEval.recording ? '停止录制' : '录制模板';
+        poseRecordBtn.classList.toggle('recording', poseEval.recording);
+        poseActionSelect.disabled = poseEval.sessionActive || poseEval.recording;
+      }
+
+      function poseSetupEvents() {
+        poseToggle.addEventListener('click', async () => {
+          if (poseEval.enabled) {
+            poseDisconnect();
+            if (typeof toast === 'function') toast('姿态挑战已关闭，换装继续', 'ok');
+            return;
+          }
+          poseEval.enabled = true;
+          updatePoseUI();
+          requestAnimationFrame(poseRefDrawLoop);
+          await poseConnect();
+        });
+        poseActionSelect.addEventListener('change', () => {
+          poseEval.actionId = poseActionSelect.value;
+          poseApplyAction(poseEval.actionId);
+        });
+        poseStartBtn.addEventListener('click', poseStartChallenge);
+        poseFinishBtn.addEventListener('click', poseFinishChallenge);
+        poseRetryBtn.addEventListener('click', poseRetry);
+        poseRecordBtn.addEventListener('click', poseToggleRecord);
+        document.getElementById('prRetryBtn').addEventListener('click', poseRetry);
+        document.getElementById('prCloseBtn').addEventListener('click', poseCloseResult);
+        poseResultModal.addEventListener('click', (event) => { if (event.target === poseResultModal) poseCloseResult(); });
+      }
+
+      function attachEvents() {
+        document.getElementById('costumeRail').addEventListener('click', (event) => {
+          const button = event.target.closest('[data-index]');
+          if (button) selectCostume(button.dataset.index);
+        });
+        document.getElementById('fullscreenWardrobe').addEventListener('click', (event) => {
+          const button = event.target.closest('[data-index]');
+          if (button) selectCostume(button.dataset.index);
+        });
+        document.getElementById('sceneGrid').addEventListener('click', (event) => {
+          const button = event.target.closest('[data-bg]');
+          if (button) chooseBackground(button.dataset.bg, button);
+        });
+        document.getElementById('filterRow').addEventListener('click', (event) => {
+          const button = event.target.closest('[data-filter]');
+          if (button) chooseFilter(button.dataset.filter, button);
+        });
+        document.getElementById('railPrev').addEventListener('click', () => document.getElementById('costumeRail').scrollBy({ left: -440, behavior: 'smooth' }));
+        document.getElementById('railNext').addEventListener('click', () => document.getElementById('costumeRail').scrollBy({ left: 440, behavior: 'smooth' }));
+        document.getElementById('captureBtn').addEventListener('click', capturePhoto);
+        document.getElementById('retakeBtn').addEventListener('click', closePhotoModal);
+        photoModal.addEventListener('click', (event) => { if (event.target === photoModal) closePhotoModal(); });
+        document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && photoModal.classList.contains('is-open')) closePhotoModal(); });
+        document.getElementById('fullscreenBtn').addEventListener('click', toggleFullscreen);
+        document.getElementById('fullscreenExitBtn').addEventListener('click', toggleFullscreen);
+        document.getElementById('switchCameraBtn').addEventListener('click', switchCamera);
+        loaderRetry.addEventListener('click', boot);
+
+        const motionToggle = document.getElementById('motionToggle');
+        motionToggle.addEventListener('click', () => {
+          state.skeletonEnabled = !state.skeletonEnabled;
+          state.skeletonActive = false;
+          state.smoothedJoints.clear();
+          motionToggle.classList.toggle('is-active', state.skeletonEnabled);
+          motionToggle.setAttribute('aria-pressed', String(state.skeletonEnabled));
+          document.getElementById('motionState').textContent = state.skeletonEnabled ? '已开启' : '已关闭';
+          if (typeof toast === 'function') toast(state.skeletonEnabled ? '骨骼动态跟随已开启' : '已切回肩线跟随', 'ok');
+        });
+
+        [
+          ['headwearToggle', 'headwearEnabled', '配套头饰']
+        ].forEach(([buttonId, stateKey, label]) => {
+          const button = document.getElementById(buttonId);
+          button.addEventListener('click', () => {
+            state[stateKey] = !state[stateKey];
+            button.classList.toggle('is-active', state[stateKey]);
+            button.setAttribute('aria-pressed', String(state[stateKey]));
+            if (stateKey === 'headwearEnabled' && state[stateKey]) ensureHeadwearImage(costumes[state.costumeIndex]);
+            if (typeof toast === 'function') toast(`${label}已${state[stateKey] ? '开启' : '关闭'}`, 'ok');
+          });
+        });
+
+        const bindAdornmentRange = (rangeId, valueId, stateKey, formatter) => {
+          const range = document.getElementById(rangeId);
+          range.addEventListener('input', () => {
+            const value = Number(range.value);
+            state[stateKey] = value / 100;
+            document.getElementById(valueId).textContent = formatter(value);
+          });
+        };
+        const formatHeight = (value) => value === 0 ? '居中' : `${value > 0 ? '下' : '上'}${Math.abs(value)}`;
+        bindAdornmentRange('headwearScaleRange', 'headwearScaleValue', 'headwearScale', (value) => `${value}%`);
+        bindAdornmentRange('headwearHeightRange', 'headwearHeightValue', 'headwearOffset', formatHeight);
+
+        const scaleRange = document.getElementById('scaleRange');
+        scaleRange.addEventListener('input', () => {
+          state.manualScale = Number(scaleRange.value) / 100;
+          document.getElementById('scaleValue').textContent = `${scaleRange.value}%`;
+        });
+        const heightRange = document.getElementById('heightRange');
+        heightRange.addEventListener('input', () => {
+          const value = Number(heightRange.value);
+          state.verticalOffset = value / 100;
+          document.getElementById('heightValue').textContent = value === 0 ? '居中' : `${value > 0 ? '下' : '上'}${Math.abs(value)}`;
+        });
+
+        const updateFullscreenLabel = () => {
+          const active = document.fullscreenElement || document.webkitFullscreenElement;
+          document.getElementById('fullscreenBtn').textContent = active ? '退出全屏' : '全屏入戏';
+          document.getElementById('fullscreenExitBtn').textContent = active ? '退出全屏' : '全屏入戏';
+        };
+        document.addEventListener('fullscreenchange', updateFullscreenLabel);
+        document.addEventListener('webkitfullscreenchange', updateFullscreenLabel);
+
+        window.addEventListener('pagehide', () => {
+          state.loopToken += 1;
+          if (state.stream) state.stream.getTracks().forEach((track) => track.stop());
+          if (state.pose && typeof state.pose.close === 'function') state.pose.close();
+          poseDisconnect();
+        });
+      }
+
+      function applyBackgroundThumbnails() {
+        document.querySelector('[data-bg="stage"]').style.backgroundImage = `url(${backgroundThumbs.stage})`;
+        document.querySelector('[data-bg="mountains"]').style.backgroundImage = `url(${backgroundThumbs.mountains})`;
+        document.querySelector('[data-bg="garden"]').style.backgroundImage = `url(${backgroundThumbs.garden})`;
+        document.querySelector('[data-bg="academy"]').style.backgroundImage = `url(${backgroundThumbs.academy})`;
+      }
+
+      if (typeof initPage === 'function') initPage('tryon');
+      preloadImages();
+      renderCostumeRail();
+      renderKnowledge();
+      applyBackgroundThumbnails();
+      attachEvents();
+      poseSetupEvents();
+      boot();
+    })();
+  </script>
+</body>
+</html>

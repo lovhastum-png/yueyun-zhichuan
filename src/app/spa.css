@@ -1,0 +1,43 @@
+/* SPA 布局约定。内容换页动效由 experience.css 统一管理。 */
+
+.spa-page {
+  position: relative;
+}
+
+.spa-page-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* 路由分包加载兜底（RouteFallback）：chunk 未就绪时居中展示研墨占位。
+   出现时轻微淡入 —— 属「加载态」而非换页动画，不违背上方约定 */
+@keyframes routeFallbackIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.route-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  animation: routeFallbackIn 0.32s ease both;
+}
+
+.route-fallback.inline {
+  flex: 1;
+  min-height: 46vh;
+  padding: 48px 16px;
+}
+
+.route-fallback.full {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background: var(--paper, #f5f1e8);
+}

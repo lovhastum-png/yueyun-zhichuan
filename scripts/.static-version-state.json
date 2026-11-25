@@ -1,0 +1,18 @@
+{
+  "js/3d-stage-runtime.js": {
+    "hash": "c4753ffc3b0d9a4990c13ebbcfc780ea7cdbb834d35c6603a5014acdb5a08466",
+    "ver": "20260913-mtyq5uoh"
+  },
+  "js/common.js": {
+    "hash": "c5650c43d6862dc676532299258f35726a15724f1aacb5e39f876a0eca793e3c",
+    "ver": "20260911-mtwo77gk"
+  },
+  "js/3d-motion-recognition.js": {
+    "hash": "784e2df735d2262e9fea95ea1df726ba9a5a296d1af6c6d1b92083f335720d47",
+    "ver": "20260911-mtwo77gk"
+  },
+  "js/virtual-teacher.js": {
+    "hash": "47721caa3ac66a44f2fe91e709761852fc72ae1e9ac5e356f2ce3c836f03b6a1",
+    "ver": "20260911-mtwo77gk"
+  }
+}

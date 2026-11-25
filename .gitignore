@@ -1,0 +1,64 @@
+# 依赖
+node_modules/
+
+# 环境变量（含密钥，切勿提交）
+.env
+
+# 部署发行包（内部发行版内含 .env 真实密钥，绝不可提交）
+release/
+
+# 上传临时文件
+uploads/
+data/course-import-tmp/
+data/singing-tasks/
+data/singing-refs/
+data/.jwt-secret
+*.log
+
+# Python 缓存（保留模型权重等二进制入库）
+__pycache__/
+*.pyc
+
+# 临时文件
+temp/
+C:/temp/
+# Vite 构建期生成的配置时间戳文件
+vite.config.ts.timestamp-*.mjs
+
+# 大文件（超过 GitHub 100MB 限制）
+资料.zip
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 云隧道凭据与配置（含 cert.pem / 隧道 UUID，属隐私，勿提交）
+.cloudflared/
+
+# 本机工具与 IDE/工作区目录
+.tools/
+.workbuddy/
+.idea/
+.tmp/
+.cache/
+.cache/npm/
+
+# 训练 / 开发 / Python 虚拟环境（不入 GitHub）
+finetune/
+越韵智传-Alpaca微调数据集/
+dev/
+**/.venv/
+**/__pycache__/
+
+# 素材 / 参考 demo / 备份（非源码，体积大）
+服装(1)/
+服装(1).zip
+揭榜挂帅前端/
+揭榜挂帅前端.zip
+source-assets/
+测试Y-5.vrm
+public/assets/3d-stage/vroid/yueju-base.web.vrm.bak*
+public/assets/3d-stage/vroid/yueju-base.web.vrm.broken-*
+
+# 演示文稿自动备份目录
+**/.slidep/bak/

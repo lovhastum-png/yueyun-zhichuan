@@ -1,0 +1,533 @@
+/* ============================================================
+   身段测评页（PoseEvalPage）
+   复用 pages.css 的 page-hero / section-title / se-disclaimer
+   / btn / tag 等共享样式，本文件只补页面私有 pe-* 样式。
+   ============================================================ */
+
+.pe-layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr) 300px;
+  gap: 18px;
+  align-items: start;
+  margin-top: 18px;
+}
+
+/* ---------- 左列：身段库 ---------- */
+.pe-lib {
+  position: sticky;
+  top: 76px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pe-lib-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(26, 26, 26, 0.1);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+}
+
+.pe-lib-item:hover {
+  border-color: rgba(193, 39, 45, 0.35);
+  transform: translateY(-1px);
+}
+
+.pe-lib-item.active {
+  border-color: var(--cinnabar, #c1272d);
+  background: rgba(193, 39, 45, 0.06);
+  box-shadow: 0 2px 10px rgba(193, 39, 45, 0.08);
+}
+
+.pe-lib-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.pe-lib-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink, #1a1a1a);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pe-lib-meta {
+  margin-top: 2px;
+  font-size: 12px;
+  color: rgba(26, 26, 26, 0.55);
+}
+
+.pe-lib-del {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(26, 26, 26, 0.35);
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.pe-lib-del:hover {
+  color: var(--cinnabar, #c1272d);
+  background: rgba(193, 39, 45, 0.08);
+}
+
+/* ---------- 中列：摄像头跟练 ---------- */
+.pe-main-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.pe-stage {
+  flex: 1 1 400px;
+  min-width: 300px;
+  border: 1px solid rgba(26, 26, 26, 0.1);
+  border-radius: 14px;
+  background: #171816;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 参考身段小人（摄像头旁） */
+.pe-ref {
+  flex: 0 0 174px;
+  background: #fffdf8;
+  border: 1px solid rgba(26, 26, 26, 0.1);
+  border-radius: 14px;
+  padding: 12px 10px;
+  text-align: center;
+}
+
+.pe-ref-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cinnabar);
+  letter-spacing: 0.08em;
+}
+
+.pe-ref canvas {
+  width: 150px;
+  height: 190px;
+  border-radius: 8px;
+  background: #171816;
+  display: block;
+  margin: 0 auto;
+}
+
+.pe-ref-note {
+  margin-top: 9px;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--ink-light);
+}
+
+.pe-video-wrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: #0e0e0d;
+}
+
+.pe-video-wrap video,
+.pe-video-wrap canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1); /* 镜像自拍视角 */
+}
+
+.pe-video-wrap .pe-cam-off {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: rgba(232, 201, 141, 0.75);
+  font-size: 14px;
+  letter-spacing: 0.12em;
+}
+
+.pe-cam-off .pe-cam-icon {
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(232, 201, 141, 0.4);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  color: #e8c98d;
+}
+
+/* 实时 HUD（画面内） */
+.pe-hud {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  pointer-events: none;
+  gap: 10px;
+}
+
+.pe-hud-status {
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(14, 14, 13, 0.62);
+  color: rgba(232, 201, 141, 0.92);
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  border: 1px solid rgba(232, 201, 141, 0.22);
+}
+
+.pe-hud-score {
+  min-width: 86px;
+  padding: 6px 14px;
+  border-radius: 12px;
+  background: rgba(14, 14, 13, 0.62);
+  border: 1px solid rgba(232, 201, 141, 0.22);
+  text-align: center;
+  color: #f4e3c0;
+}
+
+.pe-hud-score .pe-hud-num {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.pe-hud-score .pe-hud-cap {
+  font-size: 11px;
+  color: rgba(232, 201, 141, 0.65);
+  letter-spacing: 0.14em;
+}
+
+.pe-hud.recording .pe-hud-status {
+  color: #ffb3b6;
+  border-color: rgba(193, 39, 45, 0.55);
+  animation: pe-blink 1.2s ease-in-out infinite;
+}
+
+@keyframes pe-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+/* 覆盖提示条（画面底部） */
+.pe-hint-bar {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: rgba(14, 14, 13, 0.62);
+  border: 1px solid rgba(232, 201, 141, 0.22);
+  color: rgba(244, 227, 192, 0.92);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  min-height: 20px;
+}
+
+/* 摄像头下方控制区 */
+.pe-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.6);
+  border-top: 1px solid rgba(26, 26, 26, 0.08);
+  align-items: center;
+}
+
+.pe-progress {
+  flex-basis: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(26, 26, 26, 0.1);
+  overflow: hidden;
+  display: none;
+}
+
+.pe-progress.show { display: block; }
+
+.pe-progress > i {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #c1272d, #e8c98d);
+  border-radius: 3px;
+  transition: width 0.2s ease;
+}
+
+/* 识别模式实时榜 */
+.pe-free-board {
+  margin-top: 12px;
+  border: 1px solid rgba(26, 26, 26, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 12px 14px;
+  display: none;
+}
+
+.pe-free-board.show { display: block; }
+
+.pe-free-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink, #1a1a1a);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pe-free-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 0;
+  font-size: 13px;
+  color: rgba(26, 26, 26, 0.75);
+}
+
+.pe-free-row .pe-free-name {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pe-free-row .pe-free-bar {
+  width: 120px;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(26, 26, 26, 0.08);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.pe-free-row .pe-free-bar > i {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--cinnabar, #c1272d);
+  opacity: 0.75;
+  transition: width 0.25s ease;
+}
+
+.pe-free-row .pe-free-score {
+  width: 42px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.pe-free-row.top {
+  color: var(--ink, #1a1a1a);
+}
+
+.pe-free-row.top .pe-free-name { font-weight: 600; }
+.pe-free-row.top .pe-free-bar > i { opacity: 1; }
+
+/* ---------- 右列：模板管理 ---------- */
+.pe-manage {
+  position: sticky;
+  top: 76px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pe-card {
+  border: 1px solid rgba(26, 26, 26, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 14px;
+}
+
+.pe-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink, #1a1a1a);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.pe-card-title .tag { flex-shrink: 0; }
+
+.pe-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.pe-field > label {
+  font-size: 12.5px;
+  color: rgba(26, 26, 26, 0.6);
+}
+
+.pe-input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid rgba(26, 26, 26, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 13.5px;
+  color: var(--ink, #1a1a1a);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.pe-input:focus { border-color: var(--cinnabar, #c1272d); }
+
+.pe-row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.pe-file {
+  font-size: 12.5px;
+}
+
+.pe-file input[type='file'] {
+  width: 100%;
+  font-size: 12px;
+  color: rgba(26, 26, 26, 0.6);
+}
+
+.pe-note {
+  font-size: 12px;
+  line-height: 1.7;
+  color: rgba(26, 26, 26, 0.55);
+}
+
+/* ---------- 结果弹层 ---------- */
+.pe-result-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: rgba(14, 14, 13, 0.55);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.pe-result-mask[hidden] { display: none; }
+
+.pe-result {
+  width: min(440px, 100%);
+  border-radius: 16px;
+  background: #fdfbf6;
+  border: 1px solid rgba(232, 201, 141, 0.5);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  padding: 22px 24px;
+  animation: pe-rise 0.28s ease;
+}
+
+@keyframes pe-rise {
+  from { transform: translateY(14px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.pe-result-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.pe-result-head .seal {
+  flex-shrink: 0;
+}
+
+.pe-result-title { font-size: 17px; font-weight: 700; color: var(--ink, #1a1a1a); }
+.pe-result-sub { font-size: 12px; color: rgba(26, 26, 26, 0.5); margin-top: 2px; }
+
+.pe-result-scores {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.pe-stat {
+  border: 1px solid rgba(26, 26, 26, 0.1);
+  border-radius: 10px;
+  padding: 10px 8px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.pe-stat .pe-stat-num {
+  font-size: 24px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink, #1a1a1a);
+}
+
+.pe-stat .pe-stat-cap {
+  margin-top: 2px;
+  font-size: 11.5px;
+  color: rgba(26, 26, 26, 0.5);
+  letter-spacing: 0.08em;
+}
+
+.pe-result-hint {
+  border-top: 1px dashed rgba(26, 26, 26, 0.14);
+  padding-top: 12px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: rgba(26, 26, 26, 0.72);
+}
+
+.pe-result-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 1080px) {
+  .pe-layout { grid-template-columns: 220px minmax(0, 1fr); }
+  .pe-manage { grid-column: 1 / -1; position: static; }
+}
+
+@media (max-width: 760px) {
+  .pe-layout { grid-template-columns: 1fr; }
+  .pe-lib { position: static; max-height: 240px; }
+  .pe-result-scores { grid-template-columns: repeat(3, 1fr); }
+}

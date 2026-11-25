@@ -1,0 +1,22 @@
+[Unit]
+Description=Yueyun Zhichuan script compare sidecar (optional)
+After=network.target
+
+[Service]
+Type=simple
+User=yueyun
+Group=yueyun
+WorkingDirectory=/opt/yueyun/server/python/script-compare
+EnvironmentFile=/opt/yueyun/.env
+Environment=MALLOC_ARENA_MAX=2
+ExecStart=/opt/yueyun/server/python/script-compare/.venv/bin/python -m uvicorn app:app --host 127.0.0.1 --port 8766 --workers 1
+Restart=on-failure
+RestartSec=3
+CPUQuota=150%
+MemoryHigh=400M
+MemoryMax=600M
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

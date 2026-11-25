@@ -1,0 +1,250 @@
+/* ============================================================
+   越韵智传 · 全站动效增强层 motion.css
+   ------------------------------------------------------------
+   目标：在不改变任何既有功能/布局的前提下，为全站补充统一的水墨动效语言。
+   原则：
+     1. 只新增类名（.reveal-item / .reveal-in / .scroll-progress / .back-to-top）
+        或新增交互反馈，不重写既有布局属性；
+     2. 入场/滚动揭示统一用 transition（终态无残留 transform），
+        避免锁死既有 hover 的 transform / fixed 弹层定位；
+     3. 悬停位移优先使用独立属性 translate（与 transform 叠加、互不覆盖）；
+     4. 沿用既有设计令牌（--cinnabar / --cyan / --ease-brush 等）。
+   与既有层的关系：polish.css 负责「常驻/悬停」动效，spa.css 负责换页墨晕，
+   本层负责「滚动进入 / 全局阅读进度 / 交互反馈」。
+   ============================================================ */
+
+/* ---------- ① 滚动入场：滚到可视区再从纸面浮起 ----------
+   .reveal-item 为「未显现」初态，.reveal-in 由 ScrollReveal 组件在
+   元素进入视口时添加。初态仅 opacity + transform，显现后 transform 归零，
+   因此不会与卡片自身的 hover 位移/弹层定位产生长期冲突。 */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s var(--ease-brush),
+    transform 0.7s var(--ease-brush);
+  transition-delay: var(--reveal-delay, 0ms);
+  /* 不写 will-change：首屏下方几十个卡片若各自常驻合成层，
+     显存与合成开销可观；transition 进行时浏览器会自动提升。 */
+}
+.reveal-item.reveal-in {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* ---------- ② 按钮：按压顿笔 + 笔锋扫光 ---------- */
+.btn:not(:disabled):active {
+  transform: translateY(1px) scale(0.985);
+}
+
+/* 主笔按钮加一层自左向右掠过的「飞白」高光（不改变底色与文字） */
+.btn-brush {
+  position: relative;
+  overflow: hidden;
+}
+.btn-brush::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 25%,
+    rgba(245, 241, 232, 0.34) 50%,
+    transparent 75%
+  );
+  transform: translateX(-130%);
+  transition: transform 0.65s var(--ease-brush);
+  pointer-events: none;
+}
+.btn-brush:hover::before {
+  transform: translateX(130%);
+}
+
+/* ---------- ③ 卡片悬停：整卡轻抬（用 translate，叠加于既有 transform 之上） ---------- */
+.knowledge-card,
+.expert-card,
+.path-card {
+  transition:
+    translate 0.35s var(--ease-brush),
+    box-shadow 0.35s var(--ease-brush),
+    border-color 0.35s var(--ease-ink);
+}
+.knowledge-card:hover,
+.expert-card:hover,
+.path-card:hover {
+  translate: 0 -4px;
+  box-shadow: 0 14px 30px -18px rgba(26, 26, 26, 0.45);
+}
+
+/* ---------- ④ 页眉：标题落笔（印章的盖印/轻浮见 atmosphere.css） ---------- */
+.page-hero h1 {
+  animation: yyRiseSoft 0.75s var(--ease-brush) backwards;
+}
+@keyframes yyRiseSoft {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* ---------- ⑤ 文字选中：朱红洇染 ---------- */
+::selection {
+  background: rgba(193, 39, 45, 0.18);
+  color: var(--ink);
+}
+
+/* ---------- ⑥ 表格行悬停：淡墨压过 ---------- */
+table tbody tr {
+  transition: background 0.25s var(--ease-ink);
+}
+table tbody tr:hover {
+  background: rgba(26, 26, 26, 0.035);
+}
+
+/* ---------- ⑦ 卷轴芯：全站阅读进度——顶部一道朱砂墨线随卷轴推进 ---------- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  z-index: 1200;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(26, 26, 26, 0.07)),
+    var(--paper-warm);
+  box-shadow:
+    inset 0 -1px 0 rgba(26, 26, 26, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+.scroll-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  border-radius: 0 2px 2px 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), transparent 62%),
+    linear-gradient(90deg, var(--cyan) 0%, #86b6b0 28%, var(--cinnabar) 70%, var(--cinnabar-deep) 100%);
+  box-shadow:
+    0 0 10px rgba(193, 39, 45, 0.42),
+    0 0 22px rgba(193, 39, 45, 0.18);
+  transition: width 0.14s var(--ease-ink);
+}
+/* 行进端的「轴头」：一枚朱砂圆点，未滚动时隐去 */
+.scroll-progress-bar::after {
+  content: '';
+  position: absolute;
+  right: -4.5px;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  background: radial-gradient(circle at 34% 30%, #fffdf7, var(--cinnabar) 58%, var(--cinnabar-deep));
+  box-shadow:
+    0 0 8px rgba(193, 39, 45, 0.7),
+    0 0 18px rgba(193, 39, 45, 0.32);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-brush);
+}
+/* 尖端洇开的一点墨晕 */
+.scroll-progress-bar::before {
+  content: '';
+  position: absolute;
+  right: -13px;
+  top: 50%;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  background: radial-gradient(circle, rgba(193, 39, 45, 0.26), transparent 68%);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-brush);
+}
+.scroll-progress.is-active .scroll-progress-bar::after,
+.scroll-progress.is-active .scroll-progress-bar::before {
+  opacity: 1;
+}
+
+/* ---------- ⑧ 回顶印章：滚过一屏后旋落，点击回顶 ---------- */
+.back-to-top {
+  position: fixed;
+  right: 30px;
+  bottom: 34px;
+  z-index: 1100;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid var(--cinnabar);
+  background: radial-gradient(circle at 32% 28%, #fffdf7, var(--paper-warm));
+  color: var(--cinnabar-deep);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-seal);
+  opacity: 0;
+  transform: translateY(18px) scale(0.7) rotate(-12deg);
+  pointer-events: none;
+  transition:
+    opacity 0.4s var(--ease-brush),
+    transform 0.45s var(--ease-brush),
+    box-shadow 0.35s var(--ease-brush);
+}
+.back-to-top.show {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.back-to-top:hover {
+  transform: translateY(-4px) scale(1.06);
+  box-shadow: 0 12px 30px -8px rgba(193, 39, 45, 0.55);
+}
+.back-to-top:active {
+  transform: translateY(-1px) scale(0.97);
+}
+.back-to-top svg {
+  display: block;
+}
+/* 落定涟漪：出现瞬间一道朱红圆环向外荡开（呼应盖印） */
+.back-to-top.show::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(193, 39, 45, 0.45);
+  animation: yyTopRipple 0.9s ease-out 0.1s backwards;
+  pointer-events: none;
+}
+@keyframes yyTopRipple {
+  from {
+    opacity: 0.8;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+@media (max-width: 600px) {
+  .back-to-top {
+    right: 18px;
+    bottom: 22px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* ---------- 关于 prefers-reduced-motion ----------
+   与 polish.css 保持一致：刻意不做降级。演示机的系统「动画效果」开关常为关闭，
+   浏览器会误报 reduce，若降级会导致本层入场动效整片消失。 */

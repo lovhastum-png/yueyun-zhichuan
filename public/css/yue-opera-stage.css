@@ -1,0 +1,114 @@
+:root { color-scheme: light; font-family: "Microsoft YaHei", "PingFang SC", sans-serif; color: #293d36; background: #dbe3dc; }
+* { box-sizing: border-box; }
+body { margin: 0; overflow: hidden; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { font: inherit; }
+.opera-stage { position: relative; width: 100%; height: 100vh; height: 100dvh; min-height: 280px; overflow: hidden; background: #dbe3dc; }
+#view { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; outline-offset: -4px; }
+#view:active { cursor: grabbing; }
+.village-title { position: absolute; top: 32px; left: 38px; pointer-events: none; }
+.eyebrow { font-size: 11px; letter-spacing: 5px; color: #537367; }
+h1 { font: 38px "KaiTi", "STKaiti", serif; font-weight: 400; letter-spacing: 6px; margin: 10px 0; }
+.village-title p { font-size: 12px; color: #5a6a60; letter-spacing: 2px; margin: 9px 0; }
+.seal { display: inline-grid; place-items: center; background: #924d42; color: #f6e3bc; font: 16px "KaiTi", serif; width: 27px; height: 32px; margin-left: 8px; vertical-align: middle; letter-spacing: 0; }
+.view-controls { position: absolute; right: 30px; top: 30px; display: flex; gap: 7px; flex-wrap: wrap; max-width: calc(100% - 390px); justify-content: flex-end; }
+.view-presets, .view-actions { display: flex; gap: 7px; flex-wrap: wrap; justify-content: flex-end; }
+.view-controls button, .view-controls a, .stage-error button { background: #f8f6ebed; backdrop-filter: blur(12px); border: 1px solid #5e756239; color: #365045; border-radius: 5px; padding: 10px 14px; font-size: 12px; cursor: pointer; text-decoration: none; white-space: nowrap; transition: background .2s, color .2s; }
+.view-controls button:hover, .view-controls a:hover, .view-controls button.active { color: #fbf4e4; background: #3b594c; }
+.view-controls .enter-character { color: #f9f0db; background: #894f43; border-color: #894f43; }
+.view-controls .enter-character:disabled { opacity: .7; cursor: wait; }
+.view-presets button:disabled { opacity: .5; cursor: default; }
+.character-panel { position: absolute; left: 24px; bottom: 110px; width: 252px; padding: 15px; border: 1px solid #5e756245; border-radius: 8px; background: #faf8efed; color: #365045; backdrop-filter: blur(14px); box-shadow: 0 12px 32px #293d3614; }
+.character-heading { display: flex; flex-direction: column; gap: 7px; font-size: 13px; cursor: pointer; list-style: none; }
+.character-heading::-webkit-details-marker { display: none; }
+.character-heading strong::after { content: ' ⌄'; float: right; font-size: 12px; }
+.character-heading span { font-size: 11px; color: #6f7564; line-height: 1.6; }
+.character-field { display: flex; align-items: center; gap: 9px; margin-top: 14px; font-size: 12px; }
+.character-field select { flex: 1; min-width: 0; border: 1px solid #5e756245; background: #fffdf4; padding: 8px 5px; border-radius: 4px; color: #365045; font: inherit; }
+.character-places { display: flex; gap: 7px; margin-top: 13px; }
+.character-panel button { padding: 9px 10px; border: 1px solid #5e756245; border-radius: 4px; background: #fffdf4; color: #365045; font-size: 12px; cursor: pointer; }
+.character-panel button:hover { background: #e8ecdf; }
+.character-panel button:disabled, .character-panel select:disabled { opacity: .5; cursor: wait; }
+.character-places button { flex: 1; }
+.character-playback { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 12px; }
+#characterPerform { width: 100%; color: #f9f0db; background: #894f43; }
+.character-timeline { display: flex; align-items: center; gap: 9px; margin-top: 12px; color: #6f7564; font-size: 10px; }
+.character-timeline input { width: 100%; min-width: 0; flex: 1; accent-color: #894f43; cursor: pointer; }
+.character-panel p { color: #6f7564; font-size: 10px; line-height: 1.8; margin: 12px 0; }
+.character-panel .character-leave { width: 100%; font-size: 11px; background: transparent; }
+.character-pad { position: absolute; right: 30px; bottom: 115px; display: grid; grid-template-columns: repeat(3, 43px); grid-template-rows: repeat(2, 43px); gap: 5px; touch-action: none; }
+.character-pad button { color: #365045; background: #faf8efe6; border: 1px solid #5e756245; border-radius: 7px; font-size: 21px; touch-action: none; cursor: pointer; user-select: none; }
+.character-pad button:active { background: #3b594c; color: #fbf4e4; }
+.character-pad [data-move="forward"] { grid-column: 2; }
+.character-pad [data-move="left"] { grid-column: 1; grid-row: 2; }
+.character-pad [data-move="back"] { grid-column: 2; grid-row: 2; }
+.character-pad [data-move="right"] { grid-column: 3; grid-row: 2; }
+body.character-active .village-title { padding: 11px 14px; top: 20px; left: 24px; border-radius: 6px; background: #faf8efdc; backdrop-filter: blur(12px); }
+body.character-active.night .village-title { background: #182d37d9; }
+button:focus-visible, a:focus-visible, canvas:focus-visible { outline: 2px solid #a97a49; outline-offset: 3px; }
+.village-footer { position: absolute; bottom: 25px; left: 38px; right: 38px; display: flex; justify-content: space-between; gap: 20px; align-items: flex-end; pointer-events: none; font-size: 11px; letter-spacing: 2px; color: #475b50; }
+.scene-caption { border-left: 2px solid #a97a49; padding: 5px 0 5px 14px; line-height: 1.9; }
+.scene-caption strong { display: block; font-size: 16px; font-weight: 400; letter-spacing: 4px; }
+.scene-caption .koi-credit { display: block; pointer-events: auto; color: inherit; font-size: 9px; letter-spacing: .3px; opacity: .8; text-decoration: none; }
+.scene-caption .koi-credit:hover { text-decoration: underline; }
+.scene-help { display: grid; gap: 8px; text-align: right; letter-spacing: 1px; }
+.stage-loading { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; background: #dbe3dc; color: #537367; font-size: 13px; letter-spacing: 3px; }
+.loading-seal { display: grid; place-items: center; height: 60px; width: 60px; color: #f6e3bc; background: #924d42; font: 32px "KaiTi", serif; }
+.stage-error { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; background: #e9e9dd; color: #42594d; }
+.stage-error p { max-width: 400px; font-size: 13px; line-height: 1.8; }
+.stage-notice { position: absolute; bottom: 100px; left: 50%; transform: translateX(-50%); border-radius: 5px; padding: 12px 18px; background: #faf6e7ed; color: #365045; font-size: 12px; }
+[hidden] { display: none !important; }
+body.night .opera-stage { background: #182d37; }
+body.night .village-title, body.night .village-title p, body.night .eyebrow, body.night .village-footer { color: #e7d7b7; }
+body.embedded .standalone-back { display: none; }
+body.cinematic .character-panel, body.cinematic .character-pad, body.cinematic .opera-audio,
+body.cinematic .view-presets, body.cinematic .view-actions > :not(#rehearsal):not(#danceShow):not(#fullscreen) { display: none; }
+body.cinematic #rehearsal[aria-pressed="false"], body.cinematic #danceShow[aria-pressed="false"] { display: none; }
+body.cinematic .village-title { background: #f7f4e5c9; padding: 14px 20px; }
+body.cinematic .village-footer { color: #faf1d8; text-shadow: 0 1px 8px #10251f; }
+body.cinematic .scene-help { background: #1c352ce0; padding: 12px 18px; border-radius: 6px; }
+#rehearsal { background: #36584b; color: #fff5df; }
+@media (max-width: 960px) {
+  .village-title { left: 24px; top: 24px; }
+  .eyebrow { font-size: 9px; letter-spacing: 3px; }
+  h1 { font-size: 31px; }
+  .view-controls { right: 22px; top: 24px; max-width: calc(100% - 275px); }
+  .view-controls button, .view-controls a { padding: 10px; font-size: 11px; }
+  .village-footer { left: 24px; right: 24px; }
+}
+@media (max-width: 760px) {
+  .character-panel { left: 14px; bottom: 205px; width: 192px; padding: 12px; max-height: calc(100dvh - 350px); overflow: auto; }
+  .character-panel:not([open]) { max-height: none; }
+  .character-heading { font-size: 11px; }
+  .character-heading span { font-size: 10px; }
+  .character-field { gap: 5px; font-size: 11px; }
+  .character-pad { right: 14px; bottom: 205px; grid-template-columns: repeat(3, 38px); grid-template-rows: repeat(2, 42px); gap: 4px; }
+  .village-title { left: 20px; top: max(20px, env(safe-area-inset-top)); }
+  h1 { font-size: 28px; }
+  .view-controls { top: auto; bottom: calc(94px + env(safe-area-inset-bottom)); left: 14px; right: 14px; max-width: none; justify-content: center; }
+  .view-controls button, .view-controls a { min-height: 44px; padding: 10px 12px; }
+  .view-presets, .view-actions { gap: 6px; }
+  .village-footer { left: 20px; right: 20px; bottom: calc(17px + env(safe-area-inset-bottom)); gap: 10px; }
+  .scene-caption { padding-left: 10px; font-size: 9px; letter-spacing: 1px; }
+  .scene-caption strong { font-size: 12px; letter-spacing: 1px; }
+  .scene-help { font-size: 9px; max-width: 140px; line-height: 1.6; }
+  .stage-notice { bottom: 215px; width: max-content; max-width: calc(100% - 40px); }
+}
+@media (max-height: 480px) and (min-width: 600px) {
+  .village-title { top: 14px; left: 20px; }
+  .village-title p { display: none; }
+  .eyebrow { font-size: 8px; }
+  h1 { font-size: 26px; margin: 7px 0; }
+  .view-controls { top: 15px; bottom: auto; left: auto; right: 15px; max-width: calc(100% - 250px); }
+  .view-controls button, .view-controls a { padding: 9px; min-height: 36px; }
+  .village-footer { bottom: 15px; }
+}
+@media (max-width: 360px) {
+  .view-controls button, .view-controls a { padding: 10px 8px; font-size: 11px; }
+  .character-panel, .character-pad { bottom: 255px; }
+}
+@media (max-width: 760px) {
+  .view-presets, .view-actions { gap: 4px; flex-wrap: wrap; justify-content: center; }
+  .view-controls button, .view-controls a { padding: 10px 7px; font-size: 10px; }
+  .view-actions button, .view-actions a { min-width: 44px; padding: 10px 4px; font-size: 9px; }
+}

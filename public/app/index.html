@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>越韵智传 · 越剧数字文化体验</title>
+  <meta name="description" content="以人工智能与数字交互连接越剧文化，探索沉浸舞台、文化知识与数字创作。" />
+  <!-- 自托管字体分片（带 unicode-range，按需加载） -->
+  <link rel="stylesheet" href="/css/fonts.css" />
+  <script type="module" crossorigin src="/app/assets/index-Bzxtr7Nc.js"></script>
+  <link rel="stylesheet" crossorigin href="/app/assets/index-DKP3wiBk.css">
+</head>
+<body>
+  <!-- 首屏水墨加载态：放在 #root 之外，避免被 React 首帧直接清空而硬切；
+       底色与路由兜底 .route-fallback.full 的 --paper 对齐。
+       背景色内联，保证 CSS/JS 到位前即可显示；挂载完成后由 main.tsx 淡出并移除。 -->
+  <div id="boot-splash" style="position:fixed;inset:0;z-index:2000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:#f5f1e8;">
+    <div style="width:72px;height:72px;display:grid;place-items:center;font-size:40px;color:#f5f1e8;background:#c1272d;border-radius:14px;box-shadow:0 8px 28px rgba(193,39,45,.28);animation:boot-pulse 1.6s ease-in-out infinite;">韵</div>
+    <div style="font-size:26px;letter-spacing:10px;text-indent:10px;color:#2c2a26;font-family:'Noto Serif SC','Songti SC',SimSun,serif;">越韵智传</div>
+    <div style="font-size:12px;letter-spacing:4px;color:#8a857c;">正在铺开宣纸 …</div>
+    <style>
+      @keyframes boot-pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.94); opacity: .82; } }
+      #boot-splash { transition: opacity 0.42s ease, visibility 0.42s ease; }
+      #boot-splash.boot-splash-out { opacity: 0; visibility: hidden; pointer-events: none; }
+    </style>
+  </div>
+  <div id="root"></div>
+</body>
+</html>

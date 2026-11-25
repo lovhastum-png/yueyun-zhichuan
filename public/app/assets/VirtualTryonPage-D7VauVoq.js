@@ -1,0 +1,1 @@
+import{j as r}from"./index-Bzxtr7Nc.js";import{I as t}from"./IframePage-D0SJsjty.js";function e(){return r.jsx(t,{src:"/virtual-tryon.html?bare=1",title:"虚拟试衣 · 越剧行当服饰"})}export{e as VirtualTryonPage};

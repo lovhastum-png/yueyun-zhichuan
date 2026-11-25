@@ -1,0 +1,4 @@
+# 姿态比对评分服务依赖（浏览器端负责 MediaPipe 识别，这里只做 DTW 评分）
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+numpy>=1.24.0

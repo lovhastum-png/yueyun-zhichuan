@@ -1,0 +1,24 @@
+[Unit]
+Description=Yueyun Zhichuan singing evaluation sidecar (optional)
+After=network.target
+
+[Service]
+Type=simple
+User=yueyun
+Group=yueyun
+WorkingDirectory=/opt/yueyun/server/python/singing-eval
+EnvironmentFile=/opt/yueyun/.env
+Environment=OMP_NUM_THREADS=2
+Environment=OPENBLAS_NUM_THREADS=2
+Environment=MALLOC_ARENA_MAX=2
+ExecStart=/opt/yueyun/server/python/singing-eval/.venv/bin/python -m uvicorn app:app --host 127.0.0.1 --port 8765 --workers 1
+Restart=on-failure
+RestartSec=3
+CPUQuota=180%
+MemoryHigh=600M
+MemoryMax=800M
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

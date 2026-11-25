@@ -1,0 +1,11 @@
+[mysqld]
+# 与 Node + OCR 共用 4GB 内存时，MySQL 保守使用约 600~800MB。
+innodb_buffer_pool_size=512M
+innodb_log_buffer_size=32M
+max_connections=60
+table_open_cache=1000
+tmp_table_size=32M
+max_heap_table_size=32M
+max_allowed_packet=64M
+thread_cache_size=16
+skip_name_resolve=ON

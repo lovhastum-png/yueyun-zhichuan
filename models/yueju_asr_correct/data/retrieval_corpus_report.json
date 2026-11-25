@@ -1,0 +1,118 @@
+{
+  "generated_at": "2026-08-06T16:10:15.869Z",
+  "raw_count": 2139,
+  "authoritative_count": 9,
+  "school_kept_count": 2119,
+  "output_count": 2128,
+  "excluded_count": 20,
+  "excluded_by_reason": {
+    "out_of_domain": 20
+  },
+  "excluded": [
+    {
+      "index": 2119,
+      "title": "如何做红烧肉？",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2120,
+      "title": "今天天气怎么样？",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2121,
+      "title": "帮我写一段Python代码",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2122,
+      "title": "推荐一部电影",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2123,
+      "title": "怎么减肥最有效？",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2124,
+      "title": "NBA最近比赛结果如何？",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2125,
+      "title": "股价明天会涨吗？",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2126,
+      "title": "如何学习英语？",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2127,
+      "title": "帮我算一道数学题",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2128,
+      "title": "最近有什么新闻？",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2129,
+      "title": "我想学吉他对吗？",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2130,
+      "title": "给我讲个笑话",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2131,
+      "title": "如何追女生？",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2132,
+      "title": "怎么做蛋糕？",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2133,
+      "title": "苹果手机好用吗？",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2134,
+      "title": "怎么治疗感冒？",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2135,
+      "title": "帮我订一张机票",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2136,
+      "title": "王者荣耀怎么上分？",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2137,
+      "title": "今天股票行情如何？",
+      "reason": "out_of_domain"
+    },
+    {
+      "index": 2138,
+      "title": "翻译一段英文",
+      "reason": "out_of_domain"
+    }
+  ],
+  "source_levels": {
+    "1": "原始校本训练语料，尚未逐条复核",
+    "2": "校本教师复核资料",
+    "3": "政府、国家级非遗数字平台或官方机构"
+  }
+}

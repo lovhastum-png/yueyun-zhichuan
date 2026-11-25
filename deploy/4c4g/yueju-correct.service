@@ -1,0 +1,24 @@
+[Unit]
+Description=Yueju ASR corrector (Qwen2.5-0.5B + LoRA, low-mem fallback)
+# 由 yueyun-web 在云端 API 故障时按需拉起（sudo systemctl start），
+# 平时不运行、不占内存；每次激活最多 30 分钟后自动睡眠。
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/yueju-model/yueju_asr_correct
+ExecStart=/home/ubuntu/yueju-model/venv/bin/python serve.py --port 3456 --low-mem
+Environment=HF_HOME=/home/ubuntu/yueju-model/hf-cache
+Environment=HF_HUB_OFFLINE=1
+Environment=TRANSFORMERS_OFFLINE=1
+# 内存护栏：fp16 0.5B 约 1.0-1.4GB，超限自杀保护主机（Node 侧自动降级回规则纠错）
+MemoryHigh=1500M
+MemoryMax=1800M
+# 用完自动睡眠：最长驻留 30 分钟，之后停止；下次需要时再被拉起
+RuntimeMaxSec=1800
+Restart=no
+TimeoutStartSec=180
+
+[Install]
+WantedBy=multi-user.target

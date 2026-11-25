@@ -1,0 +1,1 @@
+import{j as a}from"./index-Bzxtr7Nc.js";function o({src:e,title:r}){return a.jsx("iframe",{src:e,title:r,allow:"camera; microphone; autoplay; fullscreen; xr-spatial-tracking",allowFullScreen:!0,style:{flex:1,width:"100%",border:"none",display:"block"}})}export{o as I};

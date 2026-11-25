@@ -1,0 +1,1 @@
+import{j as t}from"./index-Bzxtr7Nc.js";function r({icon:e,text:s,children:i,className:a,style:l,role:m}){return t.jsxs("div",{className:"empty-state"+(a?" "+a:""),style:l,role:m,children:[e!=null&&t.jsx("div",{className:"empty-state-icon",children:e}),s!=null&&t.jsx("div",{className:"empty-state-text",children:s}),i]})}export{r as E};

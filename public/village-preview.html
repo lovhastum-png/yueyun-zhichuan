@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>碧波园 · 追鱼意境 | 园林制作预览</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#dbe3dc;color:#293d36;font-family:"Microsoft YaHei",sans-serif;overflow:hidden}canvas{display:block;width:100vw;height:100vh;touch-action:none}header{position:absolute;top:32px;left:38px;pointer-events:none}.eyebrow{font-size:11px;letter-spacing:5px;color:#537367}h1{font:38px "KaiTi",serif;font-weight:400;letter-spacing:6px;margin:10px 0}header p{font-size:12px;color:#5a6a60;letter-spacing:2px;margin:9px 0}.seal{display:inline-grid;place-items:center;background:#924d42;color:#f6e3bc;font:16px "KaiTi",serif;width:27px;height:32px;margin-left:8px;vertical-align:middle;letter-spacing:0}nav{position:absolute;right:30px;top:30px;display:flex;gap:7px;flex-wrap:wrap;max-width:600px;justify-content:flex-end}button,a{background:#f8f6ebd9;backdrop-filter:blur(12px);border:1px solid #5e756239;color:#365045;border-radius:5px;padding:10px 14px;font-size:12px;cursor:pointer;transition:.2s}button:hover,button.active{color:#fbf4e4;background:#3b594c}footer{position:absolute;bottom:25px;left:38px;right:38px;display:flex;justify-content:space-between;align-items:end;pointer-events:none;font-size:11px;letter-spacing:2px;color:#475b50}.card{border-left:2px solid #a97a49;padding:5px 0 5px 14px;line-height:1.9}.card b{font-size:16px;font-weight:400;letter-spacing:4px}#status{font-size:11px;letter-spacing:1px;max-width:480px;text-align:right}#error{position:absolute;left:30px;bottom:90px;color:#9c3325}#exportStatus{position:absolute;right:30px;top:138px;pointer-events:none;font-size:12px;background:#faf6e7dd;padding:7px 12px;border-radius:4px;display:none}body.night header,body.night header p,body.night .eyebrow,body.night footer{color:#e7d7b7}@media(max-width:760px){header{left:20px;top:18px}h1{font-size:26px}nav{top:auto;bottom:80px;left:15px;right:15px;justify-content:center}button{padding:9px}footer{left:20px;bottom:20px}.card b{font-size:13px}#status{max-width:180px;font-size:9px}}
+</style><link rel="stylesheet" href="/css/yue-opera-audio.css?v=20261019-audio-v1"><script src="/js/yue-opera-audio.js?v=20261019-audio-v1" defer></script></head><body>
+<canvas id="view" aria-label="碧波园三维后花园，拖动旋转，滚轮缩放"></canvas>
+<header><span class="eyebrow">ZHUIYU · BIBO GARDEN</span><h1>碧波园<span class="seal">戏</span></h1><p>一池碧波 · 竹影相逢</p></header>
+<nav><button data-view="overview" class="active">花园全景</button><button data-view="stage">临水清音台</button><button data-view="court">池畔小桥</button><button data-view="roof">全园鸟瞰</button><button data-view="waterfall">叠石听瀑</button><button data-view="bamboo">竹林小桥</button><button data-view="sky">观鲲视角</button><button id="light">月下游园</button><button id="skyKoiPause" aria-pressed="false">暂停巡游</button><button id="export">保存 GLB 模型</button><button id="capture">保存效果图</button></nav>
+<div id="exportStatus" role="status"></div><div id="error" role="alert"></div>
+<section class="opera-audio" data-opera-audio aria-label="越剧唱段播放器"></section>
+<footer><div class="card"><b>《追鱼》意境 · 金府后花园</b><br>叠石流泉 / 曲桥竹影 / 碧波鱼游<br><a style="pointer-events:auto;background:none;border:0;padding:0;font-size:9px;letter-spacing:0" href="https://sketchfab.com/3d-models/koi-fish-236859b809984f52b70c94fd040b9c59" target="_blank" rel="noopener noreferrer">锦鲤模型：7PLUS · CC BY 4.0 ↗</a></div><div id="status">正在营造碧波园…</div></footer>
+<script src="/js/3d-stage-runtime.js"></script><script src="/js/yue-opera-garden.js?v=20261022-morning-v1"></script><script src="/js/yue-opera-public-koi.js?v=20261022-morning-v1"></script><script src="/js/yue-opera-morning-runtime.js?v=20261022-morning-v1"></script><script src="/js/village-glb-export.js?v=20261022-koi-v1"></script>
+<script>
+try {
+const {THREE}=window.Yueju3D;
+const canvas=document.getElementById('view'),renderer=new THREE.WebGLRenderer({canvas,antialias:true,preserveDrawingBuffer:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.setSize(innerWidth,innerHeight);renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.02;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;
+const scene=new THREE.Scene();scene.background=new THREE.Color('#dce4d8');scene.fog=new THREE.Fog('#dce4d8',35,240);
+const camera=new THREE.PerspectiveCamera(43,innerWidth/innerHeight,.2,650);
+const ambient=new THREE.HemisphereLight('#dcebf0','#65765e',.95);scene.add(ambient);
+const sun=new THREE.DirectionalLight('#fff0d5',3);sun.position.set(-75,128,35);sun.castShadow=true;sun.shadow.mapSize.set(4096,4096);Object.assign(sun.shadow.camera,{left:-110,right:110,top:110,bottom:-110,near:1,far:421});sun.shadow.camera.updateProjectionMatrix();sun.shadow.normalBias=.035;sun.shadow.bias=-.000035;scene.add(sun);
+const fill=new THREE.DirectionalLight('#c4ded6',.28);fill.position.set(35,28,-30);scene.add(fill);
+const village=createYueOperaGarden(THREE,scene,false);
+const skyKoi=createYueOperaSkyKoi(THREE,scene,innerWidth<760);
+skyKoi.setPaused(matchMedia('(prefers-reduced-motion: reduce)').matches);
+const koiPause=document.getElementById('skyKoiPause');
+function syncKoiPause(){koiPause.textContent=skyKoi.paused?'继续巡游':'暂停巡游';koiPause.setAttribute('aria-pressed',String(skyKoi.paused));}syncKoiPause();
+koiPause.disabled=true;koiPause.textContent='锦鲤载入中…';skyKoi.ready.then(asset=>{if(asset){koiPause.disabled=false;syncKoiPause();canvas.dataset.skyKoi=JSON.stringify(skyKoi.stats);}}).catch(error=>{skyKoi.setPaused(true);koiPause.textContent='锦鲤未载入';document.getElementById('error').textContent='锦鲤载入失败，请刷新重试。';console.warn(error);});
+koiPause.onclick=()=>{skyKoi.setPaused(!skyKoi.paused);syncKoiPause();};
+const koiStyles=['ink','white','pastel'],koiStyleNames={ink:'水墨鱼',white:'白模鱼',pastel:'淡彩鱼'};
+const koiStyle=document.createElement('button');koiStyle.type='button';koiStyle.textContent='水墨鱼';koiStyle.setAttribute('aria-label','鱼的风格：水墨鱼，点击切换白模鱼');koiStyle.disabled=true;koiPause.after(koiStyle);
+function syncKoiStyle(){const style=skyKoi.stats.style,next=koiStyles[(koiStyles.indexOf(style)+1)%koiStyles.length];koiStyle.textContent=koiStyleNames[style];koiStyle.setAttribute('aria-label','鱼的风格：'+koiStyleNames[style]+'，点击切换'+koiStyleNames[next]);canvas.dataset.skyKoi=JSON.stringify(skyKoi.stats);}
+koiStyle.onclick=()=>{skyKoi.setStyle(koiStyles[(koiStyles.indexOf(skyKoi.stats.style)+1)%koiStyles.length]);syncKoiStyle();};skyKoi.ready.then(asset=>{if(asset){koiStyle.disabled=false;syncKoiStyle();}}).catch(()=>{});
+const koiRoll=document.createElement('button');koiRoll.textContent='腾空翻滚';koiRoll.disabled=true;koiStyle.after(koiRoll);koiRoll.onclick=()=>{skyKoi.requestRoll();skyKoi.setPaused(false);syncKoiPause();};skyKoi.ready.then(asset=>{if(asset)koiRoll.disabled=false;}).catch(()=>{});
+const backdrop=new THREE.Mesh(new THREE.PlaneGeometry(600,600),new THREE.MeshStandardMaterial({color:'#bfcdbd',roughness:1}));backdrop.rotation.x=-Math.PI/2;backdrop.position.y=-1.18;backdrop.receiveShadow=true;scene.add(backdrop);
+const stageLight=new THREE.SpotLight('#ffd39a',180,18,.7,.6,2);stageLight.position.set(0,5.5,12);const target=new THREE.Object3D();target.position.set(0,.4,10);scene.add(target);stageLight.target=target;stageLight.visible=false;scene.add(stageLight);
+const morning=createYueOperaMorningRendering({renderer,scene,camera,garden:village,skyKoi,compact:innerWidth<760});morning.resize(innerWidth,innerHeight);canvas.dataset.rendering=JSON.stringify(morning.stats);
+let yaw=.48,pitch=.64,distance=142,aim=new THREE.Vector3(0,10,-3),dragging=false,px=0,py=0,night=false,skyFollow=false;
+const presets={overview:[.48,.64,142,0,10,-3],stage:[.12,.18,28,0,1.5,10],court:[.65,.26,50,0,1,-8],roof:[0,1.28,112,0,0,-3],waterfall:[.55,.30,28,-25,3,-21],bamboo:[-.72,.20,22,26,1,4],sky:[.56,.18,86,0,28,0]};
+function view(name){const p=presets[name];[yaw,pitch,distance]=p;aim.set(...p.slice(3));skyFollow=name==='sky';document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===name));}
+document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>view(b.dataset.view));
+canvas.onpointerdown=e=>{dragging=true;skyFollow=false;px=e.clientX;py=e.clientY;canvas.setPointerCapture(e.pointerId);};
+canvas.onpointermove=e=>{if(!dragging)return;yaw-=(e.clientX-px)*.006;pitch=THREE.MathUtils.clamp(pitch+(e.clientY-py)*.005,.08,1.48);px=e.clientX;py=e.clientY;};canvas.onpointerup=canvas.onpointercancel=()=>dragging=false;
+canvas.addEventListener('wheel',e=>{e.preventDefault();distance=THREE.MathUtils.clamp(distance+e.deltaY*.06,12,165);},{passive:false});
+document.getElementById('light').onclick=()=>{
+night=!night;document.body.classList.toggle('night',night);ambient.intensity=night?.45:.95;sun.intensity=night?.85:3;sun.color.set(night?'#b9d3e8':'#fff0d5');fill.intensity=night?.22:.28;scene.background.set(night?'#182d37':'#dce4d8');scene.fog.color.copy(scene.background);backdrop.material.color.set(night?'#263e3c':'#bfcdbd');stageLight.visible=night;renderer.toneMappingExposure=night?1.12:1.02;document.getElementById('light').textContent=night?'切换日景':'月下游园';
+skyKoi.setNight(night);morning.setNight(night);renderer.shadowMap.needsUpdate=true;
+};
+const note=msg=>{const e=document.getElementById('exportStatus');e.textContent=msg;e.style.display='block';};
+async function save(url,body){const r=await fetch(url,{method:'POST',body});if(!r.ok)throw Error('请使用配套本地预览服务保存');return r.json();}
+const exportKoi=document.createElement('button');exportKoi.type='button';exportKoi.textContent='保存锦鲲模型';document.querySelector('nav').append(exportKoi);
+exportKoi.textContent='保存当前风格鱼';
+exportKoi.onclick=async()=>{exportKoi.disabled=true;try{note('正在保存当前配色与游泳动画…');await skyKoi.ready;const response=await fetch(skyKoi.assetUrl);if(!response.ok)throw Error('模型读取失败');const glb=skyKoi.exportStyledGLB(await response.arrayBuffer());const imported=await new window.Yueju3D.GLTFLoader().parseAsync(glb,'');if(!imported.animations.length)throw Error('模型缺少动画');await save(skyKoi.stats.style==='ink'?'/save-ink-koi-model':'/save-soft-koi-model',glb);canvas.dataset.koiExportVerified=String(imported.animations.length);note(koiStyleNames[skyKoi.stats.style]+'锦鲤已保存，含游泳动画 · '+(glb.byteLength/1048576).toFixed(2)+' MB · 7PLUS / CC BY 4.0');imported.scene.traverse(o=>{if(o.isMesh){o.geometry.dispose();o.material.dispose();}});}catch(e){note(e.message);}finally{exportKoi.disabled=false;}};
+document.getElementById('export').onclick=async()=>{try{note('正在打包建筑与贴图…');const glb=exportVillageGLB(THREE,village.root);const imported=await new window.Yueju3D.GLTFLoader().parseAsync(glb,'');const originalBounds=new THREE.Box3().setFromObject(village.root),importedBounds=new THREE.Box3().setFromObject(imported.scene);if(originalBounds.min.distanceTo(importedBounds.min)>.01||originalBounds.max.distanceTo(importedBounds.max)>.01)throw Error('模型边界校验失败');let meshes=0;imported.scene.traverse(o=>{if(o.isMesh)meshes++;});if(meshes!==village.stats.instances)throw Error('模型构件数量校验失败');await save('/save-garden-model',glb);document.getElementById('view').dataset.exportVerified=String(meshes);imported.scene.traverse(o=>{if(o.isMesh){o.geometry.dispose();const ms=Array.isArray(o.material)?o.material:[o.material];ms.forEach(m=>{m.map?.dispose();m.dispose();});}});note('后花园 GLB 已保存并通过重新载入校验 · '+(glb.byteLength/1048576).toFixed(2)+' MB');}catch(e){note(e.message);}};
+document.getElementById('capture').onclick=async()=>{try{render();const blob=await new Promise(r=>canvas.toBlob(r,'image/png'));await save('/save-garden-preview',blob);note('建筑效果图已保存');}catch(e){note(e.message);}};
+function render(){camera.position.set(aim.x+Math.sin(yaw)*Math.cos(pitch)*distance,aim.y+Math.sin(pitch)*distance,aim.z+Math.cos(yaw)*Math.cos(pitch)*distance);camera.lookAt(aim);morning.render(1/60);}
+let lastFrame=0,previewFrame=0,gardenTime=0;
+function frame(now=0){const delta=lastFrame?Math.min(.05,(now-lastFrame)/1000):0;lastFrame=now;if(!document.hidden){gardenTime+=delta;village.update(gardenTime);skyKoi.update(delta);canvas.dataset.koiFlight=JSON.stringify({action:skyKoi.stats.flightAction,time:skyKoi.stats.flightTime,roll:skyKoi.stats.roll,bank:skyKoi.stats.bank});if(skyFollow)aim.copy(skyKoi.position);canvas.dataset.skyKoiPosition=skyKoi.position.toArray().map(n=>n.toFixed(2)).join(',');render();}previewFrame=requestAnimationFrame(frame);}frame();
+document.addEventListener('visibilitychange',()=>{lastFrame=0;});
+addEventListener('pagehide',event=>{if(!event.persisted){cancelAnimationFrame(previewFrame);morning.dispose();skyKoi.dispose();}},{once:true});
+canvas.dataset.skyKoi=JSON.stringify(skyKoi.stats);
+document.getElementById('status').textContent=`${village.stats.bridges} 座小桥 · 叠瀑竹林 · 可旋转 / 缩放`;
+canvas.dataset.stats=JSON.stringify(village.stats);
+addEventListener('resize',()=>{renderer.setSize(innerWidth,innerHeight);morning.resize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();});
+}catch(e){document.getElementById('error').textContent=e.stack;}
+</script></body></html>

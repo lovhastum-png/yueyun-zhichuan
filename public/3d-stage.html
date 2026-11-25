@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="碧波园：以越剧《追鱼》为意境的中式后花园，叠石流泉、小桥竹林与空中锦鲲。可第一、第三人称游园并抬头观鱼。">
+  <title>碧波园 · 追鱼意境 · 越韵智传</title>
+  <link rel="stylesheet" href="/css/yue-opera-stage.css?v=20261023-scenery-v2">
+  <link rel="stylesheet" href="/css/yue-opera-audio.css?v=20261019-audio-v1">
+  <script src="/js/yue-opera-audio.js?v=20261019-audio-v1" defer></script>
+  <script src="/js/3d-stage-runtime.js?v=20260913-mtyq5uoh" defer></script>
+  <script src="/js/yue-opera-garden.js?v=20261023-scenery-v2" defer></script>
+  <script src="/js/yue-opera-scenery.js?v=20261023-v1" defer></script>
+  <script src="/js/yue-opera-public-koi.js?v=20261023-scenery-v2" defer></script>
+  <script src="/js/yue-opera-motion.js?v=20261023-motion-v2" defer></script>
+  <script src="/js/yue-opera-vmd.js?v=20261023-local-dance-v1" defer></script>
+  <script src="/js/yue-opera-vrm.js?v=20261023-local-dance-v1" defer></script>
+  <script src="/js/yue-opera-character.js?v=20261023-local-dance-v1" defer></script>
+  <script src="/js/yue-opera-player-camera.js?v=20261023-scenery-v2" defer></script>
+  <script src="/js/yue-opera-morning-runtime.js?v=20261023-scenery-v2" defer></script>
+  <script src="/js/yue-opera-stage.js?v=20261023-local-dance-v1" defer></script>
+</head>
+<body>
+  <main class="opera-stage" id="operaStage" aria-label="追鱼意境中式后花园">
+    <canvas id="view" tabindex="0" aria-label="三维后花园。玩家入场后用 WASD 或方向键走动，拖动画面环视，上拖抬头，可切换第一人称和第三人称"></canvas>
+    <header class="village-title">
+      <span class="eyebrow">ZHUIYU · BIBO GARDEN</span>
+      <h1>碧波园<span class="seal" aria-hidden="true">戏</span></h1>
+      <p>一池碧波 · 竹影相逢</p>
+    </header>
+    <nav class="view-controls" aria-label="游园控制">
+      <div class="view-presets" role="group" aria-label="玩家视角">
+        <button type="button" data-player-view="first" aria-pressed="false" disabled>第一人称</button>
+        <button type="button" data-player-view="third" aria-pressed="false" disabled>第三人称</button>
+        <button type="button" id="lookAtKoi" disabled>抬头看鱼</button>
+        <button type="button" id="lookLevel" disabled>平视前方</button>
+      </div>
+      <div class="view-actions">
+        <button type="button" id="rehearsal" aria-pressed="false">60秒运镜预演</button>
+        <button type="button" id="importDance">载入《寄明月》</button>
+        <input type="file" id="danceFiles" accept=".vmd,.mp3,.wav,.ogg" multiple hidden aria-label="选择寄明月人物动作与配乐">
+        <button type="button" id="danceShow" hidden aria-pressed="false">观看《寄明月》</button>
+        <button type="button" id="enterCharacter" class="enter-character" aria-pressed="false">人物入场</button>
+        <button type="button" id="light" aria-pressed="false">月下游园</button>
+        <button type="button" id="skyKoiPause" aria-pressed="false">暂停巡游</button>
+        <button type="button" id="koiStyle" aria-label="鱼的风格：水墨鱼，点击切换白模鱼" disabled>水墨鱼</button>
+        <button type="button" id="koiRoll" disabled>腾空翻滚</button>
+        <button type="button" id="fullscreen">全屏观演</button>
+        <a class="standalone-back" href="/app/">返回首页</a>
+      </div>
+    </nav>
+    <details class="character-panel" id="characterPanel" aria-label="游园人物控制" hidden>
+      <summary class="character-heading"><strong>戏装 · 身段</strong><span id="characterStatus" role="status">正在准备人物…</span></summary>
+      <label class="character-field">戏装<select id="characterOutfit"><option value="xu">朱砂蟒袍 · 徐派小生</option><option value="yuan">粉青对襟褂 · 袁派花旦</option><option value="fan">月白儒生褶子 · 范派小生</option><option value="fu">百花水袖衣 · 傅派花旦</option><option value="laosheng">墨绿员外袍 · 老生</option><option value="chou">锦色短打 · 丑角</option></select></label>
+      <div class="character-places"><button type="button" id="characterStage">临水演身段</button><button type="button" id="characterCourtyard">回到月门</button></div>
+      <label class="character-field">身段<select id="characterDance"><option value="salute">托按掌亮相</option><option value="water">水袖抛扬</option><option value="cloud">双山膀展袖</option><option value="orchid">兰指顾盼</option><option value="rehearsal">临水清音 · 60秒身段预演</option></select></label>
+      <div class="character-playback"><button type="button" id="characterPerform" aria-pressed="false">开始表演</button><button type="button" id="characterPause" aria-pressed="false" disabled>定格动作</button></div>
+      <label class="character-timeline">动作进度<input type="range" id="characterTimeline" min="0" max="100" step="1" value="0" aria-label="动作进度" disabled></label>
+      <p>WASD / 方向键走动 · V 切换人称<br>拖动画面环视，上拖抬头<br>I / K 抬头低头，J / L 转向</p>
+      <button type="button" id="characterLeave" class="character-leave">退出游览</button>
+    </details>
+    <section class="opera-audio" data-opera-audio aria-label="越剧唱段播放器"></section>
+    <div class="character-pad" id="characterPad" aria-label="人物行走方向" hidden>
+      <button type="button" data-move="forward" aria-label="人物向前走">↑</button><button type="button" data-move="left" aria-label="人物向左走">←</button><button type="button" data-move="back" aria-label="人物向后走">↓</button><button type="button" data-move="right" aria-label="人物向右走">→</button>
+    </div>
+    <footer class="village-footer">
+      <div class="scene-caption"><strong>《追鱼》意境 · 金府后花园</strong><span>叠石流泉 / 曲桥竹影 / 碧波鱼游</span><a class="koi-credit" href="https://sketchfab.com/3d-models/koi-fish-236859b809984f52b70c94fd040b9c59" target="_blank" rel="noopener noreferrer">锦鲤模型：7PLUS · CC BY 4.0 ↗</a></div>
+      <div class="scene-help"><span id="status" role="status">正在营造后花园…</span><span id="gestureHelp">拖动旋转 · 滚轮缩放</span></div>
+    </footer>
+    <div id="notice" class="stage-notice" role="status" hidden></div>
+    <div id="loading" class="stage-loading" role="status"><span class="loading-seal">韵</span><span>正在步入碧波园…</span></div>
+    <div id="error" class="stage-error" role="alert" hidden>
+      <strong>花园暂时未能打开</strong><p id="errorMessage">请刷新页面后重试。</p><button type="button" id="retry">重新加载</button>
+    </div>
+    <noscript><div class="stage-error"><strong>请开启 JavaScript 查看三维后花园</strong></div></noscript>
+  </main>
+</body>
+</html>
+

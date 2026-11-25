@@ -1,0 +1,1 @@
+import{j as r}from"./index-Bzxtr7Nc.js";import{I as t}from"./IframePage-D0SJsjty.js";function i(){return r.jsx(t,{src:"/virtual-teacher.html?bare=1",title:"越韵先生 · AI 虚拟越剧老师"})}export{i as VirtualTeacherPage};

@@ -1,0 +1,26 @@
+[Unit]
+Description=Yueyun Zhichuan PDF OCR service
+After=network.target
+Before=yueyun-web.service
+
+[Service]
+Type=simple
+User=yueyun
+Group=yueyun
+WorkingDirectory=/opt/yueyun/server/python/pdf-import
+EnvironmentFile=/opt/yueyun/.env
+Environment=MALLOC_ARENA_MAX=2
+ExecStart=/opt/yueyun/.venv-ocr/bin/python -m uvicorn app:app --host 127.0.0.1 --port 8768 --workers 1 --limit-concurrency 3 --timeout-keep-alive 5
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=30
+KillSignal=SIGTERM
+CPUQuota=220%
+MemoryHigh=1200M
+MemoryMax=1500M
+TasksMax=128
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
